@@ -1,0 +1,1820 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pengaduan & Layanan Surat - Desa Mekarsari</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        /* ==========================================================================
+           1. CSS VARIABLES & SYSTEM RESET
+           ========================================================================== */
+        :root {
+            /* Color Palette */
+            --primary-dark: #143d2b;
+            --primary-green: #1e5631;
+            --primary-light: #2e7d46;
+            --bamboo-green: #40916c;
+            --accent-green: #52b788;
+            --accent-beige: #f4f1ea;
+            --bg-light: #f8faf7;
+            --bg-card: #ffffff;
+            
+            /* Text Colors */
+            --text-dark: #1e293b;
+            --text-muted: #64748b;
+            --text-light: #94a3b8;
+            
+            /* UI Elements */
+            --border-color: #e2e8f0;
+            --border-hover: #cbd5e1;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+            --shadow-lg: 0 10px 25px rgba(0,0,0,0.12);
+            --radius-sm: 6px;
+            --radius-md: 10px;
+            --radius-lg: 16px;
+            --transition: all 0.25s ease-in-out;
+            
+            /* Fonts */
+            --font-main: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-accent: 'Caveat', cursive;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-main);
+            color: var(--text-dark);
+            background-color: var(--bg-light);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+
+        button, input, select, textarea {
+            font-family: inherit;
+            font-size: 0.95rem;
+        }
+
+        /* Container Layout */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+
+        /* ==========================================================================
+           3. HERO SECTION
+           ========================================================================== */
+        .hero-section {
+            position: relative;
+            background: linear-gradient(rgba(18, 53, 36, 0.82), rgba(18, 53, 36, 0.90)), 
+                        url('https://images.unsplash.com/photo-1511497584788-87676104235f?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+            padding: 56px 0 64px 0;
+            color: #ffffff;
+            text-align: left;
+            border-bottom: 4px solid var(--bamboo-green);
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .hero-title {
+            font-size: 2.3rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 12px;
+            line-height: 1.25;
+        }
+
+        .hero-subtitle {
+            font-size: 1.1rem;
+            color: #e2e8f0;
+            font-weight: 400;
+            max-width: 680px;
+            opacity: 0.95;
+        }
+
+        /* ==========================================================================
+           4. MAIN CONTENT & GRID LAYOUT
+           ========================================================================== */
+        .main-layout {
+            padding: 40px 0 70px 0;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1fr 340px;
+            gap: 32px;
+            align-items: start;
+        }
+
+        /* ==========================================================================
+           5. TAB NAVIGATION & FORM CARDS (LEFT COLUMN)
+           ========================================================================== */
+        .service-tabs {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .tab-btn {
+            padding: 12px 28px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            border-radius: var(--radius-md);
+            border: 1px solid transparent;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tab-btn.active {
+            background-color: var(--primary-green);
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(30, 86, 49, 0.25);
+        }
+
+        .tab-btn:not(.active) {
+            background-color: #edf2f0;
+            color: var(--text-dark);
+            border-color: #e2e8f0;
+        }
+
+        .tab-btn:not(.active):hover {
+            background-color: #e2e9e5;
+            color: var(--primary-dark);
+        }
+
+        /* Form Card */
+        .form-card {
+            background-color: var(--bg-card);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-color);
+            padding: 36px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .form-header {
+            margin-bottom: 28px;
+            border-bottom: 1px solid #f1f5f9;
+            padding-bottom: 16px;
+        }
+
+        .form-title {
+            font-size: 1.45rem;
+            font-weight: 800;
+            color: var(--primary-dark);
+            margin-bottom: 6px;
+        }
+
+        .form-description {
+            font-size: 0.92rem;
+            color: var(--text-muted);
+        }
+
+        /* Form Controls */
+        .form-group {
+            margin-bottom: 22px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.88rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+        }
+
+        .form-label .required {
+            color: #e11d48;
+            margin-left: 2px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1.5px solid var(--border-color);
+            border-radius: var(--radius-md);
+            background-color: #ffffff;
+            color: var(--text-dark);
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-green);
+            box-shadow: 0 0 0 3px rgba(30, 86, 49, 0.12);
+        }
+
+        .form-control::placeholder {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        /* Custom File Upload */
+        .file-upload-box {
+            border: 2px dashed var(--border-hover);
+            border-radius: var(--radius-md);
+            padding: 16px;
+            background-color: #f8faf8;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .file-upload-box:hover {
+            border-color: var(--primary-green);
+            background-color: #f0f7f2;
+        }
+
+        .btn-select-file {
+            background-color: #ffffff;
+            border: 1px solid var(--border-hover);
+            padding: 8px 16px;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--text-dark);
+            white-space: nowrap;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .file-hint {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .file-selected-name {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--primary-green);
+            margin-top: 4px;
+            display: none;
+        }
+
+        /* Checkbox Styling */
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-top: 24px;
+            margin-bottom: 28px;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            margin-top: 3px;
+            width: 17px;
+            height: 17px;
+            accent-color: var(--primary-green);
+            cursor: pointer;
+        }
+
+        .checkbox-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.45;
+            cursor: pointer;
+        }
+
+        /* Submit Button */
+        .btn-submit {
+            width: 100%;
+            background-color: var(--primary-green);
+            color: #ffffff;
+            border: none;
+            padding: 14px 24px;
+            font-size: 1rem;
+            font-weight: 700;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 4px 10px rgba(30, 86, 49, 0.2);
+        }
+
+        .btn-submit:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 15px rgba(30, 86, 49, 0.3);
+        }
+
+        .btn-submit:active {
+            transform: translateY(0);
+        }
+
+        /* Helper / Error Text */
+        .error-message {
+            color: #e11d48;
+            font-size: 0.78rem;
+            margin-top: 5px;
+            display: none;
+            font-weight: 600;
+        }
+
+        .form-control.is-invalid {
+            border-color: #e11d48;
+            background-color: #fff1f2;
+        }
+
+        /* Demo Notice Banner */
+        .demo-notice {
+            background-color: #fefce8;
+            border: 1px solid #fef08a;
+            border-radius: var(--radius-md);
+            padding: 12px 16px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            font-size: 0.82rem;
+            color: #854d0e;
+        }
+
+        .demo-notice i {
+            font-size: 1.1rem;
+            color: #ca8a04;
+            margin-top: 1px;
+        }
+
+        /* ==========================================================================
+           6. RIGHT SIDEBAR CARDS (RIGHT COLUMN)
+           ========================================================================== */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .sidebar-card {
+            background-color: var(--bg-card);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-color);
+            padding: 24px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .sidebar-title {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: var(--primary-dark);
+            margin-bottom: 18px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .sidebar-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 32px;
+            height: 3px;
+            background-color: var(--bamboo-green);
+            border-radius: 2px;
+        }
+
+        /* Available Letters List */
+        .letter-type-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .letter-type-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 8px;
+            border-radius: var(--radius-md);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .letter-type-item:hover {
+            background-color: #f0f7f2;
+        }
+
+        .letter-type-icon {
+            width: 40px;
+            height: 40px;
+            background-color: #e8f3ec;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-green);
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        .letter-type-content h4 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 2px;
+        }
+
+        .letter-type-content p {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            line-height: 1.3;
+        }
+
+        /* Submission Process Checklist */
+        .process-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            position: relative;
+            margin-top: 10px;
+        }
+
+        .process-steps::before {
+            content: '';
+            position: absolute;
+            top: 14px;
+            bottom: 14px;
+            left: 13px;
+            width: 2px;
+            background-color: #e2e8f0;
+            z-index: 1;
+        }
+
+        .process-step-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .step-number {
+            width: 28px;
+            height: 28px;
+            background-color: var(--primary-green);
+            color: #ffffff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 700;
+            flex-shrink: 0;
+            box-shadow: 0 0 0 3px #ffffff;
+        }
+
+        .step-text {
+            font-size: 0.85rem;
+            color: var(--text-dark);
+            padding-top: 3px;
+            line-height: 1.4;
+        }
+
+        /* ==========================================================================
+           7. MODAL / CONFIRMATION DRAWER & DRAFT PREVIEW
+           ========================================================================== */
+        .modal-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(15, 23, 42, 0.65);
+            backdrop-filter: blur(4px);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+
+        .modal-backdrop.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-container {
+            background-color: #ffffff;
+            border-radius: var(--radius-lg);
+            max-width: 620px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow-lg);
+            transform: translateY(20px);
+            transition: var(--transition);
+            padding: 32px;
+        }
+
+        .modal-backdrop.active .modal-container {
+            transform: translateY(0);
+        }
+
+        .modal-icon-success {
+            width: 64px;
+            height: 64px;
+            background-color: #dcfce7;
+            color: #16a34a;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 16px auto;
+        }
+
+        .modal-title {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary-dark);
+            margin-bottom: 8px;
+        }
+
+        .modal-subtitle {
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+        }
+
+        /* Key-Value Card in Modal */
+        .confirmation-box {
+            background-color: #f8faf8;
+            border: 1px solid #e2e8f0;
+            border-radius: var(--radius-md);
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px dashed #e2e8f0;
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .info-value {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .badge-status {
+            background-color: #fef3c7;
+            color: #d97706;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            display: inline-block;
+        }
+
+        .copy-code-btn {
+            background: #e2e8f0;
+            border: none;
+            padding: 4px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            transition: var(--transition);
+        }
+
+        .copy-code-btn:hover {
+            background-color: var(--primary-green);
+            color: #ffffff;
+        }
+
+        .modal-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .btn-modal-primary {
+            background-color: var(--primary-green);
+            color: #ffffff;
+            border: none;
+            padding: 12px;
+            border-radius: var(--radius-md);
+            font-weight: 700;
+            cursor: pointer;
+            text-align: center;
+            display: block;
+            width: 100%;
+        }
+
+        .btn-modal-secondary {
+            background-color: #ffffff;
+            color: var(--text-dark);
+            border: 1px solid var(--border-hover);
+            padding: 12px;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            cursor: pointer;
+            text-align: center;
+            display: block;
+            width: 100%;
+        }
+
+        .btn-modal-secondary:hover {
+            background-color: #f8fafc;
+        }
+
+        /* Draft Document Sheet Styling (Modal Pratinjau Draf) */
+        .draft-paper {
+            background: #ffffff;
+            border: 2px solid #cbd5e1;
+            padding: 30px;
+            border-radius: 8px;
+            font-family: 'Times New Roman', Times, serif;
+            color: #000000;
+            line-height: 1.5;
+            position: relative;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .draft-watermark {
+            position: absolute;
+            top: 45%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-30deg);
+            font-size: 2.8rem;
+            font-weight: bold;
+            color: rgba(225, 29, 72, 0.12);
+            text-transform: uppercase;
+            white-space: nowrap;
+            pointer-events: none;
+            letter-spacing: 4px;
+        }
+
+        .draft-header {
+            text-align: center;
+            border-bottom: 3px double #000;
+            padding-bottom: 12px;
+            margin-bottom: 20px;
+        }
+
+        .draft-header h3 {
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            margin-bottom: 2px;
+        }
+
+        .draft-header h2 {
+            font-size: 1.3rem;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        .draft-header p {
+            font-size: 0.85rem;
+            font-style: italic;
+        }
+
+        .draft-title-box {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .draft-title-box h4 {
+            text-decoration: underline;
+            text-transform: uppercase;
+            font-size: 1.05rem;
+        }
+
+        .draft-body {
+            font-size: 0.95rem;
+            text-align: justify;
+        }
+
+        .draft-table {
+            margin: 15px 0 15px 20px;
+            width: 90%;
+        }
+
+        .draft-table td {
+            padding: 4px 8px;
+            vertical-align: top;
+        }
+
+        .draft-footer {
+            margin-top: 30px;
+            display: flex;
+            justify-content: flex-end;
+            text-align: center;
+        }
+
+        .draft-signature-box {
+            width: 220px;
+        }
+
+        /* Toast Message */
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background-color: var(--primary-dark);
+            color: #ffffff;
+            padding: 12px 20px;
+            border-radius: var(--radius-md);
+            font-size: 0.88rem;
+            font-weight: 600;
+            box-shadow: var(--shadow-lg);
+            z-index: 3000;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* ==========================================================================
+           8. FOOTER COMPONENT
+           ========================================================================== */
+        .footer {
+            background-color: var(--primary-dark);
+            color: #ffffff;
+            padding: 60px 0 24px 0;
+            border-top: 5px solid var(--bamboo-green);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1.5fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .footer-brand-title {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: #ffffff;
+        }
+
+        .footer-description {
+            color: #cbd5e1;
+            font-size: 0.88rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .footer-heading {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 18px;
+            color: #ffffff;
+            position: relative;
+        }
+
+        .footer-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .footer-links a {
+            color: #cbd5e1;
+            font-size: 0.88rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-green);
+            padding-left: 4px;
+        }
+
+        .footer-contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            color: #cbd5e1;
+            font-size: 0.88rem;
+            margin-bottom: 12px;
+        }
+
+        .footer-contact-item i {
+            color: var(--accent-green);
+            margin-top: 3px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 12px;
+        }
+
+        .social-icon {
+            width: 36px;
+            height: 36px;
+            background-color: rgba(255,255,255,0.08);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            transition: var(--transition);
+        }
+
+        .social-icon:hover {
+            background-color: var(--bamboo-green);
+            transform: translateY(-2px);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 24px;
+            text-align: center;
+            font-size: 0.82rem;
+            color: #94a3b8;
+        }
+
+        /* Decorative Font Accent */
+        .accent-tag {
+            font-family: var(--font-accent);
+            font-size: 1.3rem;
+            color: var(--accent-green);
+            display: inline-block;
+        }
+
+        /* ==========================================================================
+           9. RESPONSIVE DESIGN (MEDIA QUERIES)
+           ========================================================================== */
+        @media (max-width: 992px) {
+            .grid-container {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 1.8rem;
+            }
+
+            .service-tabs {
+                flex-direction: column;
+            }
+
+            .tab-btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .form-card {
+                padding: 24px 18px;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="assets/css/shared-layout.css">
+</head>
+<body data-page="layanan">
+
+    <!-- ==========================================================================
+         NAVBAR
+         ========================================================================== -->
+    <div id="shared-header"></div>
+
+    <!-- ==========================================================================
+         HERO SECTION
+         ========================================================================== -->
+    <header class="hero-section">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Pengaduan & Layanan Surat</h1>
+                <p class="hero-subtitle">Sampaikan pengaduan atau ajukan pembuatan surat dengan mudah, cepat, dan transparan untuk seluruh warga Desa Mekarsari.</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- ==========================================================================
+         MAIN CONTENT AREA
+         ========================================================================== -->
+    <main class="main-layout">
+        <div class="container">
+            
+            <div class="grid-container">
+                
+                <!-- LEFT COLUMN: TABS & FORM CONTAINER -->
+                <div class="content-left">
+                    
+                    <!-- TAB SWITCHER -->
+                    <div class="service-tabs">
+                        <button type="button" class="tab-btn active" id="tabSurat" onclick="switchTab('surat')">
+                            <i class="fa-solid fa-file-signature"></i> Ajukan Surat
+                        </button>
+                        <button type="button" class="tab-btn" id="tabPengaduan" onclick="switchTab('pengaduan')">
+                            <i class="fa-solid fa-bullhorn"></i> Pengaduan
+                        </button>
+                    </div>
+
+                    <!-- INFO KEAMANAN DATA -->
+                    <div class="demo-notice">
+                        <i class="fa-solid fa-shield-halved"></i>
+                        <div>
+                            <strong>Data Anda dikirim langsung ke server Pemerintah Desa</strong> melalui koneksi terenkripsi dan hanya dapat dibaca oleh petugas desa yang berwenang. Dokumen pendukung belum diunggah lewat formulir ini; petugas akan meminta berkas asli/foto melalui WhatsApp.
+                        </div>
+                    </div>
+
+                    <!-- FORM CARD: PENGAJUAN SURAT -->
+                    <div class="form-card" id="sectionSurat">
+                        <div class="form-header">
+                            <h2 class="form-title">Formulir Pengajuan Surat</h2>
+                            <p class="form-description">Pilih jenis surat yang Anda butuhkan dan isi formulir dengan lengkap.</p>
+                        </div>
+
+                        <form id="formPengajuanSurat" onsubmit="handleSuratSubmit(event)" novalidate>
+                            <div style="position:absolute;left:-9999px;" aria-hidden="true"><label>Jangan diisi<input type="text" name="website" class="hp-field" tabindex="-1" autocomplete="off"></label></div>
+                            
+                            <!-- Jenis Surat Select -->
+                            <div class="form-group">
+                                <label class="form-label" for="jenisSurat">Jenis Surat <span class="required">*</span></label>
+                                <select class="form-control" id="jenisSurat" required>
+                                    <option value="" disabled selected>Pilih jenis surat yang dibutuhkan</option>
+                                    <option value="SKTM">Surat Keterangan Tidak Mampu (SKTM)</option>
+                                    <option value="Domisili">Surat Keterangan Domisili</option>
+                                    <option value="Usaha">Surat Keterangan Usaha (SKU)</option>
+                                    <option value="Pengantar">Surat Pengantar Umum</option>
+                                </select>
+                                <div class="error-message" id="err-jenisSurat">Silakan pilih jenis surat.</div>
+                            </div>
+
+                            <!-- Nama Lengkap -->
+                            <div class="form-group">
+                                <label class="form-label" for="namaLengkap">Nama Lengkap <span class="required">*</span></label>
+                                <input type="text" class="form-control" id="namaLengkap" maxlength="100" placeholder="Masukkan nama lengkap sesuai KTP" required>
+                                <div class="error-message" id="err-namaLengkap">Nama lengkap wajib diisi.</div>
+                            </div>
+
+                            <!-- NIK -->
+                            <div class="form-group">
+                                <label class="form-label" for="nik">NIK <span class="required">*</span></label>
+                                <input type="text" class="form-control" id="nik" placeholder="16 digit NIK" maxlength="16" required>
+                                <div class="error-message" id="err-nik">NIK harus terdiri dari 16 digit angka.</div>
+                            </div>
+
+                            <!-- Alamat -->
+                            <div class="form-group">
+                                <label class="form-label" for="alamat">Alamat Lengkap <span class="required">*</span></label>
+                                <textarea class="form-control" id="alamat" maxlength="300" rows="3" placeholder="Masukkan alamat lengkap (RT/RW, Dusun, Desa Mekarsari)" required></textarea>
+                                <div class="error-message" id="err-alamat">Alamat lengkap wajib diisi.</div>
+                            </div>
+
+                            <!-- Nomor WhatsApp -->
+                            <div class="form-group">
+                                <label class="form-label" for="waPemohon">Nomor WhatsApp <span class="required">*</span></label>
+                                <input type="tel" class="form-control" id="waPemohon" placeholder="Contoh: 081234567890" maxlength="15" required>
+                                <div class="error-message" id="err-wa">Nomor WhatsApp tidak valid (contoh: 081234567890).</div>
+                                <div class="file-hint" style="margin-top:4px">Petugas akan mengonfirmasi lewat WhatsApp saat surat Anda sudah siap.</div>
+                            </div>
+
+                            <!-- Isian tambahan sesuai jenis surat -->
+                            <div id="extraFields"></div>
+
+                            <!-- Keperluan -->
+                            <div class="form-group">
+                                <label class="form-label" for="keperluan">Keperluan <span class="required">*</span></label>
+                                <textarea class="form-control" id="keperluan" maxlength="500" rows="3" placeholder="Jelaskan secara rinci keperluan surat ini" required></textarea>
+                                <div class="error-message" id="err-keperluan">Keperluan surat wajib diisi.</div>
+                            </div>
+
+                            <!-- Upload Dokumen Pendukung -->
+                            <div class="form-group">
+                                <label class="form-label">Unggah Dokumen Pendukung <span style="font-weight: 400; color: var(--text-muted);">(opsional)</span></label>
+                                <div class="file-upload-box" onclick="document.getElementById('dokumenPendukung').click()">
+                                    <button type="button" class="btn-select-file">Pilih file</button>
+                                    <div>
+                                        <div class="file-hint">PDF, JPG, PNG (maks. 2MB)</div>
+                                        <div class="file-selected-name" id="fileSelectedName"></div>
+                                    </div>
+                                    <input type="file" id="dokumenPendukung" accept=".pdf,.jpg,.jpeg,.png" style="display: none;" onchange="handleFileSelect(this)">
+                                </div>
+                                <div class="error-message" id="err-dokumen">Ukuran file melebihi batas 2MB atau format tidak didukung.</div>
+                            </div>
+
+                            <!-- Checkbox Consent -->
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="persetujuanSurat" required>
+                                <label class="checkbox-label" for="persetujuanSurat">
+                                    Saya menyetujui pemrosesan data pribadi sesuai dengan ketentuan yang berlaku untuk pemrosesan permohonan surat ini.
+                                </label>
+                            </div>
+                            <div class="error-message" id="err-persetujuanSurat" style="margin-top: -20px; margin-bottom: 15px;">Anda harus menyetujui pernyataan ini.</div>
+
+                            <!-- Submit Button -->
+                            <button type="submit" class="btn-submit">
+                                <i class="fa-solid fa-paper-plane"></i> Kirim Pengajuan
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- FORM CARD: PENGADUAN (HIDDEN BY DEFAULT) -->
+                    <div class="form-card" id="sectionPengaduan" style="display: none;">
+                        <div class="form-header" id="Pengaduan">
+                            <h2 class="form-title">Formulir Pengaduan Warga</h2>
+                            <p class="form-description">Sampaikan pengaduan, kritik, atau saran untuk kemajuan dan ketertiban Desa Mekarsari.</p>
+                        </div>
+
+                        <form id="formPengaduan" onsubmit="handlePengaduanSubmit(event)" novalidate>
+                            <div style="position:absolute;left:-9999px;" aria-hidden="true"><label>Jangan diisi<input type="text" name="website" class="hp-field" tabindex="-1" autocomplete="off"></label></div>
+                            
+                            <!-- Nama Pelapor & Anonim Toggle -->
+                            <div class="form-group">
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                                    <label class="form-label" for="namaPelapor" style="margin-bottom: 0;">Nama Pelapor <span class="required" id="reqPelapor">*</span></label>
+                                    <label style="font-size: 0.82rem; cursor: pointer; color: var(--primary-green); font-weight: 600;">
+                                        <input type="checkbox" id="chkAnonim" onchange="toggleAnonim(this)"> Kirim sebagai Anonim
+                                    </label>
+                                </div>
+                                <input type="text" class="form-control" id="namaPelapor" maxlength="100" placeholder="Masukkan nama pelapor" required>
+                                <div class="error-message" id="err-namaPelapor">Nama pelapor wajib diisi jika tidak anonim.</div>
+                            </div>
+
+                            <!-- Kategori Pengaduan -->
+                            <div class="form-group">
+                                <label class="form-label" for="kategoriPengaduan">Kategori Pengaduan <span class="required">*</span></label>
+                                <select class="form-control" id="kategoriPengaduan" required>
+                                    <option value="" disabled selected>Pilih kategori pengaduan</option>
+                                    <option value="Fasilitas Umum">Fasilitas Umum & Jalan</option>
+                                    <option value="Kebersihan & Lingkungan">Kebersihan & Lingkungan</option>
+                                    <option value="Pelayanan Publik">Pelayanan Perangkat Desa</option>
+                                    <option value="Keamanan & Ketertiban">Keamanan & Ketertiban</option>
+                                    <option value="Lainnya">Lainnya</option>
+                                </select>
+                                <div class="error-message" id="err-kategori">Pilih kategori pengaduan.</div>
+                            </div>
+
+                            <!-- Lokasi Kejadian -->
+                            <div class="form-group">
+                                <label class="form-label" for="lokasiKejadian">Lokasi Kejadian <span class="required">*</span></label>
+                                <input type="text" class="form-control" id="lokasiKejadian" maxlength="150" placeholder="Contoh: Jalan Raya Dusun Babakan RT 02" required>
+                                <div class="error-message" id="err-lokasi">Lokasi kejadian wajib diisi.</div>
+                            </div>
+
+                            <!-- Deskripsi Pengaduan -->
+                            <div class="form-group">
+                                <label class="form-label" for="deskripsiPengaduan">Deskripsi Pengaduan <span class="required">*</span></label>
+                                <textarea class="form-control" id="deskripsiPengaduan" maxlength="1000" rows="4" placeholder="Jelaskan permasalahan atau pengaduan secara rinci" required></textarea>
+                                <div class="error-message" id="err-deskripsi">Deskripsi pengaduan wajib diisi.</div>
+                            </div>
+
+                            <!-- Kontak Opsional -->
+                            <div class="form-group">
+                                <label class="form-label" for="kontakPelapor">No. WhatsApp / HP <span style="font-weight: 400; color: var(--text-muted);">(opsional untuk tindak lanjut)</span></label>
+                                <input type="text" class="form-control" id="kontakPelapor" maxlength="20" placeholder="Contoh: 081234567890">
+                            </div>
+
+                            <!-- Checkbox Consent -->
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="persetujuanPengaduan" required>
+                                <label class="checkbox-label" for="persetujuanPengaduan">
+                                    Saya menyatakan bahwa pengaduan yang disampaikan adalah benar dan bertanggung jawab atas laporan ini.
+                                </label>
+                            </div>
+                            <div class="error-message" id="err-persetujuanPengaduan" style="margin-top: -20px; margin-bottom: 15px;">Anda harus menyetujui pernyataan ini.</div>
+
+                            <!-- Submit Button -->
+                            <button type="submit" class="btn-submit">
+                                <i class="fa-solid fa-paper-plane"></i> Kirim Pengaduan
+                            </button>
+                        </form>
+                    </div>
+
+                </div>
+
+                <!-- RIGHT COLUMN: SIDEBAR INFO CARDS -->
+                <aside class="sidebar">
+                    
+                    <!-- CARD 1: JENIS SURAT YANG TERSEDIA -->
+                    <div class="sidebar-card">
+                        <h3 class="sidebar-title">Jenis Surat yang Tersedia</h3>
+                        <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 16px;">Klik jenis surat di bawah untuk memilih secara langsung:</p>
+                        
+                        <div class="letter-type-list">
+                            <div class="letter-type-item" onclick="quickSelectSurat('SKTM')">
+                                <div class="letter-type-icon">
+                                    <i class="fa-solid fa-id-card"></i>
+                                </div>
+                                <div class="letter-type-content">
+                                    <h4>SKTM</h4>
+                                    <p>Surat Keterangan Tidak Mampu</p>
+                                </div>
+                            </div>
+
+                            <div class="letter-type-item" onclick="quickSelectSurat('Domisili')">
+                                <div class="letter-type-icon">
+                                    <i class="fa-solid fa-house-user"></i>
+                                </div>
+                                <div class="letter-type-content">
+                                    <h4>Domisili</h4>
+                                    <p>Surat Keterangan Domisili</p>
+                                </div>
+                            </div>
+
+                            <div class="letter-type-item" onclick="quickSelectSurat('Usaha')">
+                                <div class="letter-type-icon">
+                                    <i class="fa-solid fa-store"></i>
+                                </div>
+                                <div class="letter-type-content">
+                                    <h4>Usaha</h4>
+                                    <p>Surat Keterangan Usaha (SKU)</p>
+                                </div>
+                            </div>
+
+                            <div class="letter-type-item" onclick="quickSelectSurat('Pengantar')">
+                                <div class="letter-type-icon">
+                                    <i class="fa-solid fa-file-invoice"></i>
+                                </div>
+                                <div class="letter-type-content">
+                                    <h4>Pengantar</h4>
+                                    <p>Surat Pengantar Umum</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CARD 2: PROSES PENGAJUAN -->
+                    <div class="sidebar-card">
+                        <h3 class="sidebar-title">Proses Pengajuan</h3>
+                        
+                        <div class="process-steps">
+                            <div class="process-step-item">
+                                <div class="step-number">1</div>
+                                <div class="step-text">
+                                    <strong>Isi formulir</strong>
+                                    <div style="font-size: 0.78rem; color: var(--text-muted);">Lengkapi data diri & unggah persyaratan</div>
+                                </div>
+                            </div>
+
+                            <div class="process-step-item">
+                                <div class="step-number">2</div>
+                                <div class="step-text">
+                                    <strong>Sistem membuat draf otomatis</strong>
+                                    <div style="font-size: 0.78rem; color: var(--text-muted);">Mendapatkan nomor pengajuan</div>
+                                </div>
+                            </div>
+
+                            <div class="process-step-item">
+                                <div class="step-number">3</div>
+                                <div class="step-text">
+                                    <strong>Petugas memeriksa dan menyetujui</strong>
+                                    <div style="font-size: 0.78rem; color: var(--text-muted);">Verifikasi oleh perwakilan perangkat desa</div>
+                                </div>
+                            </div>
+
+                            <div class="process-step-item">
+                                <div class="step-number">4</div>
+                                <div class="step-text">
+                                    <strong>Tunggu Konfirmasi Petugas</strong>
+                                    <div style="font-size: 0.78rem; color: var(--text-muted);">Petugas akan menghubungi anda</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </aside>
+
+            </div>
+
+        </div>
+    </main>
+
+    <!-- ==========================================================================
+         CONFIRMATION MODAL (POPUP HASIL PENGAJUAN)
+         ========================================================================== -->
+    <div class="modal-backdrop" id="confirmationModal">
+        <div class="modal-container">
+            <div class="modal-icon-success">
+                <i class="fa-solid fa-circle-check"></i>
+            </div>
+            
+            <h3 class="modal-title" id="modalTitle">Pengajuan Berhasil Dikirim!</h3>
+            <p class="modal-subtitle" id="modalSubtitle">Draf surat otomatis telah dibuat. Silakan simpan nomor pengajuan Anda. Petugas akan menghubungi Anda melalui WhatsApp saat surat sudah siap.</p>
+
+            <div class="confirmation-box">
+                <div class="info-row">
+                    <span class="info-label">Nomor Pengajuan</span>
+                    <span class="info-value" id="resNomor">DESA-20261013-001</span>
+                    <button class="copy-code-btn" onclick="copyCode()" title="Salin Nomor Pengajuan">
+                            <i class="fa-regular fa-copy"></i> Salin
+                        </button>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Status Awal</span>
+                    <span class="info-value"><span class="badge-status">Menunggu Verifikasi</span></span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Waktu Pengajuan</span>
+                    <span class="info-value" id="resWaktu" style="font-size: 0.85rem; font-weight: 500;">-</span>
+                </div>
+            </div>
+
+            <p style="font-size: 0.78rem; color: #854d0e; background: #fefce8; padding: 10px; border-radius: 6px; margin-bottom: 20px; line-height: 1.4;">
+                <i class="fa-solid fa-triangle-exclamation"></i> <strong>Catatan Penting:</strong> Draf ini belum dianggap sebagai surat resmi dan belum disetujui sebelum diperiksa oleh petugas desa.
+            </p>
+
+            <div class="modal-actions">
+                <button type="button" class="btn-modal-primary" onclick="openDraftPreview()">
+                    <i class="fa-solid fa-file-pdf"></i> Lihat Draf Surat Otomatis
+                </button>
+                <button type="button" class="btn-modal-secondary" onclick="closeModal()" style="border: none; color: var(--text-muted);">
+                    Tutup & Buat Permohonan Baru
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================================================
+         DRAFT LETTER PREVIEW MODAL (PRATINJAU DRAF SURAT)
+         ========================================================================== -->
+    <div class="modal-backdrop" id="draftPreviewModal">
+        <div class="modal-container" style="max-width: 750px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                <h3 style="font-size: 1.1rem; font-weight: 700; color: var(--primary-dark);">Pratinjau Draf Surat Otomatis</h3>
+                <button onclick="closeDraftPreview()" style="background: none; border: none; font-size: 1.2rem; cursor: pointer; color: var(--text-muted);">&times;</button>
+            </div>
+
+            <!-- Surat Official Styling -->
+            <div class="draft-paper" id="draftPaper">
+                <div class="draft-watermark">DRAF - MENUNGGU VERIFIKASI</div>
+                
+                <div class="draft-header">
+                    <h3>Pemerintah Kabupaten Garut</h3>
+                    <h3>Kecamatan Selaawi</h3>
+                    <h2>Pemerintah Desa Mekarsari</h2>
+                    <p>Jl. Raya Mekarsari No. 01, Selaawi, Garut, Jawa Barat - 44187</p>
+                </div>
+
+                <div class="draft-title-box">
+                    <h4 id="draftTitleDoc">SURAT KETERANGAN UNTUK DIPROSES</h4>
+                    <p style="font-size: 0.85rem; margin-top: 4px;">Nomor Draf: <span id="draftDocNo">140/01/Draf-Pem/2026</span></p>
+                </div>
+
+                <div class="draft-body">
+                    <p>Yang bertanda tangan di bawah ini Kepala Desa Mekarsari, Kecamatan Selaawi, Kabupaten Garut, menerangkan bahwa:</p>
+                    
+                    <table class="draft-table">
+                        <tr>
+                            <td width="30%">Nama Lengkap</td>
+                            <td width="5%">:</td>
+                            <td><strong id="draftName">-</strong></td>
+                        </tr>
+                        <tr>
+                            <td>NIK</td>
+                            <td>:</td>
+                            <td id="draftNIK">-</td>
+                        </tr>
+                        <tr>
+                            <td>Alamat</td>
+                            <td>:</td>
+                            <td id="draftAddress">-</td>
+                        </tr>
+                        <tr>
+                            <td>Keperluan</td>
+                            <td>:</td>
+                            <td id="draftPurpose">-</td>
+                        </tr>
+                        <tbody id="draftExtra"></tbody>
+                    </table>
+
+                    <p>Demikian draf surat keterangan ini dibuat secara otomatis berdasarkan isian formulir online warga untuk diperiksa dan diverifikasi lebih lanjut oleh Perangkat Desa Mekarsari.</p>
+                </div>
+
+                <div class="draft-footer">
+                    <div class="draft-signature-box">
+                        <p>Mekarsari, <span id="draftDate">-</span></p>
+                        <p>Mengetahui,</p>
+                        <p style="font-weight: bold;">Kepala Desa Mekarsari</p>
+                        <div style="height: 60px; display: flex; align-items: center; justify-content: center; font-style: italic; color: #999;">
+                            [ Draf Belum TTD ]
+                        </div>
+                        <p style="text-decoration: underline; font-weight: bold;"> Ajie Nugraha, SST., M.AP </p>
+                    </div>
+                </div>
+            </div>
+
+            <div style="display: flex; gap: 12px;">
+                <button type="button" class="btn-modal-primary" onclick="window.print()">
+                    <i class="fa-solid fa-print"></i> Cetak / Simpan Draf PDF
+                </button>
+                <button type="button" class="btn-modal-secondary" onclick="closeDraftPreview()">
+                    Tutup Pratinjau
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION -->
+    <div class="toast" id="toastMsg">Nomor pengajuan berhasil disalin!</div>
+
+    <!-- ==========================================================================
+         FOOTER
+         ========================================================================== -->
+    <div id="shared-footer"></div>
+
+    <!-- ==========================================================================
+         JAVASCRIPT LOGIC & STORAGE ADAPTER
+         ========================================================================== -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-check-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script src="assets/js/firebase-config.js"></script>
+    <script src="assets/js/submission-store.js"></script>
+    <script>
+        /* --------------------------------------------------------------------------
+           1. FIREBASE FIRESTORE ADAPTER
+           Data disimpan ke Cloud Firestore. Keamanan dijaga oleh firestore.rules:
+           pengunjung publik HANYA boleh membuat (create) dokumen yang valid,
+           tidak boleh membaca, mengubah, atau menghapus. Hanya admin yang boleh membaca.
+           -------------------------------------------------------------------------- */
+        class FirestoreAdapter {
+            constructor() {
+                this.store = window.SubmissionStore || null;
+                this.initError = this.store ? null : new Error('SDK Firebase gagal dimuat.');
+            }
+            get ready() { return !!this.store; }
+            get mode() { return this.store ? this.store.getMode() : 'none'; }
+            saveSurat(data) { return this.store.add('surat', data); }
+            savePengaduan(data) { return this.store.add('pengaduan', data); }
+        }
+
+        function friendlyError(err) {
+            const code = (err && err.code) || '';
+            if (code === 'permission-denied') return 'Pengiriman ditolak server. Periksa kembali isian Anda lalu coba lagi.';
+            if (code === 'unavailable' || code === 'timeout' || code === 'failed-precondition')
+                return 'Koneksi bermasalah. Periksa internet Anda lalu coba kirim ulang.';
+            if (err && /gagal dimuat/.test(err.message || '')) return 'Layanan belum aktif. Hubungi petugas desa.';
+            return 'Terjadi kesalahan saat mengirim. Silakan coba lagi.';
+        }
+
+        // Batasi kirim berulang dari perangkat yang sama (perlindungan tambahan; yang utama: App Check + rules)
+        function isCoolingDown() {
+            const last = Number(sessionStorage.getItem('mk_last_submit') || 0);
+            return Date.now() - last < 30000;
+        }
+
+        // Jalankan proses simpan dengan tombol terkunci + penanganan error
+        async function submitSafely(form, saveFn, payload) {
+            const btn = form.querySelector('.btn-submit');
+            const original = btn.innerHTML;
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Mengirim...';
+            try {
+                await saveFn(payload);
+                sessionStorage.setItem('mk_last_submit', String(Date.now()));
+                lastSubmissionData = payload;
+                showConfirmationModal(payload);
+            } catch (err) {
+                console.error('[Submit]', err);
+                showToast(friendlyError(err));
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = original;
+            }
+        }
+
+        const dbAdapter = new FirestoreAdapter();
+        if (dbAdapter.mode === 'local') {
+            const n = document.querySelector('.demo-notice div');
+            if (n) n.innerHTML = '<strong>Mode uji coba:</strong> Firebase belum aktif, data hanya tersimpan di browser ini dan tidak terkirim ke petugas desa.';
+        }
+        let lastSubmissionData = null;
+
+        /* --------------------------------------------------------------------------
+           2. NAVIGATION & TAB SWITCHING
+           -------------------------------------------------------------------------- */
+        // Navigasi lama tidak lagi ada karena header sekarang dimuat dari komponen bersama.
+        // Tetap gunakan guard agar script halaman tidak berhenti jika elemen lama tidak ditemukan.
+        const legacyMenuToggle = document.getElementById('menuToggle');
+        const legacyNavbarNav = document.getElementById('navbarNav');
+        if (legacyMenuToggle && legacyNavbarNav) {
+            legacyMenuToggle.addEventListener('click', function() {
+                legacyNavbarNav.classList.toggle('show');
+            });
+        }
+
+        function switchTab(type) {
+            const tabSurat = document.getElementById('tabSurat');
+            const tabPengaduan = document.getElementById('tabPengaduan');
+            const sectionSurat = document.getElementById('sectionSurat');
+            const sectionPengaduan = document.getElementById('sectionPengaduan');
+
+            if (type === 'surat') {
+                tabSurat.classList.add('active');
+                tabPengaduan.classList.remove('active');
+                sectionSurat.style.display = 'block';
+                sectionPengaduan.style.display = 'none';
+            } else {
+                tabPengaduan.classList.add('active');
+                tabSurat.classList.remove('active');
+                sectionPengaduan.style.display = 'block';
+                sectionSurat.style.display = 'none';
+            }
+        }
+
+        // Quick Select Jenis Surat dari Kartu Kolom Kanan
+        function quickSelectSurat(value) {
+            switchTab('surat');
+            const selectEl = document.getElementById('jenisSurat');
+            selectEl.value = value;
+            renderExtra();
+            
+            // Highlight efek fokus sementara
+            selectEl.focus();
+            selectEl.classList.add('is-focused');
+            setTimeout(() => selectEl.classList.remove('is-focused'), 1000);
+        }
+
+        // Toggle Anonim pada Form Pengaduan
+        function toggleAnonim(checkbox) {
+            const namaInput = document.getElementById('namaPelapor');
+            const reqLabel = document.getElementById('reqPelapor');
+
+            if (checkbox.checked) {
+                namaInput.value = 'Anonim / Rahasia';
+                namaInput.disabled = true;
+                reqLabel.style.display = 'none';
+            } else {
+                namaInput.value = '';
+                namaInput.disabled = false;
+                reqLabel.style.display = 'inline';
+            }
+        }
+
+        /* --------------------------------------------------------------------------
+           3. FILE UPLOAD HANDLING & VALIDATION
+           -------------------------------------------------------------------------- */
+        let uploadedFileMeta = null;
+
+        function handleFileSelect(input) {
+            const errEl = document.getElementById('err-dokumen');
+            const nameEl = document.getElementById('fileSelectedName');
+            
+            if (input.files && input.files[0]) {
+                const file = input.files[0];
+                const maxSize = 2 * 1024 * 1024; // 2MB
+
+                if (file.size > maxSize) {
+                    errEl.style.display = 'block';
+                    nameEl.style.display = 'none';
+                    input.value = '';
+                    uploadedFileMeta = null;
+                } else {
+                    errEl.style.display = 'none';
+                    nameEl.textContent = `File terpilih: ${file.name} (${(file.size/1024).toFixed(0)} KB)`;
+                    nameEl.style.display = 'block';
+                    uploadedFileMeta = { name: file.name, size: file.size, type: file.type };
+                }
+            }
+        }
+
+        /* --------------------------------------------------------------------------
+           4. FORM SUBMISSION LOGIC & DRAFT GENERATION
+           -------------------------------------------------------------------------- */
+        
+        // Generasi Nomor Pengajuan
+        function generateSubmissionNumber(prefix) {
+            const dateStr = new Date().toISOString().slice(0,10).replace(/-/g,'');
+            const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+            const bytes = crypto.getRandomValues(new Uint8Array(6));
+            const rand = Array.from(bytes, b => chars[b % chars.length]).join('');
+            return `${prefix}-${dateStr}-${rand}`;
+        }
+
+        const EXTRA = {
+            SKTM: [['pekerjaan','Pekerjaan','Contoh: Buruh harian lepas']],
+            Domisili: [['agama','Agama','Contoh: Islam'],['statusKawin','Status Perkawinan','Belum Kawin / Kawin / Cerai']],
+            Usaha: [['namaUsaha','Nama Usaha','Contoh: Kerajinan Bambu Mekar Jaya'],['bidangUsaha','Bidang Usaha','Contoh: Anyaman bambu']],
+            Pengantar: [['tujuan','Ditujukan kepada','Contoh: Kantor Kecamatan Selaawi']]
+        };
+        function renderExtra() {
+            const jenis = document.getElementById('jenisSurat').value;
+            document.getElementById('extraFields').innerHTML = (EXTRA[jenis] || []).map(f =>
+                `<div class="form-group"><label class="form-label" for="ex-${f[0]}">${f[1]} <span class="required">*</span></label>
+                 <input type="text" class="form-control" id="ex-${f[0]}" placeholder="${f[2]}" maxlength="100"></div>`).join('');
+        }
+        document.getElementById('jenisSurat').addEventListener('change', renderExtra);
+
+        // Submit Pengajuan Surat
+        async function handleSuratSubmit(e) {
+            e.preventDefault();
+            const form = e.target;
+            if (form.querySelector('.hp-field').value) return; // bot terdeteksi
+            if (!dbAdapter.ready) { showToast(friendlyError(dbAdapter.initError)); return; }
+            if (isCoolingDown()) { showToast('Mohon tunggu sebentar sebelum mengirim lagi.'); return; }
+
+            // Form Values
+            const jenisSurat = document.getElementById('jenisSurat').value;
+            const nama = document.getElementById('namaLengkap').value.trim();
+            const nik = document.getElementById('nik').value.trim();
+            const alamat = document.getElementById('alamat').value.trim();
+            const keperluan = document.getElementById('keperluan').value.trim();
+            const consent = document.getElementById('persetujuanSurat').checked;
+            const wa = document.getElementById('waPemohon').value.trim().replace(/[\s-]/g, '');
+            const extra = {};
+            (EXTRA[jenisSurat] || []).forEach(f => { extra[f[0]] = (document.getElementById('ex-' + f[0]) || {}).value?.trim() || ''; });
+
+            // Reset Errors
+            document.querySelectorAll('.error-message').forEach(el => el.style.display = 'none');
+            document.querySelectorAll('.form-control').forEach(el => el.classList.remove('is-invalid'));
+
+            let isValid = true;
+
+            if (!jenisSurat) {
+                document.getElementById('err-jenisSurat').style.display = 'block';
+                document.getElementById('jenisSurat').classList.add('is-invalid');
+                isValid = false;
+            }
+            if (!nama) {
+                document.getElementById('err-namaLengkap').style.display = 'block';
+                document.getElementById('namaLengkap').classList.add('is-invalid');
+                isValid = false;
+            }
+            if (!nik || !/^\d{16}$/.test(nik)) {
+                document.getElementById('err-nik').style.display = 'block';
+                document.getElementById('nik').classList.add('is-invalid');
+                isValid = false;
+            }
+            if (!alamat) {
+                document.getElementById('err-alamat').style.display = 'block';
+                document.getElementById('alamat').classList.add('is-invalid');
+                isValid = false;
+            }
+            if (!keperluan) {
+                document.getElementById('err-keperluan').style.display = 'block';
+                document.getElementById('keperluan').classList.add('is-invalid');
+                isValid = false;
+            }
+            if (!consent) {
+                document.getElementById('err-persetujuanSurat').style.display = 'block';
+                isValid = false;
+            }
+
+            if (!/^(\+62|62|0)8\d{8,12}$/.test(wa)) {
+                document.getElementById('err-wa').style.display = 'block';
+                document.getElementById('waPemohon').classList.add('is-invalid');
+                isValid = false;
+            }
+            if (Object.values(extra).some(v => !v)) {
+                showToast('Lengkapi isian tambahan sesuai jenis surat.');
+                isValid = false;
+            }
+
+            if (!isValid) return;
+
+            // Buat Data Objek Pengajuan Surat
+            const id = generateSubmissionNumber('SRT');
+            const now = new Date();
+            const timestamp = now.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' }) + ' WIB';
+
+            const payload = {
+                id,
+                kategori: 'Surat',
+                jenisSurat,
+                wa,
+                extra,
+                nama,
+                nik,
+                alamat,
+                keperluan,
+                dokumen: uploadedFileMeta || null,
+                status: 'Diajukan',
+                tanggal: timestamp
+            };
+
+            await submitSafely(form, (d) => dbAdapter.saveSurat(d), payload);
+        }
+
+        // Submit Pengaduan
+        async function handlePengaduanSubmit(e) {
+            e.preventDefault();
+            const form = e.target;
+            if (form.querySelector('.hp-field').value) return; // bot terdeteksi
+            if (!dbAdapter.ready) { showToast(friendlyError(dbAdapter.initError)); return; }
+            if (isCoolingDown()) { showToast('Mohon tunggu sebentar sebelum mengirim lagi.'); return; }
+
+            const isAnonim = document.getElementById('chkAnonim').checked;
+            const namaPelapor = isAnonim ? 'Anonim' : document.getElementById('namaPelapor').value.trim();
+            const kategori = document.getElementById('kategoriPengaduan').value;
+            const lokasi = document.getElementById('lokasiKejadian').value.trim();
+            const deskripsi = document.getElementById('deskripsiPengaduan').value.trim();
+            const kontak = document.getElementById('kontakPelapor').value.trim();
+            const consent = document.getElementById('persetujuanPengaduan').checked;
+
+            document.querySelectorAll('.error-message').forEach(el => el.style.display = 'none');
+            document.querySelectorAll('.form-control').forEach(el => el.classList.remove('is-invalid'));
+
+            let isValid = true;
+
+            if (!isAnonim && !namaPelapor) {
+                document.getElementById('err-namaPelapor').style.display = 'block';
+                document.getElementById('namaPelapor').classList.add('is-invalid');
+                isValid = false;
+            }
+            if (!kategori) {
+                document.getElementById('err-kategori').style.display = 'block';
+                document.getElementById('kategoriPengaduan').classList.add('is-invalid');
+                isValid = false;
+            }
+            if (!lokasi) {
+                document.getElementById('err-lokasi').style.display = 'block';
+                document.getElementById('lokasiKejadian').classList.add('is-invalid');
+                isValid = false;
+            }
+            if (!deskripsi) {
+                document.getElementById('err-deskripsi').style.display = 'block';
+                document.getElementById('deskripsiPengaduan').classList.add('is-invalid');
+                isValid = false;
+            }
+            if (!consent) {
+                document.getElementById('err-persetujuanPengaduan').style.display = 'block';
+                isValid = false;
+            }
+
+            if (!isValid) return;
+
+            const id = generateSubmissionNumber('PGD');
+            const now = new Date();
+            const timestamp = now.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' }) + ' WIB';
+
+            const payload = {
+                id,
+                kategori: 'Pengaduan',
+                kategoriPengaduan: kategori,
+                nama: namaPelapor,
+                lokasi,
+                deskripsi,
+                kontak,
+                status: 'Baru',
+                tanggal: timestamp
+            };
+
+            await submitSafely(form, (d) => dbAdapter.savePengaduan(d), payload);
+        }
+
+        /* --------------------------------------------------------------------------
+           5. MODAL CONTROL & UTILITIES
+           -------------------------------------------------------------------------- */
+        function showConfirmationModal(data) {
+            document.getElementById('resNomor').textContent = data.id;
+            document.getElementById('resWaktu').textContent = data.tanggal;
+
+            if (data.kategori === 'Pengaduan') {
+                document.getElementById('modalTitle').textContent = 'Pengaduan Berhasil Terkirim!';
+                document.getElementById('modalSubtitle').textContent = 'Laporan Anda telah tercatat. Tim perangkat desa akan menindaklanjuti pengaduan ini.';
+            } else {
+                document.getElementById('modalTitle').textContent = 'Pengajuan Surat Berhasil!';
+                document.getElementById('modalSubtitle').textContent = 'Draf surat otomatis telah dibuat. Silakan simpan nomor pengajuan Anda. Petugas akan menghubungi Anda melalui WhatsApp saat surat sudah siap.';
+            }
+            document.getElementById('confirmationModal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('confirmationModal').classList.remove('active');
+            // Reset form setelah penutupan
+            document.getElementById('formPengajuanSurat').reset();
+            document.getElementById('formPengaduan').reset();
+            renderExtra();
+            document.getElementById('fileSelectedName').style.display = 'none';
+        }
+
+        function copyCode() {
+            const codeText = document.getElementById('resNomor').textContent;
+            navigator.clipboard.writeText(codeText).then(() => {
+                showToast('Nomor pengajuan berhasil disalin!');
+            });
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toastMsg');
+            toast.textContent = msg;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        /* --------------------------------------------------------------------------
+           6. PRATINJAU DRAF SURAT MODAL
+           -------------------------------------------------------------------------- */
+        function openDraftPreview() {
+            if (!lastSubmissionData) return;
+
+            const data = lastSubmissionData;
+            
+            if (data.kategori === 'Pengaduan') {
+                document.getElementById('draftTitleDoc').textContent = 'LEMBAR PENGADUAN WARGA';
+                document.getElementById('draftDocNo').textContent = `180/${data.id.slice(-4)}/Draf-Lapor/2026`;
+                document.getElementById('draftName').textContent = data.nama;
+                document.getElementById('draftNIK').textContent = 'Laporan Lokasi: ' + data.lokasi;
+                document.getElementById('draftAddress').textContent = 'Kategori: ' + data.kategoriPengaduan;
+                document.getElementById('draftPurpose').textContent = data.deskripsi;
+            } else {
+                let namaSurat = 'SURAT KETERANGAN';
+                if (data.jenisSurat === 'SKTM') namaSurat = 'SURAT KETERANGAN TIDAK MAMPU (SKTM)';
+                else if (data.jenisSurat === 'Domisili') namaSurat = 'SURAT KETERANGAN DOMISILI';
+                else if (data.jenisSurat === 'Usaha') namaSurat = 'SURAT KETERANGAN USAHA (SKU)';
+                else if (data.jenisSurat === 'Pengantar') namaSurat = 'SURAT PENGANTAR KEPALA DESA';
+
+                document.getElementById('draftTitleDoc').textContent = namaSurat;
+                document.getElementById('draftDocNo').textContent = `140/${data.id.slice(-4)}/Draf-Pem/2026`;
+                document.getElementById('draftName').textContent = data.nama;
+                document.getElementById('draftNIK').textContent = data.nik;
+                document.getElementById('draftAddress').textContent = data.alamat;
+                document.getElementById('draftPurpose').textContent = data.keperluan;
+            }
+
+            // Isian tambahan sesuai jenis surat (pekerjaan, agama, nama usaha, dst.)
+            const extraBody = document.getElementById('draftExtra');
+            extraBody.innerHTML = '';
+            if (data.kategori !== 'Pengaduan') {
+                (EXTRA[data.jenisSurat] || []).forEach(f => {
+                    const tr = document.createElement('tr');
+                    const c1 = document.createElement('td'); c1.textContent = f[1];
+                    const c2 = document.createElement('td'); c2.textContent = ':';
+                    const c3 = document.createElement('td'); c3.textContent = (data.extra && data.extra[f[0]]) || '-';
+                    tr.append(c1, c2, c3);
+                    extraBody.appendChild(tr);
+                });
+            }
+
+            document.getElementById('draftDate').textContent = new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+            
+            document.getElementById('draftPreviewModal').classList.add('active');
+        }
+
+        function closeDraftPreview() {
+            document.getElementById('draftPreviewModal').classList.remove('active');
+        }
+    </script>
+    <script src="assets/js/shared-layout.js"></script>
+</body>
+</html>

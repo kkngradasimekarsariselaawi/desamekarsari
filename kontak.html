@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Peta Lokasi — Desa Mekarsari, Kecamatan Selaawi, Kabupaten Garut</title>
+  <meta name="description" content="Informasi wilayah Desa Mekarsari: tiga dusun dan sembilan RW.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link rel="stylesheet" href="peta-lokasi.css">
+</head>
+<script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        /* Variables & Theme Setup */
+        :root {
+            --primary-green: #1B4332;
+            --primary-green-hover: #143626;
+            --accent-bamboo: #2D6A4F;
+            --light-cream: #F8F9F5;
+            --card-bg: #FFFFFF;
+            --text-dark: #1F2937;
+            --text-muted: #4B5563;
+            --border-color: #E5E7EB;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #FAFAF8;
+            color: var(--text-dark);
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        .font-script {
+            font-family: 'Caveat', cursive;
+        }
+
+        /* Custom UI Elements */
+        .btn-green {
+            background-color: var(--primary-green);
+            color: #ffffff;
+            transition: all 0.25s ease-in-out;
+        }
+
+        .btn-green:hover {
+            background-color: var(--primary-green-hover);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(27, 67, 50, 0.2);
+        }
+
+        .contact-card {
+            background: #ffffff;
+            border: 1px solid #EAECE8;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .contact-card:hover {
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.06);
+        }
+
+        .icon-box {
+            width: 48px;
+            height: 48px;
+            background-color: #F0F7F2;
+            color: var(--primary-green);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            flex-shrink: 0;
+        }
+
+        /* Bamboo Texture Motif */
+        .bamboo-bg {
+            background-color: #E8DFD1;
+            background-image: radial-gradient(#CBB89D 0.75px, transparent 0.75px), radial-gradient(#CBB89D 0.75px, #E8DFD1 0.75px);
+            background-size: 30px 30px;
+            background-position: 0 0, 15px 15px;
+        }
+
+        .map-iframe-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            min-height: 280px;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        /* Responsive Navbar Sticky Behavior */
+        .navbar-sticky {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background-color: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(8px);
+            box-shadow: 0 1px 10px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+    <link rel="stylesheet" href="peta-lokasi.css">
+    <link rel="stylesheet" href="assets/css/shared-layout.css">
+<body class="flex flex-col min-h-screen" data-page="kontak">
+
+    <!-- Header & Navigation Bar -->
+    <div id="shared-header"></div>
+
+    <main class="flex-grow">
+        <!-- Hero Section -->
+        <section class="relative h-64 sm:h-80 md:h-96 bg-gray-900 text-white overflow-hidden">
+            <!-- Background Image with Overlay -->
+            <img src="https://images.unsplash.com/photo-1596422846543-75c6fc197f07?auto=format&fit=crop&w=1600&q=80" 
+                 alt="Pemandangan Desa Mekarsari" 
+                 class="absolute inset-0 w-full h-full object-cover object-center opacity-40">
+            <div class="absolute inset-0 bg-gradient-to-r from-[#1B4332]/80 via-[#1B4332]/60 to-transparent"></div>
+
+            <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex flex-col justify-center">
+                <div class="max-w-2xl">
+                    <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight mb-3">
+                        Kontak Kami
+                    </h1>
+                    <p class="text-base sm:text-lg text-emerald-100 font-normal leading-relaxed">
+                        Kami siap melayani dan membantu Anda
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Informasi Kontak -->
+        <section class="py-12 lg:py-16 bg-[#FAFAF8]">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-8 tracking-tight">
+                    Informasi Kontak
+                </h2>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+                    <!-- Left Column: Detailed Information -->
+                    <div class="lg:col-span-7 bg-white rounded-2xl p-6 sm:p-8 border border-gray-200/80 shadow-sm space-y-6">
+                        
+                        <!-- Item 1: Alamat -->
+                        <div class="flex items-start gap-4 p-2 hover:bg-emerald-50/50 rounded-xl transition-colors">
+                            <div class="icon-box">
+                                <i class="fa-solid fa-location-dot"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-gray-900 text-base mb-1">Alamat Kantor Desa</h3>
+                                <p class="text-gray-600 text-sm leading-relaxed">
+                                    Kp. Ciloa Simpang RT/RW 01/05, Desa Mekarsari<br>
+                                    Kec. Selaawi, Kab. Garut, Jawa Barat 44187
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Item 2: Jam Pelayanan -->
+                        <div class="flex items-start gap-4 p-2 hover:bg-emerald-50/50 rounded-xl transition-colors">
+                            <div class="icon-box">
+                                <i class="fa-regular fa-clock"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-gray-900 text-base mb-1">Jam Pelayanan</h3>
+                                <p class="text-gray-600 text-sm leading-relaxed">
+                                    Senin - Jumat: 08.00 - 15.00 WIB<br>
+                                    <span class="text-xs text-gray-500 font-medium">Istirahat: 12.00 - 13.00 WIB</span>
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Item 3: Telepon -->
+                        <div class="flex items-start gap-4 p-2 hover:bg-emerald-50/50 rounded-xl transition-colors">
+                            <div class="icon-box">
+                                <i class="fa-solid fa-phone"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-gray-900 text-base mb-1">Telepon</h3>
+                                <a href="tel:0262123456" class="text-emerald-700 hover:text-emerald-900 text-sm font-semibold hover:underline">
+                                    (0262) 123456
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Item 4: WhatsApp -->
+                        <div class="flex items-start gap-4 p-2 hover:bg-emerald-50/50 rounded-xl transition-colors">
+                            <div class="icon-box text-emerald-600">
+                                <i class="fa-brands fa-whatsapp text-2xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-gray-900 text-base mb-1">WhatsApp</h3>
+                                <a href="https://wa.me/6281254567890" target="_blank" rel="noopener noreferrer" class="text-emerald-700 hover:text-emerald-900 text-sm font-semibold hover:underline inline-flex items-center gap-1.5">
+                                    +62 812 5456 7890
+                                    <i class="fa-solid fa-arrow-up-right-from-square text-xs opacity-70"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Item 5: Email -->
+                        <div class="flex items-start gap-4 p-2 hover:bg-emerald-50/50 rounded-xl transition-colors">
+                            <div class="icon-box">
+                                <i class="fa-regular fa-envelope"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-gray-900 text-base mb-1">Email</h3>
+                                <a href="mailto:desa.mekarsari@garut.go.id" class="text-emerald-700 hover:text-emerald-900 text-sm font-semibold hover:underline">
+                                    desa.mekarsari@garut.go.id
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Right Column: Interactive Card Preview Map -->
+                    <div class="lg:col-span-5 bg-white rounded-2xl p-4 border border-gray-200/80 shadow-sm flex flex-col justify-between min-h-[320px]">
+                        <div class="map-iframe-container h-full relative group">
+                            <!-- Embedded Map View -->
+                            <iframe 
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15843.435031409732!2d107.9902!3d-6.9935!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68cb3c2ae42005%3A0x7687bf3f3ce0d386!2sMekarsari%2C%20Kec.%20Selaawi%2C%20Kabupaten%20Garut%2C%20Jawa%20Barat!5e0!3m2!1sid!2sid!4v1710000000000!5m2!1sid!2sid" 
+                                class="w-full h-full rounded-xl border-0" 
+                                allowfullscreen="" 
+                                loading="lazy" 
+                                referrerpolicy="no-referrer-when-downgrade"
+                                title="Lokasi Kantor Desa Mekarsari">
+                            </iframe>
+                            <div class="absolute bottom-3 left-3 right-3 bg-white/95 backdrop-blur-sm p-3 rounded-lg border border-gray-100 shadow-md flex items-center justify-between">
+                                <div class="flex items-center gap-2">
+                                    <i class="fa-solid fa-location-dot text-red-500 text-base"></i>
+                                    <span class="text-xs font-bold text-gray-800">Kantor Desa Mekarsari</span>
+                                </div>
+                                <span class="text-[10px] text-gray-500 bg-gray-100 px-2 py-0.5 rounded">Selaawi, Garut</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="lokasi" style="margin : 50px;">
+        <main id="konten">
+
+          <div class="container">
+            <div class="map-layout">
+              <!-- Peta -->
+              <section class="map-card" id="mapCard" aria-label="Peta ilustrasi pembagian dusun">
+                <div id="map" role="group" aria-label="Peta ilustrasi Desa Mekarsari. Pilih salah satu dusun.">
+                  <!-- Ganti file gambar di sini bila ada versi baru (rasio 1671x941 disarankan) -->
+                  <img src="assets/peta-desa.jpg" width="1671" height="941" alt="Peta ilustrasi Desa Mekarsari: Dusun I di barat, Dusun II di tengah, Dusun III di timur"
+                  >
+                  
+                </div>
+              </section>
+
+              <!-- Panel samping -->
+              <aside class="side-panel" aria-label="Panel pilih dusun">
+                
+
+                <h2 class="panel-title" id="pilihDusunTitle">Pilih Dusun</h2>
+                <div class="dusun-buttons" role="group" aria-labelledby="pilihDusunTitle">
+                  <button type="button" class="dusun-btn d1" data-dusun="1" aria-pressed="false"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Dusun I</button>
+                  <button type="button" class="dusun-btn d2" data-dusun="2" aria-pressed="false"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Dusun II</button>
+                  <button type="button" class="dusun-btn d3" data-dusun="3" aria-pressed="false"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Dusun III</button>
+                </div>
+                
+
+                <p class="status" id="statusBar" role="status" aria-live="polite"></p>
+                <div id="detailPanel" class="detail-panel" aria-live="polite"></div>
+                <div id="searchResults" class="search-results" aria-live="polite"></div>
+                
+
+              </aside>
+            </div>
+
+            <!-- Kartu dusun -->
+            <section class="cards" id="cards" aria-label="Informasi dusun"></section>
+            <p class="no-result" id="noResult" hidden></p>
+          </div>
+        </main>
+        </section>
+              <!-- Decorative Bamboo Slogan Banner -->
+              <section class="relative bamboo-bg py-12 px-4 overflow-hidden border-t border-b border-[#D4C3A3]">
+                  <div class="max-w-4xl mx-auto text-center relative z-10">
+                      <h3 class="font-script text-4xl sm:text-5xl font-bold text-[#3E2B1D] mb-1 leading-tight">
+                          Desa Mekarsari
+                      </h3>
+                      <p class="font-script text-2xl sm:text-3xl text-[#5C432B] font-semibold">
+                          Melayani dengan Hati
+                      </p>
+                      <div class="mt-3 flex items-center justify-center gap-2">
+                          <span class="h-0.5 w-8 bg-[#8C6D4F]/40 rounded-full"></span>
+                          <i class="fa-solid fa-leaf text-[#3E2B1D]/60 text-xs"></i>
+                          <span class="h-0.5 w-8 bg-[#8C6D4F]/40 rounded-full"></span>
+                      </div>
+                  </div>
+              </section>
+          </main>
+          
+    <!-- Footer Section -->
+    <div id="shared-footer"></div>
+
+    <!-- Interactive Search Modal Overlay -->
+    <div id="search-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden flex items-start justify-center pt-20 px-4 transition-opacity">
+        <div class="bg-white rounded-2xl max-w-xl w-full p-6 shadow-2xl relative animate-fade-in">
+            <button onclick="closeSearchModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 p-2">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+            <h3 class="text-lg font-bold text-gray-900 mb-4">Pencarian Website Desa</h3>
+            <form onsubmit="handleSearch(event)" class="relative">
+                <input type="text" id="search-input" placeholder="Cari layanan, berita, atau informasi desa..." class="w-full pl-11 pr-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#1B4332] text-sm">
+                <i class="fa-solid fa-magnifying-glass absolute left-4 top-3.5 text-gray-400"></i>
+                <button type="submit" class="mt-3 w-full btn-green py-2.5 rounded-xl font-semibold text-sm">
+                    Cari Sekarang
+                </button>
+            </form>
+            <div id="search-results" class="mt-4 text-xs text-gray-500 hidden">
+                Menampilkan hasil pencarian cepat...
+            </div>
+        </div>
+    </div>
+    <!-- Vanilla JavaScript ES6 Logic -->
+    <script>
+        // Mobile Navigation Drawer Toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const icon = document.getElementById('menu-icon');
+            
+            if (menu.classList.contains('hidden')) {
+                menu.classList.remove('hidden');
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-xmark');
+            } else {
+                menu.classList.add('hidden');
+                icon.classList.remove('fa-xmark');
+                icon.classList.add('fa-bars');
+            }
+        }
+
+        // Search Modal Functions
+        function openSearchModal() {
+            const modal = document.getElementById('search-modal');
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                document.getElementById('search-input').focus();
+            }, 100);
+        }
+
+        function closeSearchModal() {
+            document.getElementById('search-modal').classList.add('hidden');
+        }
+
+        function handleSearch(e) {
+            e.preventDefault();
+            const query = document.getElementById('search-input').value.trim();
+            const resultsDiv = document.getElementById('search-results');
+            
+            if (query) {
+                resultsDiv.classList.remove('hidden');
+                resultsDiv.innerHTML = `<p class="text-emerald-800 font-medium">Mencari: "<strong>${escapeHtml(query)}</strong>"... Menghubungkan ke indeks informasi desa Mekarsari.</p>`;
+            }
+        }
+
+        // Utility: XSS safe sanitizer
+        function escapeHtml(str) {
+            return str.replace(/[&<>"']/g, function(m) {
+                return {
+                    '&': '&amp;',
+                    '<': '&lt;',
+                    '>': '&gt;',
+                    '"': '&quot;',
+                    "'": '&#039;'
+                }[m];
+            });
+        }
+
+        // Close modal on escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeSearchModal();
+            }
+        });
+    </script>
+  <!-- ===== HEADER =====
+       Jika website Anda sudah punya header global, ganti blok <header> ini
+       dengan header yang sama persis dan pertahankan class "active" + aria-current
+       pada menu Peta Lokasi. -->
+  
+
+  <!-- ===== FOOTER =====
+       Ganti dengan footer global website bila sudah ada. -->
+ 
+  <script src="peta-lokasi.js"></script>
+  <script src="assets/js/shared-layout.js" defer></script>
+</body>
+</html>

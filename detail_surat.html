@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Draf Surat SKTM - Desa Mekarsari</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- html2pdf.js for Client-Side PDF Generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+    <style>
+        /* CSS Variables */
+        :root {
+            --primary-dark: #1b3b2b;
+            --primary-green: #2e6b40;
+            --primary-hover: #235431;
+            --accent-green: #408d55;
+            --bg-cream: #fbf9f5;
+            --bg-white: #ffffff;
+            --text-dark: #1e293b;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --badge-draft-bg: #fef3c7;
+            --badge-draft-text: #b45309;
+            --badge-draft-border: #fcd34d;
+            --font-main: 'Plus Jakarta Sans', sans-serif;
+            --font-accent: 'Caveat', cursive;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+            --shadow-lg: 0 10px 25px rgba(0,0,0,0.1);
+            --radius-md: 8px;
+            --radius-lg: 12px;
+        }
+
+        /* Base Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-cream);
+            color: var(--text-dark);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /* Top Navbar */
+        .navbar {
+            background-color: var(--bg-white);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .navbar-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0.85rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 800;
+            font-size: 1.2rem;
+            color: var(--primary-dark);
+        }
+
+        .logo-icon-bg {
+            width: 38px;
+            height: 38px;
+            background-color: var(--primary-dark);
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 1.8rem;
+            list-style: none;
+        }
+
+        .nav-link {
+            font-size: 0.92rem;
+            font-weight: 500;
+            color: #475569;
+            transition: color 0.2s;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--primary-green);
+            font-weight: 600;
+        }
+
+        .nav-search-btn {
+            background: none;
+            border: none;
+            color: #64748b;
+            font-size: 1rem;
+            cursor: pointer;
+            padding: 0.4rem;
+        }
+
+        .hamburger {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.4rem;
+            cursor: pointer;
+            color: var(--text-dark);
+        }
+
+        /* Subnav / Back link */
+        .subnav-bar {
+            max-width: 1000px;
+            margin: 1.5rem auto 0;
+            padding: 0 1.5rem;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary-green);
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: transform 0.2s;
+        }
+
+        .back-link:hover {
+            transform: translateX(-4px);
+        }
+
+        /* Main Wrapper */
+        .main-wrapper {
+            max-width: 1000px;
+            margin: 1rem auto 3rem;
+            padding: 0 1.5rem;
+            flex: 1;
+        }
+
+        /* Header Title & Status */
+        .page-header {
+            margin-bottom: 1.5rem;
+        }
+
+        .title-row {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 0.5rem;
+        }
+
+        .page-title {
+            font-size: 1.85rem;
+            font-weight: 800;
+            color: var(--primary-dark);
+        }
+
+        .status-badge {
+            background-color: var(--badge-draft-bg);
+            color: var(--badge-draft-text);
+            border: 1px solid var(--badge-draft-border);
+            padding: 0.35rem 0.9rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .page-subtitle {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            max-width: 800px;
+        }
+
+        /* Template Selector Bar (Demo Mode Helper) */
+        .demo-bar {
+            background: #ffffff;
+            border: 1px dashed #cbd5e1;
+            padding: 0.75rem 1rem;
+            border-radius: var(--radius-md);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            font-size: 0.88rem;
+        }
+
+        .demo-bar label {
+            font-weight: 600;
+            color: var(--primary-dark);
+        }
+
+        .demo-bar select {
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            font-family: var(--font-main);
+            font-size: 0.88rem;
+            background-color: var(--bg-cream);
+            cursor: pointer;
+        }
+
+        /* A4 Letter Paper Container */
+        .letter-container {
+            background: #ffffff;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-md);
+            padding: 3.5rem 4rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Watermark Background */
+        .letter-watermark {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-30deg);
+            font-size: 5rem;
+            font-weight: 900;
+            color: rgba(0, 0, 0, 0.035);
+            letter-spacing: 8px;
+            pointer-events: none;
+            text-transform: uppercase;
+            white-space: nowrap;
+            user-select: none;
+        }
+
+        /* Letterhead / Kop Surat */
+        .kop-surat {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1.5rem;
+            text-align: center;
+            padding-bottom: 0.75rem;
+            border-bottom: 3px double #000;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .kop-logo {
+            width: 70px;
+            height: auto;
+            flex-shrink: 0;
+        }
+
+        .kop-text h4 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #000;
+        }
+
+        .kop-text h3 {
+            font-size: 1.25rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #000;
+            line-height: 1.2;
+            margin: 2px 0;
+        }
+
+        .kop-text h5 {
+            font-size: 0.9rem;
+            font-weight: 700;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            color: #000;
+        }
+
+        .kop-text p {
+            font-size: 0.8rem;
+            color: #333;
+            margin-top: 3px;
+            font-style: italic;
+        }
+
+        /* Document Body Title */
+        .doc-title-block {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .doc-title-block h2 {
+            font-size: 1.15rem;
+            font-weight: 800;
+            text-decoration: underline;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #000;
+            margin-bottom: 0.2rem;
+        }
+
+        .doc-title-block p {
+            font-size: 0.92rem;
+            font-weight: 600;
+            color: #222;
+        }
+
+        /* Letter Text Content */
+        .letter-content {
+            font-size: 0.98rem;
+            color: #111;
+            line-height: 1.7;
+            text-align: justify;
+        }
+
+        .letter-content p {
+            margin-bottom: 1rem;
+            text-indent: 2rem;
+        }
+
+        .letter-content p.no-indent {
+            text-indent: 0;
+        }
+
+        /* Identity Table */
+        .identity-table {
+            width: 100%;
+            margin: 1.2rem 0 1.2rem 2rem;
+            border-collapse: collapse;
+        }
+
+        .identity-table td {
+            padding: 0.35rem 0.5rem;
+            vertical-align: top;
+            font-size: 0.95rem;
+        }
+
+        .identity-table td.label-col {
+            width: 160px;
+            font-weight: 500;
+        }
+
+        .identity-table td.colon-col {
+            width: 15px;
+            text-align: center;
+        }
+
+        .identity-table td.value-col {
+            font-weight: 600;
+            color: #000;
+        }
+
+        /* Signature Area */
+        .signature-block {
+            margin-top: 3rem;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .signature-box {
+            width: 280px;
+            text-align: center;
+            position: relative;
+        }
+
+        .signature-box .place-date {
+            font-size: 0.95rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .signature-box .role {
+            font-size: 0.95rem;
+            font-weight: 700;
+            margin-bottom: 4.5rem; /* Space for manual signature/stamp */
+        }
+
+        .signature-box .official-name {
+            font-weight: 700;
+            font-size: 0.98rem;
+            text-decoration: underline;
+        }
+
+        .signature-box .nip {
+            font-size: 0.88rem;
+            color: #333;
+        }
+
+        /* Notice / Alert Box */
+        .draft-warning-alert {
+            background-color: #fefce8;
+            border: 1px solid #fde047;
+            border-radius: var(--radius-md);
+            padding: 1.2rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.8rem;
+        }
+
+        .draft-warning-alert i {
+            font-size: 1.6rem;
+            color: #d97706;
+            flex-shrink: 0;
+        }
+
+        .draft-warning-alert p {
+            font-size: 0.92rem;
+            color: #854d0e;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.8rem;
+            border-radius: var(--radius-md);
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+            font-family: var(--font-main);
+        }
+
+        .btn-primary {
+            background-color: var(--primary-green);
+            color: #ffffff;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-hover);
+            box-shadow: 0 4px 12px rgba(46, 107, 64, 0.25);
+        }
+
+        .btn-secondary {
+            background-color: #e2e8f0;
+            color: #334155;
+        }
+
+        .btn-secondary:hover {
+            background-color: #cbd5e1;
+            color: #1e293b;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--primary-dark);
+            color: #e2e8f0;
+            padding: 3.5rem 1.5rem 1.5rem;
+            margin-top: auto;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1.2fr 1fr;
+            gap: 2.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 800;
+            font-size: 1.25rem;
+            color: #ffffff;
+            margin-bottom: 1rem;
+        }
+
+        .footer-desc {
+            font-size: 0.88rem;
+            color: #94a3b8;
+            line-height: 1.6;
+        }
+
+        .footer-heading {
+            color: #ffffff;
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 1.2rem;
+            position: relative;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.6rem;
+        }
+
+        .footer-links a {
+            color: #cbd5e1;
+            font-size: 0.88rem;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: #ffffff;
+        }
+
+        .footer-contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            font-size: 0.88rem;
+            color: #cbd5e1;
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-contact-item i {
+            color: #4cd964;
+            margin-top: 0.2rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .social-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.2s;
+        }
+
+        .social-icon:hover {
+            background-color: var(--primary-green);
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            font-size: 0.82rem;
+            color: #94a3b8;
+        }
+
+        /* PRINT STYLES */
+        @media print {
+            body {
+                background-color: #fff;
+                color: #000;
+            }
+            .navbar, .subnav-bar, .demo-bar, .draft-warning-alert, .action-buttons, .footer {
+                display: none !important;
+            }
+            .main-wrapper {
+                margin: 0;
+                padding: 0;
+                max-width: 100%;
+            }
+            .page-header {
+                display: none !important;
+            }
+            .letter-container {
+                box-shadow: none;
+                border: none;
+                padding: 0;
+                margin: 0;
+            }
+            .letter-watermark {
+                opacity: 0.08 !important;
+            }
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none; /* Can be expanded via JS if mobile menu toggled */
+            }
+            .hamburger {
+                display: block;
+            }
+            .letter-container {
+                padding: 2rem 1.5rem;
+            }
+            .kop-surat {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            .identity-table {
+                margin-left: 0;
+            }
+            .identity-table td.label-col {
+                width: 120px;
+            }
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            .action-buttons {
+                flex-direction: column;
+                width: 100%;
+            }
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header class="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="logo-brand">
+                <div class="logo-icon-bg"><i class="fa-solid fa-tree"></i></div>
+                <span>Desa Mekarsari</span>
+            </a>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Beranda</a></li>
+                <li><a href="profil.html" class="nav-link">Profil</a></li>
+                <li><a href="berita.html" class="nav-link">Berita</a></li>
+                <li><a href="layanan-surat.html" class="nav-link active">Layanan</a></li>
+                <li><a href="umkm.html" class="nav-link">UMKM</a></li>
+                <li><a href="kontak.html" class="nav-link">Kontak</a></li>
+            </ul>
+            <div style="display: flex; align-items: center; gap: 1rem;">
+                <button class="nav-search-btn" title="Cari"><i class="fa-solid fa-magnifying-glass"></i></button>
+                <button class="hamburger" onclick="toggleMobileNav()"><i class="fa-solid fa-bars"></i></button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Subnav / Back link -->
+    <div class="subnav-bar">
+        <a href="layanan-surat.html" class="back-link">
+            <i class="fa-solid fa-arrow-left"></i> Kembali ke Layanan
+        </a>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-wrapper">
+        
+        <!-- Page Title & Header -->
+        <section class="page-header">
+            <div class="title-row">
+                <h1 class="page-title" id="pageTitleText">Draf Surat SKTM</h1>
+                <span class="status-badge">
+                    <i class="fa-solid fa-triangle-exclamation"></i> Draf — Belum Sah
+                </span>
+            </div>
+            <p class="page-subtitle">
+                Surat ini dibuat secara otomatis berdasarkan data yang Anda isi. Mohon menunggu verifikasi dan persetujuan dari petugas desa.
+            </p>
+        </section>
+
+        <!-- Dynamic Demo Template Selector (Interactive Helper) -->
+        <div class="demo-bar">
+            <div>
+                <label for="templateSelect"><i class="fa-solid fa-sliders"></i> Mode Pratinjau Jenis Surat:</label>
+            </div>
+            <select id="templateSelect" onchange="switchLetterTemplate(this.value)">
+                <option value="SKTM" selected>Surat Keterangan Tidak Mampu (SKTM)</option>
+                <option value="SKU">Surat Keterangan Usaha (SKU)</option>
+                <option value="SKD">Surat Keterangan Domisili (SKD)</option>
+            </select>
+        </div>
+
+        <!-- A4 Paper Document Preview Block -->
+        <article class="letter-container" id="printableLetter">
+            <div class="letter-watermark">DRAF - BELUM SAH</div>
+
+            <!-- Kop Surat -->
+            <header class="kop-surat">
+                <!-- Fallback Garut Logo Crest Icon/SVG -->
+                <svg class="kop-logo" viewBox="0 0 100 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M50 5L10 25V60C10 88 50 115 50 115C50 115 90 88 90 60V25L50 5Z" fill="#1b3b2b" stroke="#2e6b40" stroke-width="4"/>
+                    <path d="M50 20L25 35V60C25 78 50 95 50 95C50 95 75 78 75 60V35L50 20Z" fill="#ffffff"/>
+                    <circle cx="50" cy="55" r="15" fill="#fcd34d"/>
+                    <path d="M50 45L53 52H60L55 56L57 63L50 58L43 63L45 56L40 52H47L50 45Z" fill="#1b3b2b"/>
+                </svg>
+                <div class="kop-text">
+                    <h4>Pemerintah Kabupaten Garut</h4>
+                    <h3>Pemerintah Desa Mekarsari</h3>
+                    <h5>Kecamatan Selaawi - Kabupaten Garut</h5>
+                    <p>Alamat: Jl. Raya Mekarsari No. 01, Selaawi, Garut, Jawa Barat 44187</p>
+                </div>
+            </header>
+
+            <!-- Document Title & Number -->
+            <div class="doc-title-block">
+                <h2 id="docTitle">SURAT KETERANGAN TIDAK MAMPU</h2>
+                <p id="docNumber">Nomor: 470 / <span style="letter-spacing:1px; background:#fef3c7; padding:0 4px;">[ DRAF - AUTO ]</span> / MKS / 10 / 2026</p>
+            </div>
+
+            <!-- Main Body -->
+            <div class="letter-content">
+                <p class="no-indent">Yang bertanda tangan di bawah ini, Kepala Desa Mekarsari, Kecamatan Selaawi, Kabupaten Garut, menerangkan bahwa:</p>
+
+                <!-- Identity Table -->
+                <table class="identity-table">
+                    <tr>
+                        <td class="label-col">Nama</td>
+                        <td class="colon-col">:</td>
+                        <td class="value-col" id="applicantName">Ahmad Fauzi</td>
+                    </tr>
+                    <tr>
+                        <td class="label-col">NIK</td>
+                        <td class="colon-col">:</td>
+                        <td class="value-col" id="applicantNIK">3205010000000000</td>
+                    </tr>
+                    <tr>
+                        <td class="label-col">Alamat</td>
+                        <td class="colon-col">:</td>
+                        <td class="value-col" id="applicantAddress">Kp. Mekarsari, RT 02/RW 01, Desa Mekarsari, Kec. Selaawi, Kab. Garut</td>
+                    </tr>
+                    <tr id="extraRow1">
+                        <td class="label-col" id="extraLabel1">Pekerjaan</td>
+                        <td class="colon-col">:</td>
+                        <td class="value-col" id="extraValue1">Buruh Harian Lepas</td>
+                    </tr>
+                    <tr id="extraRow2">
+                        <td class="label-col" id="extraLabel2">Keperluan</td>
+                        <td class="colon-col">:</td>
+                        <td class="value-col" id="extraValue2">Persyaratan Pengajuan Beasiswa / Bantuan Pendidikan</td>
+                    </tr>
+                </table>
+
+                <p id="statementPara1">
+                    Berdasarkan keterangan dan hasil verifikasi data administrasi desa, nama tersebut di atas adalah benar warga Desa Mekarsari dan saat ini tergolong dalam keluarga kurang mampu (ekonomi lemah).
+                </p>
+
+                <p id="statementPara2">
+                    Demikian surat keterangan ini dibuat dengan sebenarnya untuk dipergunakan sebagaimana mestinya.
+                </p>
+            </div>
+
+            <!-- Signature Area -->
+            <div class="signature-block">
+                <div class="signature-box">
+                    <div class="place-date">Mekarsari, <span id="currentDateStr">12 Oktober 2026</span></div>
+                    <div class="role">Kepala Desa Mekarsari</div>
+                    
+                    <!-- Space for digital signature / official stamp -->
+                    
+                    <div class="official-name">(Nama Pejabat)</div>
+                    <div class="nip">NIP: (jika berlaku)</div>
+                </div>
+            </div>
+
+        </article>
+
+        <!-- Warning Box -->
+        <div class="draft-warning-alert">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            <p>Dokumen ini masih berupa draf dan harus diverifikasi serta disahkan oleh Pemerintah Desa Mekarsari.</p>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+            <button class="btn btn-primary" onclick="downloadPDF()">
+                <i class="fa-solid fa-download"></i> Unduh PDF
+            </button>
+            <a href="layanan-surat.html" class="btn btn-secondary">
+                Kembali
+            </a>
+        </div>
+
+    </main>
+
+    <!-- Footer Component -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div>
+                <div class="footer-brand">
+                    <div class="logo-icon-bg" style="width:32px; height:32px; font-size:0.9rem;"><i class="fa-solid fa-tree"></i></div>
+                    <span>Desa Mekarsari</span>
+                </div>
+                <p class="footer-desc">
+                    Website Resmi Pemerintah Desa Mekarsari, Kecamatan Selaawi, Kabupaten Garut, Jawa Barat. Mewujudkan tata kelola pemerintahan desa yang transparan dan melayani.
+                </p>
+            </div>
+
+            <div>
+                <h4 class="footer-heading">Tautan Cepat</h4>
+                <ul class="footer-links">
+                    <li><a href="index.html">Beranda</a></li>
+                    <li><a href="profil.html">Profil Desa</a></li>
+                    <li><a href="berita.html">Berita & Kegiatan</a></li>
+                    <li><a href="layanan-surat.html">Layanan</a></li>
+                    <li><a href="umkm.html">UMKM</a></li>
+                    <li><a href="kontak.html">Kontak</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="footer-heading">Kontak Kami</h4>
+                <div class="footer-contact-item">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <span>Jl. Raya Mekarsari No. 01, Kec. Selaawi, Kab. Garut</span>
+                </div>
+                <div class="footer-contact-item">
+                    <i class="fa-solid fa-phone"></i>
+                    <span>(0262) 123456</span>
+                </div>
+                <div class="footer-contact-item">
+                    <i class="fa-solid fa-envelope"></i>
+                    <span>info@desamekarsari.id</span>
+                </div>
+            </div>
+
+            <div>
+                <h4 class="footer-heading">Ikuti Kami</h4>
+                <div class="social-links">
+                    <a href="#" class="social-icon" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" class="social-icon" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 Desa Mekarsari. Semua hak dilindungi.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        // Default Mock Submission Datasets
+        const mockTemplates = {
+            "SKTM": {
+                pageTitle: "Draf Surat SKTM",
+                docTitle: "SURAT KETERANGAN TIDAK MAMPU",
+                extraLabel1: "Pekerjaan",
+                extraValue1: "Buruh Harian Lepas",
+                extraLabel2: "Keperluan",
+                extraValue2: "Persyaratan Pengajuan Beasiswa / Bantuan Pendidikan",
+                statement1: "Berdasarkan keterangan dan hasil verifikasi data administrasi desa, nama tersebut di atas adalah benar warga Desa Mekarsari dan saat ini tergolong dalam keluarga kurang mampu (ekonomi lemah).",
+                statement2: "Demikian surat keterangan ini dibuat untuk dipergunakan sebagaimana mestinya."
+            },
+            "SKU": {
+                pageTitle: "Draf Surat SKU",
+                docTitle: "SURAT KETERANGAN USAHA",
+                extraLabel1: "Nama Usaha",
+                extraValue1: "Kerajinan Bambu Mekar Jaya",
+                extraLabel2: "Jenis / Bidang Usaha",
+                extraValue2: "Industri Anyaman Bambu & Olahan Kayu",
+                statement1: "Berdasarkan pengamatan dan data di lapangan, nama tersebut di atas memang benar memiliki dan menjalankan usaha Kerajinan Bambu yang berlokasi di wilayah Desa Mekarsari, Kecamatan Selaawi.",
+                statement2: "Demikian surat keterangan usaha ini dibuat agar dapat dipergunakan sebagai kelengkapan administrasi permohonan bantuan UMKM / KUR Bank."
+            },
+            "SKD": {
+                pageTitle: "Draf Surat SKD",
+                docTitle: "SURAT KETERANGAN DOMISILI",
+                extraLabel1: "Agama",
+                extraValue1: "Islam",
+                extraLabel2: "Status Perkawinan",
+                extraValue2: "Kawin",
+                statement1: "Berdasarkan pendataan kependudukan Desa Mekarsari, nama tersebut di atas benar-benar berdomisili dan tinggal di alamat tersebut di atas wilayah Desa Mekarsari, Kecamatan Selaawi, Kabupaten Garut.",
+                statement2: "Demikian surat keterangan domisili ini dibuat untuk dipergunakan sebagaimana mestinya."
+            }
+        };
+
+        // Format Date to Indonesian Standard
+        function getFormattedIndonesianDate(dateObj = new Date()) {
+            const months = [
+                "Januari", "Februari", "Maret", "April", "Mei", "Juni", 
+                "Juli", "Agustus", "September", "Oktober", "November", "Desember"
+            ];
+            const day = dateObj.getDate();
+            const month = months[dateObj.getMonth()];
+            const year = dateObj.getFullYear();
+            return `${day} ${month} ${year}`;
+        }
+
+        // Initialize Data on Page Load
+        document.addEventListener("DOMContentLoaded", () => {
+            // Set Date
+            document.getElementById("currentDateStr").textContent = getFormattedIndonesianDate();
+
+            // Read URL Query Params or LocalStorage Data
+            const urlParams = new URLSearchParams(window.location.search);
+            const reqType = urlParams.get('type') || 'SKTM';
+            const reqId = urlParams.get('id');
+
+            // Load Submission from LocalStorage if exists
+            let savedData = null;
+            try {
+                const localStore = localStorage.getItem('mekarsari_pengajuan_terakhir');
+                if (localStore) {
+                    savedData = JSON.parse(localStore);
+                }
+            } catch(e) {
+                console.warn('LocalStorage error:', e);
+            }
+
+            if (savedData) {
+                if (savedData.nama) document.getElementById("applicantName").textContent = savedData.nama;
+                if (savedData.nik) document.getElementById("applicantNIK").textContent = savedData.nik;
+                if (savedData.alamat) document.getElementById("applicantAddress").textContent = savedData.alamat;
+                if (savedData.tipeSurat && mockTemplates[savedData.tipeSurat]) {
+                    document.getElementById("templateSelect").value = savedData.tipeSurat;
+                    switchLetterTemplate(savedData.tipeSurat);
+                    return;
+                }
+            }
+
+            // Fallback template load based on query param
+            if (mockTemplates[reqType.toUpperCase()]) {
+                document.getElementById("templateSelect").value = reqType.toUpperCase();
+                switchLetterTemplate(reqType.toUpperCase());
+            } else {
+                switchLetterTemplate('SKTM');
+            }
+        });
+
+        // Dynamic Template Switcher
+        function switchLetterTemplate(typeKey) {
+            const tpl = mockTemplates[typeKey] || mockTemplates['SKTM'];
+            
+            document.getElementById("pageTitleText").textContent = tpl.pageTitle;
+            document.getElementById("docTitle").textContent = tpl.docTitle;
+            
+            document.getElementById("extraLabel1").textContent = tpl.extraLabel1;
+            document.getElementById("extraValue1").textContent = tpl.extraValue1;
+            
+            document.getElementById("extraLabel2").textContent = tpl.extraLabel2;
+            document.getElementById("extraValue2").textContent = tpl.extraValue2;
+            
+            document.getElementById("statementPara1").textContent = tpl.statement1;
+            document.getElementById("statementPara2").textContent = tpl.statement2;
+        }
+
+        // PDF Generation via html2pdf or Browser Print Fallback
+        function downloadPDF() {
+            const element = document.getElementById('printableLetter');
+            const docTitle = document.getElementById('docTitle').textContent;
+            const applicantName = document.getElementById('applicantName').textContent;
+            const filename = `DRAF_${docTitle.replace(/\s+/g, '_')}_${applicantName.replace(/\s+/g, '_')}.pdf`;
+
+            // Configuration for html2pdf
+            const opt = {
+                margin:       [10, 15, 10, 15],
+                filename:     filename,
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2, useCORS: true, logging: false },
+                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+
+            // Check if html2pdf is available
+            if (typeof html2pdf !== 'undefined') {
+                // Temporary remove box shadow for PDF clean layout
+                element.style.boxShadow = 'none';
+                element.style.border = 'none';
+
+                html2pdf().set(opt).from(element).save().then(() => {
+                    // Restore UI styles
+                    element.style.boxShadow = '';
+                    element.style.border = '';
+                }).catch(err => {
+                    console.error("PDF generation error, fallback to print:", err);
+                    window.print();
+                });
+            } else {
+                // Fallback to native browser print
+                window.print();
+            }
+        }
+
+        function toggleMobileNav() {
+            const navMenu = document.querySelector('.nav-menu');
+            if (navMenu.style.display === 'flex') {
+                navMenu.style.display = 'none';
+            } else {
+                navMenu.style.display = 'flex';
+                navMenu.style.flexDirection = 'column';
+                navMenu.style.position = 'absolute';
+                navMenu.style.top = '100%';
+                navMenu.style.left = '0';
+                navMenu.style.right = '0';
+                navMenu.style.background = '#ffffff';
+                navMenu.style.padding = '1rem';
+                navMenu.style.boxShadow = '0 10px 15px rgba(0,0,0,0.1)';
+            }
+        }
+    </script>
+</body>
+</html>

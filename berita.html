@@ -1,0 +1,1269 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portal Berita & Kegiatan Resmi Desa Mekarsari, Kecamatan Selaawi, Kabupaten Garut. Informasi terbaru seputar pemerintahan, pembangunan, UMKM, dan kegiatan warga.">
+    <title>Berita & Kegiatan - Desa Mekarsari</title>
+    
+    <!-- Google Fonts: Plus Jakarta Sans & Caveat -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* ==========================================================================
+           DESA MEKARSARI - CSS VARIABLES & GLOBAL STYLES
+           ========================================================================== */
+        :root {
+            /* Color Palette */
+            --primary-dark: #1b4332;      /* Hijau Tua Pemerintahan */
+            --primary-bamboo: #2d6a4f;    /* Hijau Bambu */
+            --primary-light: #52b788;     /* Hijau Muda Aksen */
+            --accent-soft: #d8f3dc;       /* Hijau Soft Badge/Pill */
+            --bg-cream: #faf9f6;          /* Krem Lembut */
+            --bg-white: #ffffff;
+            --bg-light-gray: #f4f6f8;
+            --text-dark: #1d2d24;         /* Teks Utama */
+            --text-muted: #6c757d;        /* Teks Sekunder */
+            --text-light: #f8f9fa;
+            --border-color: #e2e8f0;
+            --border-hover: #b7e4c7;
+
+            /* Category Badge Colors */
+            --cat-pemerintahan-bg: #e0f2fe;
+            --cat-pemerintahan-text: #0369a1;
+            --cat-kegiatan-bg: #dcfce7;
+            --cat-kegiatan-text: #15803d;
+            --cat-umkm-bg: #fef3c7;
+            --cat-umkm-text: #b45309;
+            --cat-pembangunan-bg: #f3e8ff;
+            --cat-pembangunan-text: #6b21a8;
+
+            /* Typography */
+            --font-main: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-accent: 'Caveat', cursive;
+
+            /* Visual Elements */
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 18px;
+            --radius-pill: 50px;
+            --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.04);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1);
+            --transition: all 0.25s ease-in-out;
+            --max-width: 1140px;
+        }
+
+        /* Reset & Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-main);
+            color: var(--text-dark);
+            background-color: var(--bg-white);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        button, input {
+            font-family: inherit;
+        }
+
+        .container {
+            width: 100%;
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ==========================================================================
+           1. NAVBAR COMPONENT
+           ========================================================================== */
+        .navbar {
+            background-color: var(--bg-white);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            height: 76px;
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--primary-dark);
+        }
+
+        .brand-logo-icon {
+            width: 42px;
+            height: 42px;
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary-bamboo));
+            color: var(--bg-white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+            list-style: none;
+        }
+
+        .nav-link {
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: #4a5568;
+            padding: 8px 0;
+            position: relative;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--primary-dark);
+            font-weight: 700;
+        }
+
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--primary-bamboo);
+            border-radius: 2px;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .btn-search-nav {
+            background: transparent;
+            border: none;
+            color: var(--text-dark);
+            font-size: 1.1rem;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .btn-search-nav:hover {
+            background-color: var(--bg-light-gray);
+            color: var(--primary-bamboo);
+        }
+
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.4rem;
+            color: var(--primary-dark);
+            cursor: pointer;
+        }
+
+        /* ==========================================================================
+           2. HERO SECTION
+           ========================================================================== */
+        .hero-banner {
+            position: relative;
+            background: linear-gradient(rgba(15, 34, 25, 0.75), rgba(15, 34, 25, 0.82)), 
+                        url('https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+            color: var(--bg-white);
+            padding: 65px 0;
+            text-align: left;
+        }
+
+        .hero-content {
+            max-width: 750px;
+        }
+
+        .hero-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 8px;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 1.05rem;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 400;
+        }
+
+        /* ==========================================================================
+           3. MAIN CONTENT (SEARCH, FILTERS, LIST, PAGINATION)
+           ========================================================================== */
+        .news-section {
+            padding: 40px 0 60px 0;
+            flex-grow: 1;
+        }
+
+        /* Search Box */
+        .search-box-wrapper {
+            margin-bottom: 24px;
+        }
+
+        .search-input-container {
+            position: relative;
+            width: 100%;
+        }
+
+        .search-input-container i {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+            font-size: 1rem;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 14px 18px 14px 48px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            background-color: var(--bg-white);
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .search-input:focus {
+            border-color: var(--primary-bamboo);
+            box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.12);
+        }
+
+        /* Filter Pills */
+        .filter-pills-wrapper {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 35px;
+        }
+
+        .filter-pill {
+            padding: 8px 20px;
+            border-radius: var(--radius-pill);
+            background-color: #f1f5f9;
+            color: #475569;
+            font-size: 0.88rem;
+            font-weight: 600;
+            border: 1px solid transparent;
+            cursor: pointer;
+            transition: var(--transition);
+            user-select: none;
+        }
+
+        .filter-pill:hover {
+            background-color: #e2e8f0;
+            color: var(--primary-dark);
+        }
+
+        .filter-pill.active {
+            background-color: var(--primary-bamboo);
+            color: var(--bg-white);
+            box-shadow: 0 2px 6px rgba(45, 106, 79, 0.25);
+        }
+
+        /* News Cards List */
+        .news-list {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .news-card {
+            display: flex;
+            gap: 24px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid var(--border-color);
+            transition: var(--transition);
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .news-card:last-child {
+            border-bottom: none;
+        }
+
+        .news-thumbnail {
+            width: 240px;
+            height: 150px;
+            flex-shrink: 0;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            background-color: var(--bg-light-gray);
+            position: relative;
+        }
+
+        .news-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .news-card:hover .news-thumbnail img {
+            transform: scale(1.05);
+        }
+
+        .news-body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            flex-grow: 1;
+        }
+
+        .news-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 10px;
+            line-height: 1.4;
+            transition: var(--transition);
+        }
+
+        .news-card:hover .news-title {
+            color: var(--primary-bamboo);
+        }
+
+        .news-meta {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 10px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .news-meta-date {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* Category Badge Styles */
+        .category-badge {
+            padding: 4px 14px;
+            border-radius: var(--radius-pill);
+            font-size: 0.78rem;
+            font-weight: 700;
+            display: inline-block;
+            text-transform: capitalize;
+        }
+
+        .category-badge.pemerintahan {
+            background-color: var(--cat-pemerintahan-bg);
+            color: var(--cat-pemerintahan-text);
+        }
+
+        .category-badge.kegiatan {
+            background-color: var(--cat-kegiatan-bg);
+            color: var(--cat-kegiatan-text);
+        }
+
+        .category-badge.umkm {
+            background-color: var(--cat-umkm-bg);
+            color: var(--cat-umkm-text);
+        }
+
+        .category-badge.pembangunan {
+            background-color: var(--cat-pembangunan-bg);
+            color: var(--cat-pembangunan-text);
+        }
+
+        .news-excerpt {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            line-height: 1.5;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            background-color: var(--bg-cream);
+            border-radius: var(--radius-md);
+            border: 1px dashed var(--border-color);
+            margin: 20px 0;
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            color: #cbd5e1;
+            margin-bottom: 14px;
+        }
+
+        .empty-state h3 {
+            font-size: 1.2rem;
+            color: var(--text-dark);
+            margin-bottom: 6px;
+        }
+
+        .empty-state p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        /* Pagination Component */
+        .pagination-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            margin-top: 20px;
+        }
+
+        .page-item {
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.88rem;
+            font-weight: 600;
+            background-color: var(--bg-white);
+            border: 1px solid var(--border-color);
+            color: var(--text-dark);
+            cursor: pointer;
+            transition: var(--transition);
+            user-select: none;
+        }
+
+        .page-item:hover:not(.disabled):not(.dots) {
+            border-color: var(--primary-bamboo);
+            color: var(--primary-bamboo);
+            background-color: var(--bg-cream);
+        }
+
+        .page-item.active {
+            background-color: var(--primary-dark);
+            color: var(--bg-white);
+            border-color: var(--primary-dark);
+        }
+
+        .page-item.disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .page-item.dots {
+            border: none;
+            background: transparent;
+            cursor: default;
+        }
+
+        /* Demo Notice Banner */
+        .demo-notice {
+            background-color: #fefce8;
+            border-left: 4px solid #eab308;
+            padding: 10px 16px;
+            font-size: 0.82rem;
+            color: #854d0e;
+            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* ==========================================================================
+           4. MODAL / ARTICLE DRAWER PREVIEW
+           ========================================================================== */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-card {
+            background-color: var(--bg-white);
+            border-radius: var(--radius-lg);
+            width: 100%;
+            max-width: 720px;
+            max-height: 85vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            transform: translateY(20px);
+            transition: var(--transition);
+            padding: 30px;
+        }
+
+        .modal-overlay.active .modal-card {
+            transform: translateY(0);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 18px;
+            right: 20px;
+            background: var(--bg-light-gray);
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            cursor: pointer;
+            color: var(--text-dark);
+            transition: var(--transition);
+        }
+
+        .modal-close:hover {
+            background-color: #e2e8f0;
+            color: #ef4444;
+        }
+
+        .modal-hero-img {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            border-radius: var(--radius-md);
+            margin-bottom: 20px;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            line-height: 1.3;
+            color: var(--primary-dark);
+            margin-bottom: 12px;
+        }
+
+        .modal-meta {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .modal-content-text {
+            font-size: 0.98rem;
+            color: #334155;
+            line-height: 1.8;
+            margin-bottom: 24px;
+        }
+
+        .modal-content-text p {
+            margin-bottom: 14px;
+        }
+
+        /* ==========================================================================
+           5. FOOTER COMPONENT
+           ========================================================================== */
+        .footer {
+            background-color: var(--primary-dark);
+            color: var(--text-light);
+            padding: 50px 0 20px 0;
+            margin-top: auto;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1.2fr 1fr;
+            gap: 32px;
+            margin-bottom: 40px;
+        }
+
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .footer-brand i {
+            font-size: 1.4rem;
+            color: var(--primary-light);
+        }
+
+        .footer-desc {
+            font-size: 0.88rem;
+            color: #cbd5e1;
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+
+        .footer-heading {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: var(--bg-white);
+            position: relative;
+        }
+
+        .footer-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .footer-links a {
+            font-size: 0.88rem;
+            color: #cbd5e1;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-light);
+            padding-left: 4px;
+        }
+
+        .footer-contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 0.88rem;
+            color: #cbd5e1;
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+
+        .footer-contact-item i {
+            color: var(--primary-light);
+            margin-top: 3px;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        .social-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--bg-white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+
+        .social-btn:hover {
+            background-color: var(--primary-light);
+            color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+            text-align: center;
+            font-size: 0.82rem;
+            color: #94a3b8;
+        }
+
+        /* ==========================================================================
+           6. RESPONSIVE BREAKPOINTS
+           ========================================================================== */
+        @media (max-width: 992px) {
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar-container {
+                position: relative;
+            }
+
+            .mobile-toggle {
+                display: block;
+            }
+
+            .nav-menu {
+                position: absolute;
+                top: 76px;
+                left: -20px;
+                right: -20px;
+                background-color: var(--bg-white);
+                flex-direction: column;
+                padding: 20px 30px;
+                gap: 16px;
+                box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+                display: none;
+                border-top: 1px solid var(--border-color);
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .hero-title {
+                font-size: 1.8rem;
+            }
+
+            .hero-subtitle {
+                font-size: 0.95rem;
+            }
+
+            .news-card {
+                flex-direction: column;
+                gap: 14px;
+            }
+
+            .news-thumbnail {
+                width: 100%;
+                height: 190px;
+            }
+
+            .filter-pills-wrapper {
+                overflow-x: auto;
+                padding-bottom: 8px;
+                flex-wrap: nowrap;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .filter-pill {
+                white-space: nowrap;
+                flex-shrink: 0;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 28px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="assets/css/shared-layout.css">
+</head>
+<body data-page="berita">
+
+    <!-- ==========================================================================
+         NAVBAR SECTION
+         ========================================================================== -->
+    <div id="shared-header"></div>
+
+    <!-- ==========================================================================
+         HERO BANNER SECTION
+         ========================================================================== -->
+    <section class="hero-banner">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Berita & Kegiatan</h1>
+                <p class="hero-subtitle">Informasi terbaru seputar kegiatan dan perkembangan desa.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         MAIN CONTENT SECTION
+         ========================================================================== -->
+    <main class="news-section">
+        <div class="container">
+
+            <!-- Demo Notice Indicator -->
+            <div class="demo-notice" id="demoNotice" style="display:none">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Data yang ditampilkan merupakan <strong>data contoh (demo)</strong> untuk simulasi portal informasi Desa Mekarsari.</span>
+            </div>
+
+            <!-- Search Field -->
+            <div class="search-box-wrapper">
+                <div class="search-input-container">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input 
+                        type="text" 
+                        id="searchInput" 
+                        class="search-input" 
+                        placeholder="Cari berita..." 
+                        autocomplete="off"
+                        aria-label="Cari berita dan kegiatan"
+                    >
+                </div>
+            </div>
+
+            <!-- Category Filter Pills -->
+            <div class="filter-pills-wrapper" id="filterPillsContainer">
+                <button class="filter-pill active" data-category="semua">Semua</button>
+                <button class="filter-pill" data-category="pemerintahan">Pemerintahan</button>
+                <button class="filter-pill" data-category="kegiatan">Kegiatan</button>
+                <button class="filter-pill" data-category="umkm">UMKM</button>
+                <button class="filter-pill" data-category="pembangunan">Pembangunan</button>
+            </div>
+
+            <!-- Vertical News Cards Container -->
+            <div class="news-list" id="newsListContainer">
+                <!-- Javascript output rendered here -->
+            </div>
+
+            <!-- Dynamic Pagination -->
+            <div class="pagination-container" id="paginationContainer">
+                <!-- Javascript pagination rendered here -->
+            </div>
+
+        </div>
+    </main>
+
+    <!-- ==========================================================================
+         MODAL DETAIL BERITA (PREVIEW)
+         ========================================================================== -->
+    <div class="modal-overlay" id="newsModal">
+        <div class="modal-card">
+            <button class="modal-close" onclick="closeNewsModal()" aria-label="Tutup Detail">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <img src="" alt="" class="modal-hero-img" id="modalImg">
+            <h2 class="modal-title" id="modalTitle"></h2>
+            <div class="modal-meta">
+                <span class="category-badge" id="modalCategory"></span>
+                <span style="font-size: 0.85rem; color: var(--text-muted);" id="modalDate"></span>
+            </div>
+            <div class="modal-content-text" id="modalBody">
+                <!-- Article text -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================================================
+         FOOTER SECTION
+         ========================================================================== -->
+    <div id="shared-footer"></div>
+
+    <!-- ==========================================================================
+         VANILLA JAVASCRIPT LOGIC
+         ========================================================================== -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script src="assets/js/firebase-config.js"></script>
+    <script src="assets/js/news-store.js"></script>
+    <script>
+        /**
+         * DESA MEKARSARI - NEWS DATASET & FRONTEND APP
+         * Dynamic data filtering, search indexing, pagination, and modal rendering.
+         */
+
+        // 1. Data Store (Indonesian Demo News Items)
+        const fallbackNews = [
+            {
+                id: 1,
+                judul: "Pelatihan Anyaman Bambu untuk Pengembangan UMKM",
+                tanggal: "2024-10-12",
+                kategori: "kegiatan",
+                gambar: "https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=800&q=80",
+                ringkasan: "Pemerintah Desa Mekarsari menyelenggarakan pelatihan kerajinan bambu tingkat lanjut guna meningkatkan mutu produk ekspor pengrajin lokal.",
+                isi: "Pelatihan ini diikuti oleh lebih dari 35 pengrajin bambu dari berbagai RW di Desa Mekarsari. Dengan bimbingan instruktur profesional, para peserta diajarkan teknik finishing ramah lingkungan serta desain modern yang bernilai jual tinggi. Diharapkan pelatihan ini mampu mendongkrak perekonomian warga Selaawi yang terkenal dengan kerajinan bambunya."
+            },
+            {
+                id: 2,
+                judul: "Gotong Royong Perbaikan Jalan Desa Mekarsari",
+                tanggal: "2024-10-09",
+                kategori: "pembangunan",
+                gambar: "https://images.unsplash.com/photo-1590402494587-44b71d7772f6?auto=format&fit=crop&w=800&q=80",
+                ringkasan: "Warga Desa Mekarsari bersama aparatur desa bahu-membahu memperbaiki akses jalan perkebunan sepanjang 2 kilometer.",
+                isi: "Aksi gotong royong massal digelar pada Minggu pagi untuk memperbaiki ruas jalan desa yang menghubungkan area pertanian dengan jalur utama Kecamatan Selaawi. Kegiatan ini memangkas biaya perbaikan serta mempererat rasa kebersamaan antarwarga desa."
+            },
+            {
+                id: 3,
+                judul: "Festival Budaya Desa Mekarsari Tahun 2024",
+                tanggal: "2024-10-09",
+                kategori: "kegiatan",
+                gambar: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=800&q=80",
+                ringkasan: "Pagelaran seni tradisional dan pameran kuliner khas Garut sukses menyedot perhatian ribuan pengunjung dari luar daerah.",
+                isi: "Festival Budaya Desa Mekarsari menampilkan beragam seni pertunjukan Sunda seperti Calung, Seni Reog Bambu, serta pameran olahan pangan tradisional. Acara tahunan ini bertujuan mempromosikan eduwisata bambu dan melestarikan warisan leluhur."
+            },
+            {
+                id: 4,
+                judul: "Penyaluran Bantuan Pangan untuk Warga",
+                tanggal: "2024-09-25",
+                kategori: "pemerintahan",
+                gambar: "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=800&q=80",
+                ringkasan: "Pemerintah desa menyalurkan bantuan beras cadangan pemerintah kepada 150 Keluarga Penerima Manfaat (KPM).",
+                isi: "Penyaluran bantuan pangan tahap III berlangsung tertib di Aula Kantor Desa Mekarsari. Kepala Desa Mekarsari menyerahkan secara langsung bantuan ini kepada warga kurang mampu untuk menjaga ketahanan pangan keluarga."
+            },
+            {
+                id: 5,
+                judul: "Pengembangan Kawasan Eduwisata Bambu Selaawi",
+                tanggal: "2024-09-18",
+                kategori: "pembangunan",
+                gambar: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80",
+                ringkasan: "Penataan fasilitas penunjang eduwisata bambu Mekarsari memasuki tahap perancangan spot foto dan gazebo edukasi.",
+                isi: "Kawasan Eduwisata Bambu diproyeksikan menjadi destinasi unggulan baru di Kecamatan Selaawi. Pembangunan sarana berupa saung bambu interaktif dan jalur tracking alam mulai direalisasikan bulan ini."
+            },
+            {
+                id: 6,
+                judul: "Digitalisasi Pelayanan Surat Keterangan Online Desa",
+                tanggal: "2024-09-10",
+                kategori: "pemerintahan",
+                gambar: "https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=800&q=80",
+                ringkasan: "Masyarakat Desa Mekarsari kini dapat mengurus surat pengantar dan administrasi desa secara online.",
+                isi: "Melalui inovasi portal website resmi, pengajuan surat administrasi seperti Surat Keterangan Usaha (SKU) dan Surat Keterangan Domisili dapat dilakukan mandiri dari rumah tanpa antre di kantor desa."
+            },
+            {
+                id: 7,
+                judul: "Pelatihan Digital Marketing bagi Pelaku UMKM Desa",
+                tanggal: "2024-08-28",
+                kategori: "umkm",
+                gambar: "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=800&q=80",
+                ringkasan: "Pendampingan strategi promosi media sosial dan pendaftaran merchant marketplace bagi produk kerajinan warga.",
+                isi: "Sebanyak 20 pemilik UMKM kerajinan tangan dan makanan olahan mendapatkan materi foto produk, penulisan deskripsi jualan, serta cara mendaftarkan toko online di marketplace nasional."
+            },
+            {
+                id: 8,
+                judul: "Musyawarah Rencana Pembangunan Desa (Musrenbangdes) 2025",
+                tanggal: "2024-08-15",
+                kategori: "pemerintahan",
+                gambar: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=800&q=80",
+                ringkasan: "Pemerintah Desa, BPD, dan tokoh masyarakat sepakat merumuskan prioritas anggaran pembangunan tahun anggaran mendatang.",
+                isi: "Musrenbangdes menetapkan fokus utama anggaran tahun 2025 pada perbaikan drainase pertanian, pemulihan ekonomi UMKM bambu, serta peningkatkan mutu fasilitas posyandu desa."
+            }
+        ];
+
+        // Data yang tampil di halaman (diisi oleh loadNews)
+        let newsData = [];
+
+        const PLACEHOLDER_IMG = 'data:image/svg+xml;utf8,' + encodeURIComponent(
+            '<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500"><rect width="100%" height="100%" fill="#d8f3dc"/>' +
+            '<text x="50%" y="50%" fill="#2d6a4f" font-family="sans-serif" font-size="28" text-anchor="middle" dominant-baseline="middle">Desa Mekarsari</text></svg>'
+        );
+
+        // Ambil berita terbit dari NewsStore (Firestore, atau localStorage saat uji coba)
+        // Banner "data contoh" hanya tampil saat data contoh dipakai
+        function setDemoNotice(show) {
+            const el = document.getElementById('demoNotice');
+            if (el) el.style.display = show ? 'flex' : 'none';
+        }
+
+        async function loadNews() {
+            const container = document.getElementById('newsListContainer');
+            setDemoNotice(false);
+            container.innerHTML = '<div class="empty-state"><i class="fa-solid fa-spinner fa-spin"></i><h3>Memuat berita...</h3></div>';
+
+            if (!window.NewsStore) {
+                newsData = fallbackNews;
+                setDemoNotice(true);
+                return renderNewsList();
+            }
+
+            try {
+                newsData = await NewsStore.getAll({ publishedOnly: true });
+                // Data contoh hanya dipakai saat mode uji coba (belum ada Firestore) dan belum ada berita
+                if (NewsStore.getMode() === 'local' && newsData.length === 0) {
+                    newsData = fallbackNews;
+                    setDemoNotice(true);
+                }
+            } catch (err) {
+                console.error('[berita] Gagal memuat berita:', err);
+                newsData = [];
+                container.innerHTML = '<div class="empty-state"><i class="fa-solid fa-triangle-exclamation"></i><h3>Berita belum bisa dimuat</h3><p>Silakan muat ulang halaman beberapa saat lagi.</p></div>';
+                document.getElementById('paginationContainer').innerHTML = '';
+                return;
+            }
+            renderNewsList();
+        }
+
+        // 2. Application State Variables
+        let currentCategory = 'semua';
+        let searchQuery = '';
+        let currentPage = 1;
+        const itemsPerPage = 4;
+
+        // 3. Helper Functions
+        function formatDateID(dateString) {
+            const options = { day: 'numeric', month: 'short', year: 'numeric' };
+            const date = new Date(dateString);
+            return date.toLocaleDateString('id-ID', options);
+        }
+
+        function focusSearchInput() {
+            const searchInput = document.getElementById('searchInput');
+            searchInput.focus();
+            searchInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        // 4. Render Engine
+        function renderNewsList() {
+            const container = document.getElementById('newsListContainer');
+            
+            // Filter logic
+            const filteredNews = newsData.filter(item => {
+                const matchesCategory = currentCategory === 'semua' || item.kategori.toLowerCase() === currentCategory.toLowerCase();
+                const matchesSearch = item.judul.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                                      item.ringkasan.toLowerCase().includes(searchQuery.toLowerCase());
+                return matchesCategory && matchesSearch;
+            });
+
+            // Belum ada berita sama sekali
+            if (newsData.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fa-regular fa-newspaper"></i>
+                        <h3>Belum Ada Berita</h3>
+                        <p>Berita dan kegiatan desa akan tampil di sini.</p>
+                    </div>
+                `;
+                document.getElementById('paginationContainer').innerHTML = '';
+                return;
+            }
+
+            // Empty state check
+            if (filteredNews.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fa-regular fa-newspaper"></i>
+                        <h3>Berita Tidak Ditemukan</h3>
+                        <p>Tidak ada berita yang cocok dengan pencarian "<strong>${escapeHtml(searchQuery)}</strong>" atau kategori yang dipilih.</p>
+                    </div>
+                `;
+                document.getElementById('paginationContainer').innerHTML = '';
+                return;
+            }
+
+            // Pagination calculation
+            const totalPages = Math.ceil(filteredNews.length / itemsPerPage);
+            if (currentPage > totalPages) currentPage = 1;
+
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const paginatedItems = filteredNews.slice(startIndex, startIndex + itemsPerPage);
+
+            // Generate Cards HTML
+            let html = '';
+            paginatedItems.forEach(item => {
+                html += `
+                    <article class="news-card" onclick="openNewsModal('${item.id}')">
+                        <div class="news-thumbnail">
+                            <img src="${item.gambar || PLACEHOLDER_IMG}" alt="${escapeHtml(item.judul)}" loading="lazy" onerror="this.onerror=null;this.src=PLACEHOLDER_IMG">
+                        </div>
+                        <div class="news-body">
+                            <h2 class="news-title">${escapeHtml(item.judul)}</h2>
+                            <div class="news-meta">
+                                <span class="news-meta-date">
+                                    <i class="fa-regular fa-calendar"></i>
+                                    ${formatDateID(item.tanggal)}
+                                </span>
+                                <span class="category-badge ${item.kategori.toLowerCase()}">
+                                    ${item.kategori}
+                                </span>
+                            </div>
+                            <p class="news-excerpt">${escapeHtml(item.ringkasan)}</p>
+                        </div>
+                    </article>
+                `;
+            });
+
+            container.innerHTML = html;
+            renderPagination(totalPages);
+        }
+
+        // Render Pagination Control
+        function renderPagination(totalPages) {
+            const paginationContainer = document.getElementById('paginationContainer');
+            if (totalPages <= 1) {
+                paginationContainer.innerHTML = '';
+                return;
+            }
+
+            let paginationHTML = '';
+
+            // Previous Button
+            paginationHTML += `
+                <div class="page-item ${currentPage === 1 ? 'disabled' : ''}" onclick="changePage(${currentPage - 1})">
+                    <i class="fa-solid fa-chevron-left"></i>
+                </div>
+            `;
+
+            // Numbered Buttons
+            for (let i = 1; i <= totalPages; i++) {
+                if (i === 1 || i === totalPages || (i >= currentPage - 1 && i <= currentPage + 1)) {
+                    paginationHTML += `
+                        <div class="page-item ${i === currentPage ? 'active' : ''}" onclick="changePage(${i})">
+                            ${i}
+                        </div>
+                    `;
+                } else if (i === currentPage - 2 || i === currentPage + 2) {
+                    paginationHTML += `<div class="page-item dots">...</div>`;
+                }
+            }
+
+            // Next Button
+            paginationHTML += `
+                <div class="page-item ${currentPage === totalPages ? 'disabled' : ''}" onclick="changePage(${currentPage + 1})">
+                    <i class="fa-solid fa-chevron-right"></i>
+                </div>
+            `;
+
+            paginationContainer.innerHTML = paginationHTML;
+        }
+
+        function changePage(page) {
+            const filteredCount = newsData.filter(item => {
+                const matchesCategory = currentCategory === 'semua' || item.kategori.toLowerCase() === currentCategory.toLowerCase();
+                const matchesSearch = item.judul.toLowerCase().includes(searchQuery.toLowerCase()) || item.ringkasan.toLowerCase().includes(searchQuery.toLowerCase());
+                return matchesCategory && matchesSearch;
+            }).length;
+
+            const totalPages = Math.ceil(filteredCount / itemsPerPage);
+
+            if (page >= 1 && page <= totalPages) {
+                currentPage = page;
+                renderNewsList();
+                document.querySelector('.news-section').scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Modal Controls
+        function openNewsModal(id) {
+            const item = newsData.find(n => String(n.id) === String(id));
+            if (!item) return;
+
+            const modalImg = document.getElementById('modalImg');
+            modalImg.onerror = () => { modalImg.onerror = null; modalImg.src = PLACEHOLDER_IMG; };
+            modalImg.src = item.gambar || PLACEHOLDER_IMG;
+            document.getElementById('modalImg').alt = item.judul;
+            document.getElementById('modalTitle').innerText = item.judul;
+            document.getElementById('modalDate').innerText = formatDateID(item.tanggal);
+            
+            const categoryBadge = document.getElementById('modalCategory');
+            categoryBadge.innerText = item.kategori;
+            categoryBadge.className = `category-badge ${item.kategori.toLowerCase()}`;
+            
+            document.getElementById('modalBody').innerHTML = `
+                <p><strong>${escapeHtml(item.ringkasan)}</strong></p>
+                ${String(item.isi).split(/\n+/).filter(Boolean).map(par => `<p>${escapeHtml(par)}</p>`).join('')}
+            `;
+
+            document.getElementById('newsModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeNewsModal() {
+            document.getElementById('newsModal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Utility: Escape HTML to prevent XSS
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.innerText = text;
+            return div.innerHTML;
+        }
+
+        // 5. Event Listeners Initialization
+        document.addEventListener('DOMContentLoaded', () => {
+            // Muat berita dari penyimpanan bersama
+            loadNews();
+
+            // Mobile menu toggle
+            const mobileToggle = document.getElementById('mobileToggle');
+            const navMenu = document.getElementById('navMenu');
+            if (mobileToggle && navMenu) {
+                mobileToggle.addEventListener('click', () => navMenu.classList.toggle('active'));
+            }
+
+            // Filter pills click handler
+            const filterPills = document.querySelectorAll('.filter-pill');
+            filterPills.forEach(pill => {
+                pill.addEventListener('click', (e) => {
+                    filterPills.forEach(p => p.classList.remove('active'));
+                    e.target.classList.add('active');
+                    currentCategory = e.target.getAttribute('data-category');
+                    currentPage = 1;
+                    renderNewsList();
+                });
+            });
+
+            // Search input typing handler
+            const searchInput = document.getElementById('searchInput');
+            searchInput.addEventListener('input', (e) => {
+                searchQuery = e.target.value.trim();
+                currentPage = 1;
+                renderNewsList();
+            });
+
+            // Modal overlay click to close
+            const newsModal = document.getElementById('newsModal');
+            newsModal.addEventListener('click', (e) => {
+                if (e.target === newsModal) {
+                    closeNewsModal();
+                }
+            });
+
+            // Close modal with Escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && newsModal.classList.contains('active')) {
+                    closeNewsModal();
+                }
+            });
+        });
+    </script>
+    <script src="assets/js/shared-layout.js" defer></script>
+</body>
+</html>

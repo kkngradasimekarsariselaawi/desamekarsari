@@ -1,0 +1,1168 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desa Mekarsari - Website Resmi Desa Mekarsari, Garut</title>
+    <meta name="description" content="Website Resmi Desa Mekarsari, Kecamatan Selaawi, Kabupaten Garut, Jawa Barat. Pusat informasi, eduwisata, UMKM kerajinan bambu, dan layanan publik online.">
+
+    <!-- Google Fonts: Plus Jakarta Sans & Caveat -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        /* ==========================================================================
+           DESIGN TOKENS & GLOBAL STYLES
+           ========================================================================== */
+        :root {
+            /* Palette Warna Desa Mekarsari */
+            --color-primary: #1e4620;        /* Hijau Tua Pemerintahan */
+            --color-primary-dark: #132a18;   /* Hijau Tua Footer & Header */
+            --color-primary-light: #2d5a27;  /* Hijau Medium Hover */
+            --color-accent: #3b7a3e;         /* Hijau Bambu */
+            --color-accent-soft: #eaf2e8;    /* Hijau Muda Soft Background */
+            
+            --color-cream: #fbf9f4;         /* Krem Pendukung */
+            --color-card-bg: #f5f4ee;       /* Soft Beige Card Background */
+            --color-surface: #ffffff;        /* White Surface */
+            
+            --color-text-main: #1f2937;      /* Dark Charcoal Text */
+            --color-text-muted: #4b5563;     /* Muted Grey Text */
+            --color-text-light: #9ca3af;    /* Light Grey */
+            --color-border: #e5e7eb;        /* Border Soft */
+            --color-border-dark: #d1d5db;
+
+            /* Tipografi */
+            --font-main: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --font-accent: 'Caveat', cursive;
+
+            /* Layout & Spacing */
+            --container-max: 1200px;
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-pill: 9999px;
+
+            /* Bayangan (Shadows) */
+            --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.04);
+            --shadow-md: 0 4px 14px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.12);
+
+            /* Transisi */
+            --transition-fast: 0.2s ease;
+            --transition-normal: 0.3s ease;
+        }
+
+        /* Reset & Base Styles */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: var(--font-main);
+            color: var(--color-text-main);
+            background-color: var(--color-surface);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+            transition: color var(--transition-fast);
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        button {
+            cursor: pointer;
+            font-family: inherit;
+            border: none;
+            background: none;
+        }
+
+        .container {
+            width: 100%;
+            max-width: var(--container-max);
+            margin: 0 auto;
+            padding: 0 1.25rem;
+        }
+
+        .section-padding {
+            padding: 4rem 0;
+        }
+
+        /* ==========================================================================
+           HEADER & NAVIGATION
+           ========================================================================== */
+        .site-header {
+            position: sticky;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--color-surface);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            z-index: 1000;
+        }
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 80px;
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: var(--color-primary);
+        }
+
+        .brand-logo-icon {
+            width: 44px;
+            height: 44px;
+            background-color: var(--color-primary);
+            color: #ffffff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-link {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--color-text-main);
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--color-primary);
+        }
+
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--color-primary);
+            border-radius: 2px;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .search-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-text-main);
+            font-size: 1.1rem;
+            transition: background-color var(--transition-fast);
+        }
+
+        .search-btn:hover {
+            background-color: var(--color-accent-soft);
+            color: var(--color-primary);
+        }
+
+        .mobile-toggle {
+            display: none;
+            font-size: 1.5rem;
+            color: var(--color-text-main);
+            padding: 0.5rem;
+        }
+
+        /* Search Overlay Modal */
+        .search-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+            z-index: 2000;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding-top: 100px;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .search-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .search-container {
+            background-color: var(--color-surface);
+            width: 90%;
+            max-width: 650px;
+            padding: 1.5rem;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-lg);
+            position: relative;
+        }
+
+        .search-form {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 0.85rem 1.2rem;
+            border: 2px solid var(--color-border);
+            border-radius: var(--radius-sm);
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .search-input:focus {
+            border-color: var(--color-primary);
+        }
+
+        .search-submit-btn {
+            background-color: var(--color-primary);
+            color: white;
+            padding: 0.85rem 1.5rem;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+        }
+
+        .search-close-btn {
+            position: absolute;
+            top: -15px;
+            right: -15px;
+            background: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            box-shadow: var(--shadow-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+        }
+
+        /* ==========================================================================
+           HERO SECTION
+           ========================================================================== */
+        .hero-section {
+            position: relative;
+            min-height: 520px;
+            background: linear-gradient(rgba(15, 35, 16, 0.55), rgba(15, 35, 16, 0.65)),
+                        url('https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            color: #ffffff;
+            padding: 4rem 0;
+        }
+
+        .hero-content {
+            max-width: 650px;
+        }
+
+        .hero-title {
+            font-size: 2.75rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 1.25rem;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-description {
+            font-size: 1.2rem;
+            font-weight: 400;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            color: rgba(255, 255, 255, 0.95);
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            background-color: var(--color-primary);
+            color: #ffffff;
+            padding: 0.9rem 2rem;
+            border-radius: var(--radius-pill);
+            font-weight: 600;
+            font-size: 1rem;
+            box-shadow: var(--shadow-md);
+            transition: all var(--transition-fast);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--color-primary-light);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* ==========================================================================
+           STATISTICS SECTION
+           ========================================================================== */
+        .stats-section {
+            padding: 3rem 0;
+            background-color: var(--color-surface);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+        }
+
+        .stat-card {
+            background-color: var(--color-card-bg);
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            border-radius: var(--radius-md);
+            padding: 1.75rem 1.25rem;
+            text-align: center;
+            transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .stat-icon {
+            font-size: 2.2rem;
+            color: var(--color-primary);
+            margin-bottom: 0.85rem;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--color-text-main);
+            line-height: 1.1;
+            margin-bottom: 0.35rem;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--color-text-muted);
+            font-weight: 500;
+        }
+
+        /* ==========================================================================
+           PROFIL SINGKAT DESA
+           ========================================================================== */
+        .profile-section {
+            padding: 4rem 0;
+            background-color: var(--color-surface);
+        }
+
+        .profile-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .section-title {
+            font-size: 1.85rem;
+            font-weight: 800;
+            color: var(--color-text-main);
+            margin-bottom: 1.25rem;
+            letter-spacing: -0.01em;
+        }
+
+        .profile-text {
+            font-size: 1.05rem;
+            color: var(--color-text-muted);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .link-arrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--color-primary);
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .link-arrow:hover {
+            gap: 0.75rem;
+            color: var(--color-accent);
+        }
+
+        .profile-image-wrapper {
+            position: relative;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+        }
+
+        .profile-image {
+            width: 100%;
+            height: 340px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .profile-image-wrapper:hover .profile-image {
+            transform: scale(1.03);
+        }
+
+        /* ==========================================================================
+           BERITA TERBARU
+           ========================================================================== */
+        .news-section {
+            padding: 4rem 0;
+            background-color: var(--color-surface);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.75rem;
+        }
+
+        .news-card {
+            background-color: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+        }
+
+        .news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .news-thumb-wrapper {
+            position: relative;
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+            background-color: #e2e8f0;
+        }
+
+        .news-thumb {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .news-card:hover .news-thumb {
+            transform: scale(1.05);
+        }
+
+        .news-body {
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .news-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            line-height: 1.4;
+            color: var(--color-text-main);
+            margin-bottom: 1rem;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .news-title a:hover {
+            color: var(--color-primary);
+        }
+
+        .news-date {
+            margin-top: auto;
+            font-size: 0.85rem;
+            color: var(--color-text-light);
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .sample-content-badge {
+            display: inline-block;
+            font-size: 0.7rem;
+            background-color: #f3f4f6;
+            color: #6b7280;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-bottom: 0.5rem;
+            width: fit-content;
+        }
+
+        /* ==========================================================================
+           LAYANAN PUBLIK
+           ========================================================================== */
+        .services-section {
+            padding: 4rem 0;
+            background-color: var(--color-surface);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.75rem;
+        }
+
+        .service-card {
+            background-color: var(--color-card-bg);
+            border-radius: var(--radius-md);
+            padding: 2.25rem 1.5rem;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: all var(--transition-fast);
+            border: 1px solid rgba(0, 0, 0, 0.03);
+            text-decoration: none;
+            color: var(--color-text-main);
+        }
+
+        .service-card:hover {
+            background-color: var(--color-accent-soft);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .service-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 12px;
+            background-color: rgba(30, 70, 32, 0.1);
+            color: var(--color-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            margin-bottom: 1.2rem;
+            transition: background-color var(--transition-fast), color var(--transition-fast);
+        }
+
+        .service-card:hover .service-icon {
+            background-color: var(--color-primary);
+            color: #ffffff;
+        }
+
+        .service-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.35rem;
+        }
+
+        .service-subtitle {
+            font-size: 0.9rem;
+            color: var(--color-text-muted);
+        }
+
+        /* ==========================================================================
+           BANNER DEKORATIF BAMBU
+           ========================================================================== */
+        .bamboo-banner-section {
+            padding: 2rem 0;
+        }
+
+        .bamboo-banner {
+            background-color: #f1ebd9;
+            background-image: radial-gradient(#d3c7a1 1px, transparent 1px);
+            background-size: 16px 16px;
+            border-radius: var(--radius-md);
+            padding: 2.5rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid #e2d7b5;
+        }
+
+        .bamboo-banner-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .bamboo-title {
+            font-family: var(--font-accent);
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--color-primary);
+            line-height: 1.1;
+            margin-bottom: 0.5rem;
+        }
+
+        .bamboo-subtext {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--color-accent);
+            letter-spacing: 0.03em;
+        }
+
+        .bamboo-leaf-left,
+        .bamboo-leaf-right {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 4.5rem;
+            color: rgba(59, 122, 62, 0.25);
+            pointer-events: none;
+        }
+
+        .bamboo-leaf-left { left: 2rem; }
+        .bamboo-leaf-right { right: 2rem; }
+
+        /* ==========================================================================
+           FOOTER
+           ========================================================================== */
+        .site-footer {
+            background-color: var(--color-primary-dark);
+            color: #ffffff;
+            padding-top: 4rem;
+            padding-bottom: 2rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr 1.2fr 0.8fr;
+            gap: 2.5rem;
+            padding-bottom: 3rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 700;
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-brand-icon {
+            width: 38px;
+            height: 38px;
+            background-color: #ffffff;
+            color: var(--color-primary-dark);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+        }
+
+        .footer-heading {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 1.25rem;
+            color: #ffffff;
+        }
+
+        .footer-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.95rem;
+        }
+
+        .footer-links a:hover {
+            color: #ffffff;
+            padding-left: 4px;
+        }
+
+        .footer-contact-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.85rem;
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .footer-contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+        }
+
+        .footer-contact-item i {
+            margin-top: 0.2rem;
+            color: var(--color-accent-soft);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 0.85rem;
+        }
+
+        .social-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            transition: background-color var(--transition-fast);
+        }
+
+        .social-icon:hover {
+            background-color: var(--color-accent);
+        }
+
+        .footer-bottom {
+            padding-top: 2rem;
+            text-align: center;
+            font-size: 0.875rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* ==========================================================================
+           RESPONSIVE BREAKPOINTS
+           ========================================================================== */
+        @media (max-width: 992px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .news-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .mobile-toggle {
+                display: block;
+            }
+
+            .nav-menu {
+                position: fixed;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background-color: var(--color-surface);
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 1.5rem 2rem;
+                gap: 1.2rem;
+                box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+                display: none;
+                border-top: 1px solid var(--color-border);
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .hero-title {
+                font-size: 2.1rem;
+            }
+
+            .hero-description {
+                font-size: 1rem;
+            }
+
+            .profile-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .news-grid {
+                grid-template-columns: 1,3fr;
+            }
+
+            .bamboo-title {
+                font-size: 2.25rem;
+            }
+
+            .bamboo-leaf-left, .bamboo-leaf-right {
+                display: none;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.85rem;
+            }
+
+            .stat-card {
+                padding: 1.25rem 0.75rem;
+            }
+
+            .stat-number {
+                font-size: 1.6rem;
+            }
+
+            .hero-section {
+                min-height: 420px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="assets/css/shared-layout.css">
+</head>
+<body data-page="beranda">
+
+    <!-- ==========================================================================
+         HEADER / NAVBAR
+         ========================================================================== -->
+    <div id="shared-header"></div>
+
+    <!-- Modal Pencarian Interaktif -->
+    <div class="search-modal" id="searchModal" role="dialog" aria-modal="true" aria-label="Modal Pencarian">
+        <div class="search-container">
+            <button class="search-close-btn" id="closeSearchBtn" aria-label="Tutup Pencarian">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <form class="search-form" id="searchForm" onsubmit="handleSearch(event)">
+                <input type="text" class="search-input" id="searchInput" placeholder="Cari layanan, berita, atau informasi desa..." required>
+                <button type="submit" class="search-submit-btn">Cari</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ==========================================================================
+         HERO SECTION
+         ========================================================================== -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Selamat Datang di Desa Mekarsari</h1>
+                <p class="hero-description">Desa yang kaya akan keindahan alam dan kerajinan anyaman bambu.</p>
+                <a href="#profil" class="btn-primary">
+                    Jelajahi Desa
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         STATISTIK DESA
+         ========================================================================== -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <!-- Stat 1 -->
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fa-solid fa-users"></i></div>
+                    <div class="stat-number">1.250</div>
+                    <div class="stat-label">Jumlah Penduduk</div>
+                </div>
+                <!-- Stat 2 -->
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fa-solid fa-house-chimney"></i></div>
+                    <div class="stat-number">320</div>
+                    <div class="stat-label">Kepala Keluarga</div>
+                </div>
+                <!-- Stat 3 -->
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fa-solid fa-map-location-dot"></i></div>
+                    <div class="stat-number">3</div>
+                    <div class="stat-label">Dusun</div>
+                </div>
+                <!-- Stat 4 -->
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fa-solid fa-basket-shopping"></i></div>
+                    <div class="stat-number">45+</div>
+                    <div class="stat-label">Pengrajin Bambu</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         PROFIL SINGKAT DESA
+         ========================================================================== -->
+    <section class="profile-section" id="profil">
+        <div class="container">
+            <div class="profile-grid">
+                <div class="profile-content">
+                    <h2 class="section-title">Profil Singkat Desa</h2>
+                    <p class="profile-text">
+                        Desa Mekarsari merupakan desa yang terletak di Kecamatan Selaawi, Kabupaten Garut. Desa ini dikenal dengan potensi kerajinan anyaman bambu yang telah menjadi sumber penghidupan banyak warga sejak turun temurun.
+                    </p>
+                    <a href="profil.html" class="link-arrow">
+                        Selengkapnya <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+                <div class="profile-image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1590736969955-71cc94801759?auto=format&fit=crop&w=800&q=80" 
+                         alt="Kerajinan Anyaman Bambu Desa Mekarsari" 
+                         class="profile-image"
+                         loading="lazy"
+                         width="800"
+                         height="533">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         BERITA TERBARU (DYNAMIC RENDER FROM JS ARRAY)
+         ========================================================================== -->
+    <section class="news-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Berita Terbaru</h2>
+                <a href="berita.html" class="link-arrow">
+                    Lihat Semua <i class="fa-solid fa-arrow-right"></i>
+                </a>
+            </div>
+
+            <div class="news-grid" id="newsGrid">
+                <!-- Rendered dynamically by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         LAYANAN PUBLIK
+         ========================================================================== -->
+    <section class="services-section">
+        <div class="container">
+            <h2 class="section-title" style="margin-bottom: 2rem;">Layanan Publik</h2>
+            <div class="services-grid">
+                <!-- Service 1 -->
+                <a href="layanan-surat.html" class="service-card">
+                    <div class="service-icon">
+                        <i class="fa-solid fa-file-pen"></i>
+                    </div>
+                    <h3 class="service-title">Ajukan Surat</h3>
+                    <p class="service-subtitle">Pembuatan Surat Online</p>
+                </a>
+
+                <!-- Service 2 -->
+                <a href="layanan-surat.html#Pengaduan" class="service-card">
+                    <div class="service-icon">
+                        <i class="fa-solid fa-comments"></i>
+                    </div>
+                    <h3 class="service-title">Pengaduan</h3>
+                    <p class="service-subtitle">Lapor Masalah Warga</p>
+                </a>
+
+                <!-- Service 3 -->
+                <a href="lacak-pengajuan.html" class="service-card">
+                    <div class="service-icon">
+                        <i class="fa-solid fa-magnifying-glass-location"></i>
+                    </div>
+                    <h3 class="service-title">Lacak Pengajuan</h3>
+                    <p class="service-subtitle">Cek Status Surat</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         BANNER DEKORATIF BAMBU
+         ========================================================================== -->
+    <section class="bamboo-banner-section">
+        <div class="container">
+            <div class="bamboo-banner">
+                <i class="fa-solid fa-leaf bamboo-leaf-left"></i>
+                <i class="fa-solid fa-leaf bamboo-leaf-right"></i>
+                <div class="bamboo-banner-content">
+                    <h2 class="bamboo-title">Maju Bersama, Lestari dengan Bambu</h2>
+                    <p class="bamboo-subtext">Desa Mekarsari, Desa Mandiri, Budaya Lestari</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         FOOTER
+         ========================================================================== -->
+    <div id="shared-footer"></div>
+
+    <!-- ==========================================================================
+         JAVASCRIPT LOGIC
+         ========================================================================== -->
+    <script>
+        // Data Berita Contoh (Mock Data JavaScript Array)
+        const sampleNewsData = [
+            {
+                id: 1,
+                title: "Pelatihan Anyaman Bambu untuk Pengembangan UMKM",
+                date: "12 Okt 2024",
+                image: "https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=600&q=80",
+                link: "berita.html?id=1"
+            },
+            {
+                id: 2,
+                title: "Gotong Royong Perbaikan Jalan Desa Mekarsari",
+                date: "8 Okt 2024",
+                image: "https://images.unsplash.com/photo-1590402494682-cd3fb53b1f70?auto=format&fit=crop&w=600&q=80",
+                link: "berita.html?id=2"
+            },
+            {
+                id: 3,
+                title: "Festival Budaya Desa Mekarsari Tahun 2024",
+                date: "1 Okt 2024",
+                image: "https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&fit=crop&w=600&q=80",
+                link: "berita.html?id=3"
+            }
+        ];
+
+        // Render Berita Secara Dinamis
+        function renderNews() {
+            const newsGrid = document.getElementById('newsGrid');
+            if (!newsGrid) return;
+
+            newsGrid.innerHTML = sampleNewsData.map(news => `
+                <article class="news-card">
+                    <div class="news-thumb-wrapper">
+                        <img src="${news.image}" alt="${news.title}" class="news-thumb" loading="lazy" width="600" height="400">
+                    </div>
+                    <div class="news-body">
+                        <span class="sample-content-badge">Konten Contoh</span>
+                        <h3 class="news-title">
+                            <a href="${news.link}">${news.title}</a>
+                        </h3>
+                        <div class="news-date">
+                            <i class="fa-regular fa-calendar"></i>
+                            <span>${news.date}</span>
+                        </div>
+                    </div>
+                </article>
+            `).join('');
+        }
+
+        // Toggle Navigation Bar Mobile
+        function initMobileNav() {
+            const mobileToggleBtn = document.getElementById('mobileToggleBtn');
+            const navMenu = document.getElementById('navMenu');
+
+            if (mobileToggleBtn && navMenu) {
+                mobileToggleBtn.addEventListener('click', () => {
+                    navMenu.classList.toggle('active');
+                    const icon = mobileToggleBtn.querySelector('i');
+                    if (navMenu.classList.contains('active')) {
+                        icon.className = 'fa-solid fa-xmark';
+                    } else {
+                        icon.className = 'fa-solid fa-bars';
+                    }
+                });
+            }
+        }
+
+        // Modal Pencarian
+        function initSearchModal() {
+            const openSearchBtn = document.getElementById('openSearchBtn');
+            const closeSearchBtn = document.getElementById('closeSearchBtn');
+            const searchModal = document.getElementById('searchModal');
+            const searchInput = document.getElementById('searchInput');
+
+            if (openSearchBtn && searchModal) {
+                openSearchBtn.addEventListener('click', () => {
+                    searchModal.classList.add('active');
+                    if (searchInput) searchInput.focus();
+                });
+            }
+
+            if (closeSearchBtn && searchModal) {
+                closeSearchBtn.addEventListener('click', () => {
+                    searchModal.classList.remove('active');
+                });
+            }
+
+            // Tutup saat menekan ESC
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && searchModal.classList.contains('active')) {
+                    searchModal.classList.remove('active');
+                }
+            });
+        }
+
+        function handleSearch(event) {
+            event.preventDefault();
+            const query = document.getElementById('searchInput').value.trim();
+            if (query) {
+                alert(`Pencarian untuk: "${query}"\nFitur pencarian penuh akan menampilkan hasil terkait.`);
+                document.getElementById('searchModal').classList.remove('active');
+            }
+        }
+
+        // Initialize App
+        document.addEventListener('DOMContentLoaded', () => {
+            renderNews();
+            initMobileNav();
+            initSearchModal();
+        });
+    </script>
+    <script src="assets/js/shared-layout.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Pengrajin Bambu Desa Mekarsari, Kecamatan Selaawi, Kabupaten Garut. Dukung produk lokal dan ekonomi desa.">
+    <title>Pengrajin Bambu - Desa Mekarsari</title>
+    
+    <!-- Google Fonts: Plus Jakarta Sans & Caveat -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'desa-dark': '#183b27',
+                        'desa-green': '#245a3a',
+                        'desa-leaf': '#2e7d32',
+                        'desa-bamboo': '#7d924d',
+                        'desa-cream': '#f9f8f3',
+                        'desa-beige': '#eae5d9',
+                        'desa-amber': '#d97706',
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        accent: ['Caveat', 'cursive'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        :root {
+            --color-primary: #183b27;
+            --color-secondary: #245a3a;
+            --color-accent: #2e7d32;
+            --color-bg-light: #f9f8f3;
+            --color-card-border: #e2e8f0;
+            --radius-md: 12px;
+            --shadow-subtle: 0 4px 20px -2px rgba(24, 59, 39, 0.08);
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--color-bg-light);
+            color: #1e293b;
+        }
+
+        .hero-banner {
+            background: linear-gradient(180deg, rgba(20, 48, 31, 0.72) 0%, rgba(15, 35, 23, 0.88) 100%), 
+                        url('https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&q=80&w=1600') center/cover no-repeat;
+        }
+
+        .category-pill {
+            transition: all 0.2s ease-in-out;
+            cursor: pointer;
+        }
+
+        .category-pill.active {
+            background-color: #183b27;
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(24, 59, 39, 0.25);
+        }
+
+        .category-pill:not(.active) {
+            background-color: #ffffff;
+            color: #475569;
+            border: 1px solid #e2e8f0;
+        }
+
+        .category-pill:not(.active):hover {
+            background-color: #f1f5f9;
+            color: #183b27;
+        }
+
+        .card-umkm {
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            background: #ffffff;
+            border-radius: var(--radius-md);
+            border: 1px solid #e2e8f0;
+            overflow: hidden;
+            box-shadow: var(--shadow-subtle);
+        }
+
+        .card-umkm:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 28px -4px rgba(24, 59, 39, 0.15);
+        }
+
+        .btn-whatsapp {
+            background-color: #183b27;
+            color: #ffffff;
+            transition: background-color 0.2s ease;
+        }
+
+        .btn-whatsapp:hover {
+            background-color: #245a3a;
+        }
+
+        .pagination-btn {
+            min-width: 40px;
+            height: 40px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .pagination-btn.active {
+            background-color: #183b27;
+            color: #ffffff;
+        }
+
+        .pagination-btn:not(.active) {
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+            color: #475569;
+        }
+
+        .pagination-btn:not(.active):hover:not(:disabled) {
+            background-color: #f8fafc;
+            color: #183b27;
+        }
+
+        .pagination-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        /* Image Skeleton Loading Styling */
+        .img-container {
+            position: relative;
+            background-color: #e2e8f0;
+            overflow: hidden;
+        }
+
+        .img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 0.3s ease;
+        }
+    </style>
+    <link rel="stylesheet" href="assets/css/shared-layout.css">
+    <script src="assets/js/shared-layout.js" defer></script>
+</head>
+<body class="flex flex-col min-h-screen" data-page="umkm">
+    <!-- Header bersama untuk seluruh halaman -->
+    <div id="shared-header"></div>
+
+    <main class="flex-grow">
+        <!-- Hero Section -->
+        <section class="hero-banner py-16 md:py-24 text-center px-4 relative">
+            <div class="max-w-4xl mx-auto">
+                <span class="inline-block px-3 py-1 bg-amber-500/20 text-amber-200 text-xs font-semibold rounded-full mb-3 tracking-wider uppercase border border-amber-400/30">
+                    <i class="fa-solid fa-seedling mr-1"></i> Sentra Kerajinan Bambu Selaawi
+                </span>
+                <h1 class="text-3xl md:text-5xl font-extrabold text-white tracking-tight leading-tight">
+                    Pengrajin Bambu
+                </h1>
+                <p class="mt-3 text-base md:text-xl text-emerald-100 font-light max-w-2xl mx-auto">
+                    Dukung produk lokal, dukung ekonomi desa
+                </p>
+            </div>
+        </section>
+
+        <!-- Search and Filter Container -->
+        <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 relative z-10">
+            <!-- Search Box Card -->
+            <div class="bg-white rounded-2xl shadow-lg p-4 md:p-6 border border-gray-100 mb-8">
+                <div class="relative flex items-center">
+                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-gray-400">
+                        <i class="fa-solid fa-magnifying-glass text-lg"></i>
+                    </div>
+                    <input 
+                        type="text" 
+                        id="search-input" 
+                        placeholder="Cari nama usaha atau produk..." 
+                        class="w-full pl-11 pr-12 py-3.5 bg-gray-50 border border-gray-200 rounded-xl text-gray-800 placeholder-gray-400 text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-desa-green focus:bg-white transition-all"
+                    >
+                    <button id="clear-search-btn" class="hidden absolute inset-y-0 right-0 pr-4 flex items-center text-gray-400 hover:text-gray-600">
+                        <i class="fa-solid fa-xmark text-lg"></i>
+                    </button>
+                </div>
+
+                <!-- Filter Category Pills -->
+                <div class="mt-5 flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none" id="category-pills">
+                    <button class="category-pill active px-5 py-2.5 rounded-full text-xs md:text-sm font-semibold whitespace-nowrap" data-category="Semua">
+                        Semua
+                    </button>
+                    <button class="category-pill px-5 py-2.5 rounded-full text-xs md:text-sm font-semibold whitespace-nowrap" data-category="Anyaman">
+                        Anyaman
+                    </button>
+                    <button class="category-pill px-5 py-2.5 rounded-full text-xs md:text-sm font-semibold whitespace-nowrap" data-category="Kerajinan Rumah">
+                        Kerajinan Rumah
+                    </button>
+                    <button class="category-pill px-5 py-2.5 rounded-full text-xs md:text-sm font-semibold whitespace-nowrap" data-category="Peralatan">
+                        Peralatan
+                    </button>
+                    <button class="category-pill px-5 py-2.5 rounded-full text-xs md:text-sm font-semibold whitespace-nowrap" data-category="Aksesoris">
+                        Aksesoris
+                    </button>
+                </div>
+            </div>
+
+            <!-- Notice Disclaimer Demo Data -->
+            <div class="flex items-center justify-between text-xs text-gray-500 mb-4 px-1">
+                <span id="result-counter" class="font-medium text-gray-700">Menampilkan produk UMKM...</span>
+                <span id="demo-notice" class="hidden bg-amber-50 text-amber-700 px-2.5 py-1 rounded border border-amber-200 text-[11px] font-medium">
+                    <i class="fa-solid fa-circle-info mr-1"></i> Mode uji coba: menampilkan data contoh
+                </span>
+            </div>
+
+            <!-- Products Grid Container -->
+            <div id="umkm-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+                <!-- Cards dynamically loaded via JS -->
+            </div>
+
+            <!-- No Results Found View -->
+            <div id="no-results" class="hidden text-center py-16 bg-white rounded-2xl border border-gray-200 mb-12">
+                <div class="w-16 h-16 bg-emerald-50 rounded-full flex items-center justify-center text-desa-green mx-auto mb-4 text-2xl">
+                    <i class="fa-solid fa-box-open"></i>
+                </div>
+                <h3 class="text-lg font-bold text-gray-800">Usaha atau Produk Tidak Ditemukan</h3>
+                <p class="text-sm text-gray-500 mt-1 max-w-md mx-auto">Coba gunakan kata kunci pencarian lain atau pilih filter kategori yang berbeda.</p>
+                <button onclick="resetFilters()" class="mt-4 px-4 py-2 bg-desa-dark text-white rounded-lg text-xs font-semibold hover:bg-desa-green transition-colors">
+                    Reset Filter Pencarian
+                </button>
+            </div>
+
+            <!-- Pagination Controls -->
+            <div class="flex justify-center items-center gap-2 mb-16" id="pagination-container">
+                <!-- Pagination Buttons Rendered dynamically -->
+            </div>
+        </section>
+    </main>
+    <!-- Footer bersama untuk seluruh halaman -->
+    <div id="shared-footer"></div>
+
+    <!-- Global Search Modal -->
+    <div id="global-search-modal" class="fixed inset-0 bg-black/60 z-50 hidden backdrop-blur-sm flex items-start justify-center pt-20 px-4">
+        <div class="bg-white w-full max-w-lg rounded-2xl p-5 shadow-2xl">
+            <div class="flex justify-between items-center pb-3 border-b border-gray-100">
+                <h3 class="font-bold text-gray-800">Cari di Portal Desa</h3>
+                <button onclick="toggleGlobalSearchModal()" class="text-gray-400 hover:text-gray-600">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+            <div class="mt-4">
+                <input type="text" placeholder="Masukkan kata kunci..." class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-desa-green">
+            </div>
+            <div class="mt-4 text-xs text-gray-500">
+                Pencarian populer: <span class="text-desa-green font-medium">Bambu, Surat Keterangan, Berita Desa, Pengaduan</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Detail UMKM -->
+    <div id="detail-modal" class="fixed inset-0 bg-black/60 z-50 hidden backdrop-blur-sm items-start justify-center p-4 overflow-y-auto" aria-hidden="true">
+        <div class="bg-white w-full max-w-lg rounded-2xl shadow-2xl my-8 overflow-hidden" role="dialog" aria-modal="true" aria-labelledby="detail-title">
+            <div id="detail-body"></div>
+        </div>
+    </div>
+
+    <!-- Firebase (hanya Firestore; pengunjung tidak perlu login) -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script src="assets/js/firebase-config.js"></script>
+    <script src="assets/js/umkm-store.js"></script>
+
+    <script>
+        /**
+         * KATALOG UMKM & PENGRAJIN BAMBU DESA MEKARSARI
+         * Data dibaca realtime dari Firestore (koleksi "umkm") lewat UmkmStore.
+         * Hanya UMKM berstatus "Aktif" yang tampil. Kelola datanya di Dashboard Admin > UMKM.
+         */
+        let umkmData = [];
+        let loadState = 'loading'; // loading | ready | error
+        let loadError = '';
+
+        // State variables
+        let currentCategory = "Semua";
+        let searchQuery = "";
+        let currentPage = 1;
+        const itemsPerPage = 6;
+
+        // Element Selectors
+        const searchInput = document.getElementById('search-input');
+        const clearSearchBtn = document.getElementById('clear-search-btn');
+        const categoryPills = document.querySelectorAll('.category-pill');
+        const umkmGrid = document.getElementById('umkm-grid');
+        const noResults = document.getElementById('no-results');
+        const paginationContainer = document.getElementById('pagination-container');
+        const resultCounter = document.getElementById('result-counter');
+        const detailModal = document.getElementById('detail-modal');
+        const detailBody = document.getElementById('detail-body');
+
+        // Data berasal dari database, jadi semua teks di-escape sebelum masuk innerHTML
+        function esc(s) {
+            return String(s == null ? '' : s).replace(/[&<>"']/g, c => (
+                { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]
+            ));
+        }
+
+        const photoOf = (item) => UmkmStore.photoUrl(item.foto) || UmkmStore.placeholder(item.nama);
+        const waLink = (item) => `https://wa.me/${UmkmStore.waNumber(item.telepon)}?text=` +
+            encodeURIComponent(`Halo ${item.nama}, saya menemukan usaha Anda di Portal Resmi Desa Mekarsari. Saya ingin bertanya mengenai produk kerajinan bambu.`);
+        // Menu mobile dikelola oleh assets/js/shared-layout.js.
+
+        // Global Modal Toggle
+        function toggleGlobalSearchModal() {
+            const modal = document.getElementById('global-search-modal');
+            modal.classList.toggle('hidden');
+        }
+
+        // Foto gagal dimuat -> ganti gambar pengganti
+        function handleImageError(img) {
+            img.onerror = null;
+            img.src = UmkmStore.placeholder(img.alt);
+        }
+
+        // Filter Data Function
+        function getFilteredData() {
+            const q = searchQuery.toLowerCase();
+            return umkmData.filter(item => {
+                const matchesCategory = currentCategory === "Semua" || item.kategori === currentCategory;
+                const matchesSearch = [item.nama, item.ringkasan, item.kategori, item.alamat]
+                    .some(v => String(v || '').toLowerCase().includes(q));
+                return matchesCategory && matchesSearch;
+            });
+        }
+
+        // Pesan penuh-lebar di area grid (memuat, gagal, atau belum ada data)
+        function showGridMessage(icon, title, text, retry) {
+            noResults.classList.add('hidden');
+            paginationContainer.innerHTML = '';
+            umkmGrid.innerHTML = `
+                <div class="col-span-full text-center py-16 bg-white rounded-2xl border border-gray-200">
+                    <div class="w-16 h-16 bg-emerald-50 rounded-full flex items-center justify-center text-desa-green mx-auto mb-4 text-2xl">
+                        <i class="fa-solid ${icon}"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-800">${esc(title)}</h3>
+                    <p class="text-sm text-gray-500 mt-1 max-w-md mx-auto">${esc(text)}</p>
+                    ${retry ? '<button onclick="location.reload()" class="mt-4 px-4 py-2 bg-desa-dark text-white rounded-lg text-xs font-semibold hover:bg-desa-green transition-colors">Muat Ulang Halaman</button>' : ''}
+                </div>`;
+        }
+
+        function showSkeleton() {
+            noResults.classList.add('hidden');
+            paginationContainer.innerHTML = '';
+            umkmGrid.innerHTML = Array.from({ length: 3 }, () => `
+                <div class="card-umkm animate-pulse" aria-hidden="true">
+                    <div class="h-48 bg-gray-200"></div>
+                    <div class="p-5 space-y-3">
+                        <div class="h-4 bg-gray-200 rounded w-3/4"></div>
+                        <div class="h-3 bg-gray-200 rounded w-full"></div>
+                        <div class="h-3 bg-gray-200 rounded w-2/3"></div>
+                    </div>
+                </div>`).join('');
+        }
+
+        // Render Cards
+        function renderCards() {
+            if (loadState === 'loading') {
+                resultCounter.textContent = 'Memuat data Pengrajin...';
+                showSkeleton();
+                return;
+            }
+            if (loadState === 'error') {
+                resultCounter.textContent = 'Data Pengrajin tidak dapat dimuat';
+                showGridMessage('fa-triangle-exclamation', 'Data Pengrajin belum bisa dimuat', loadError, true);
+                return;
+            }
+            if (umkmData.length === 0) {
+                resultCounter.textContent = 'Belum ada Pengrajin';
+                showGridMessage('fa-store', 'Belum ada Pengrajin yang terdaftar', 'Katalog usaha dan pengrajin bambu akan tampil di sini setelah ditambahkan oleh pemerintah desa.', false);
+                return;
+            }
+
+            const filteredData = getFilteredData();
+            const totalItems = filteredData.length;
+            const totalPages = Math.ceil(totalItems / itemsPerPage) || 1;
+
+            if (currentPage > totalPages) currentPage = totalPages;
+
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const paginatedData = filteredData.slice(startIndex, startIndex + itemsPerPage);
+
+            // Update result counter text
+            resultCounter.textContent = `Menampilkan ${paginatedData.length} dari ${totalItems} usaha / pengrajin`;
+
+            if (totalItems === 0) {
+                umkmGrid.innerHTML = '';
+                noResults.classList.remove('hidden');
+                paginationContainer.innerHTML = '';
+                return;
+            }
+
+            noResults.classList.add('hidden');
+
+            // Render Card Items
+            umkmGrid.innerHTML = paginatedData.map(item => `
+                <article class="card-umkm flex flex-col justify-between">
+                    <div>
+                        <!-- Thumbnail Image Container -->
+                        <div class="img-container h-48 w-full">
+                            <img
+                                src="${esc(photoOf(item))}"
+                                alt="${esc(item.nama)}"
+                                loading="lazy"
+                                onerror="handleImageError(this)"
+                            >
+                            <span class="absolute top-3 left-3 bg-white/95 backdrop-blur-md text-desa-dark text-xs font-bold px-3 py-1 rounded-full shadow-sm border border-emerald-100">
+                                ${esc(item.kategori)}
+                            </span>
+                        </div>
+
+                        <!-- Card Content -->
+                        <div class="p-5">
+                            <h2 class="text-lg font-bold text-gray-900 leading-snug group-hover:text-desa-green transition-colors">
+                                ${esc(item.nama)}
+                            </h2>
+                            <p class="text-xs text-gray-600 mt-1.5 line-clamp-2 leading-relaxed">
+                                ${esc(item.ringkasan)}
+                            </p>
+
+                            <div class="mt-4 pt-3 border-t border-gray-100 space-y-1.5 text-xs text-gray-500">
+                                <div class="flex items-center gap-2">
+                                    <i class="fa-solid fa-location-dot text-emerald-600 w-4 text-center"></i>
+                                    <span class="truncate">${esc(item.alamat)}</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <i class="fa-solid fa-phone text-emerald-600 w-4 text-center"></i>
+                                    <span>${esc(item.telepon)}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card Actions -->
+                    <div class="p-5 pt-0 flex items-center gap-2">
+                        <a
+                            href="${esc(waLink(item))}"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="btn-whatsapp flex-1 py-2.5 px-3 rounded-xl text-xs font-bold flex items-center justify-center gap-2 shadow-sm"
+                            title="Hubungi via WhatsApp"
+                        >
+                            <i class="fa-brands fa-whatsapp text-sm"></i> WhatsApp
+                        </a>
+                        <button
+                            type="button"
+                            data-detail="${esc(item.id)}"
+                            class="px-3.5 py-2.5 rounded-xl border border-gray-200 text-xs font-semibold text-gray-700 hover:bg-gray-50 transition-colors flex items-center justify-center"
+                            title="Lihat Detail Usaha"
+                        >
+                            Detail
+                        </button>
+                    </div>
+                </article>
+            `).join('');
+
+            renderPagination(totalPages);
+        }
+
+        // Render Pagination Control Buttons
+        function renderPagination(totalPages) {
+            if (totalPages <= 1) {
+                paginationContainer.innerHTML = '';
+                return;
+            }
+
+            let buttonsHTML = '';
+
+            // Previous Button
+            buttonsHTML += `
+                <button
+                    onclick="changePage(${currentPage - 1})"
+                    class="pagination-btn"
+                    ${currentPage === 1 ? 'disabled' : ''}
+                    aria-label="Halaman Sebelumnya"
+                >
+                    <i class="fa-solid fa-chevron-left text-xs"></i>
+                </button>
+            `;
+
+            // Numeric Page Buttons
+            for (let i = 1; i <= totalPages; i++) {
+                buttonsHTML += `
+                    <button
+                        onclick="changePage(${i})"
+                        class="pagination-btn ${currentPage === i ? 'active' : ''}"
+                    >
+                        ${i}
+                    </button>
+                `;
+            }
+
+            // Next Button
+            buttonsHTML += `
+                <button
+                    onclick="changePage(${currentPage + 1})"
+                    class="pagination-btn"
+                    ${currentPage === totalPages ? 'disabled' : ''}
+                    aria-label="Halaman Selanjutnya"
+                >
+                    <i class="fa-solid fa-chevron-right text-xs"></i>
+                </button>
+            `;
+
+            paginationContainer.innerHTML = buttonsHTML;
+        }
+
+        // Change Page Function
+        function changePage(newPage) {
+            const filteredData = getFilteredData();
+            const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+            if (newPage >= 1 && newPage <= totalPages) {
+                currentPage = newPage;
+                renderCards();
+                // Scroll smoothly to top of cards
+                document.getElementById('search-input').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        // Reset Filter Function
+        function resetFilters() {
+            currentCategory = "Semua";
+            searchQuery = "";
+            searchInput.value = "";
+            clearSearchBtn.classList.add('hidden');
+
+            categoryPills.forEach(pill => {
+                if (pill.dataset.category === "Semua") {
+                    pill.classList.add('active');
+                } else {
+                    pill.classList.remove('active');
+                }
+            });
+
+            currentPage = 1;
+            renderCards();
+        }
+
+        /* ---------- Modal detail ---------- */
+        let detailLastFocus = null;
+        let detailId = null;
+
+        function openDetail(id) {
+            const item = umkmData.find(u => u.id === id);
+            if (!item) return;
+            detailId = id;
+            const row = (icon, label, value) => value ? `
+                <div class="flex items-start gap-3 text-sm">
+                    <i class="fa-solid ${icon} text-emerald-600 w-4 text-center mt-1"></i>
+                    <div><div class="text-xs text-gray-500">${label}</div><div class="text-gray-800">${esc(value)}</div></div>
+                </div>` : '';
+            detailBody.innerHTML = `
+                <div class="img-container h-56 w-full">
+                    <img src="${esc(photoOf(item))}" alt="${esc(item.nama)}" onerror="handleImageError(this)">
+                </div>
+                <div class="p-6">
+                    <div class="flex items-start justify-between gap-4">
+                        <div>
+                            <span class="inline-block text-xs font-bold text-desa-dark bg-emerald-50 border border-emerald-100 px-3 py-1 rounded-full">${esc(item.kategori)}</span>
+                            <h2 id="detail-title" class="mt-2 text-xl font-bold text-gray-900 leading-snug">${esc(item.nama)}</h2>
+                        </div>
+                        <button type="button" data-close-detail class="text-gray-400 hover:text-gray-600 p-1" aria-label="Tutup detail">
+                            <i class="fa-solid fa-xmark text-lg"></i>
+                        </button>
+                    </div>
+                    <p class="mt-3 text-sm text-gray-600 leading-relaxed">${esc(item.deskripsi || item.ringkasan)}</p>
+                    <div class="mt-5 pt-4 border-t border-gray-100 space-y-3">
+                        ${row('fa-user', 'Pemilik', item.pemilik)}
+                        ${row('fa-tag', 'Kisaran harga', item.hargaRentang)}
+                        ${row('fa-location-dot', 'Alamat', item.alamat)}
+                        ${row('fa-phone', 'Telepon / WhatsApp', item.telepon)}
+                    </div>
+                    <a href="${esc(waLink(item))}" target="_blank" rel="noopener noreferrer"
+                       class="btn-whatsapp mt-6 w-full py-3 px-4 rounded-xl text-sm font-bold flex items-center justify-center gap-2 shadow-sm">
+                        <i class="fa-brands fa-whatsapp"></i> Hubungi via WhatsApp
+                    </a>
+                </div>`;
+            detailLastFocus = document.activeElement;
+            detailModal.classList.remove('hidden');
+            detailModal.classList.add('flex');
+            detailModal.setAttribute('aria-hidden', 'false');
+            document.body.style.overflow = 'hidden';
+            const closeBtn = detailBody.querySelector('[data-close-detail]');
+            if (closeBtn) closeBtn.focus();
+        }
+
+        function closeDetail() {
+            detailId = null;
+            detailModal.classList.add('hidden');
+            detailModal.classList.remove('flex');
+            detailModal.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = '';
+            detailBody.innerHTML = '';
+            if (detailLastFocus && typeof detailLastFocus.focus === 'function') detailLastFocus.focus();
+        }
+
+        umkmGrid.addEventListener('click', (e) => {
+            const btn = e.target.closest('[data-detail]');
+            if (btn) openDetail(btn.dataset.detail);
+        });
+        detailModal.addEventListener('click', (e) => {
+            if (e.target === detailModal || e.target.closest('[data-close-detail]')) closeDetail();
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !detailModal.classList.contains('hidden')) closeDetail();
+        });
+
+        // Event Listeners for Search Input
+        searchInput.addEventListener('input', (e) => {
+            searchQuery = e.target.value.trim();
+            if (searchQuery.length > 0) {
+                clearSearchBtn.classList.remove('hidden');
+            } else {
+                clearSearchBtn.classList.add('hidden');
+            }
+            currentPage = 1;
+            renderCards();
+        });
+
+        clearSearchBtn.addEventListener('click', () => {
+            searchInput.value = '';
+            searchQuery = '';
+            clearSearchBtn.classList.add('hidden');
+            currentPage = 1;
+            renderCards();
+        });
+
+        // Event Listeners for Category Pills
+        categoryPills.forEach(pill => {
+            pill.addEventListener('click', () => {
+                categoryPills.forEach(p => p.classList.remove('active'));
+                pill.classList.add('active');
+                currentCategory = pill.dataset.category;
+                currentPage = 1;
+                renderCards();
+            });
+        });
+
+        // Initial Initialization
+        document.addEventListener('DOMContentLoaded', () => {
+            renderCards(); // tampilkan skeleton selagi data dimuat
+
+            if (!window.UmkmStore) {
+                loadState = 'error';
+                loadError = 'Skrip umkm-store.js belum dimuat. Hubungi pengelola situs.';
+                renderCards();
+                return;
+            }
+
+            // Realtime: perubahan dari dashboard admin langsung muncul di sini tanpa memuat ulang halaman
+            UmkmStore.subscribe({ onlyActive: true },
+                (list, meta) => {
+                    umkmData = list;
+                    loadState = 'ready';
+                    document.getElementById('demo-notice').classList.toggle('hidden', !(meta && meta.demo));
+                    // Bila usaha yang sedang dibuka di modal detail dihapus/dinonaktifkan admin, tutup modal
+                    if (detailId && !umkmData.some(u => u.id === detailId)) closeDetail();
+                    renderCards();
+                },
+                (err) => {
+                    loadState = 'error';
+                    loadError = (err && err.code === 'permission-denied')
+                        ? 'Server menolak akses baca. Pengelola situs perlu memeriksa aturan Firestore untuk koleksi umkm.'
+                        : 'Periksa koneksi internet Anda, lalu muat ulang halaman.';
+                    renderCards();
+                }
+            );
+        });
+    </script>
+</body>
+</html>

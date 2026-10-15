@@ -1,0 +1,1810 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Profil Resmi Desa Mekarsari, Kecamatan Selaawi, Kabupaten Garut. Informasi sejarah, visi misi, kependudukan, potensi kerajinan bambu, dan struktur organisasi.">
+    <title>Profil Desa - Website Resmi Desa Mekarsari</title>
+
+    <!-- Google Fonts: Plus Jakarta Sans & Caveat -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        /* ==========================================================================
+           1. CSS VARIABLES & BASE STYLES
+           ========================================================================== */
+        :root {
+            --primary: #113a2c;
+            --primary-dark: #0a261c;
+            --primary-light: #1b5340;
+            --accent: #2d7a52;
+            --accent-hover: #226140;
+            --accent-soft: #eaf3ed;
+            --text-dark: #1f2937;
+            --text-muted: #6b7280;
+            --bg-body: #f8faf7;
+            --bg-card: #ffffff;
+            --border-color: #e5e7eb;
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.06);
+            --shadow-lg: 0 10px 25px rgba(0,0,0,0.1);
+            --font-main: 'Plus Jakarta Sans', sans-serif;
+            --font-accent: 'Caveat', cursive;
+            --container-max: 1200px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-main);
+            color: var(--text-dark);
+            background-color: var(--bg-body);
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.25s ease;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .container {
+            max-width: var(--container-max);
+            margin: 0 auto;
+            padding: 0 1.25rem;
+        }
+
+        .section-padding {
+            padding: 4rem 0;
+        }
+
+        /* Utility Section Headers */
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .section-title i {
+            color: var(--accent);
+        }
+
+        .badge-verify {
+            font-size: 0.75rem;
+            color: #9ca3af;
+            font-weight: 500;
+            margin-top: 0.25rem;
+            display: block;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.65rem 1.25rem;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            border: none;
+            transition: all 0.25s ease;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: #ffffff;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-light);
+            transform: translateY(-2px);
+        }
+
+        .btn-accent {
+            background-color: var(--accent);
+            color: #ffffff;
+        }
+
+        .btn-accent:hover {
+            background-color: var(--accent-hover);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline-light {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            color: #ffffff;
+        }
+
+        .btn-outline-light:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: #ffffff;
+        }
+
+        /* ==========================================================================
+           2. NAVBAR COMPONENT
+           ========================================================================== */
+        .navbar {
+            background-color: #ffffff;
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .navbar-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 72px;
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .brand-logo-icon {
+            width: 38px;
+            height: 38px;
+            background-color: var(--primary);
+            color: #ffffff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            border: 2px solid var(--accent);
+        }
+
+        .brand-name {
+            font-weight: 800;
+            font-size: 1.15rem;
+            color: var(--primary);
+            letter-spacing: -0.02em;
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 1.75rem;
+            list-style: none;
+        }
+
+        .nav-link {
+            font-weight: 600;
+            font-size: 0.925rem;
+            color: var(--text-dark);
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-link:hover {
+            color: var(--accent);
+        }
+
+        .nav-link.active {
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--accent);
+            border-radius: 2px;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .search-btn {
+            background: none;
+            border: none;
+            font-size: 1rem;
+            color: var(--text-dark);
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 50%;
+            transition: background 0.2s;
+        }
+
+        .search-btn:hover {
+            background-color: var(--accent-soft);
+            color: var(--accent);
+        }
+
+        .hamburger-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.35rem;
+            color: var(--text-dark);
+            cursor: pointer;
+        }
+
+        /* ==========================================================================
+           3. HERO SECTION
+           ========================================================================== */
+        .hero-profil {
+            position: relative;
+            background: linear-gradient(rgba(10, 38, 28, 0.75), rgba(10, 38, 28, 0.85)), 
+                        url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+            color: #ffffff;
+            padding: 4.5rem 0 3.5rem 0;
+        }
+
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 0.75rem;
+        }
+
+        .breadcrumb a {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .breadcrumb a:hover {
+            color: #ffffff;
+            text-decoration: underline;
+        }
+
+        .hero-title {
+            font-size: 2.25rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-subtitle {
+            font-size: 1.05rem;
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 650px;
+            font-weight: 400;
+        }
+
+        /* ==========================================================================
+           4. SAMBUTAN KEPALA DESA
+           ========================================================================== */
+        .sambutan-grid {
+            display: grid;
+            grid-template-columns: minmax(280px, 380px) 1fr;
+            gap: 2.5rem;
+            align-items: top;
+        }
+
+        .sambutan-img-box {
+            position: relative;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            width: 100%;
+            max-width: 380px;
+            aspect-ratio: 4 / 5;
+            background-color: var(--accent-soft);
+            border: 4px solid #ffffff;
+            outline: 1px solid var(--border-color);
+        }
+
+        .sambutan-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center top; /* menjaga wajah tetap terlihat saat dipotong */
+            display: block;
+        }
+
+        .sambutan-content {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .sambutan-text {
+            color: #374151;
+            font-size: 0.975rem;
+            line-height: 1.7;
+        }
+
+        .kades-card {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background-color: var(--accent-soft);
+            padding: 1rem 1.25rem;
+            border-radius: var(--radius-md);
+            border-left: 4px solid var(--accent);
+            max-width: 360px;
+            width: 100%;
+        }
+
+        .kades-avatar {
+            flex-shrink: 0;
+            width: 42px;
+            height: 42px;
+            background-color: #ffffff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent);
+            font-size: 1.2rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .kades-info h4 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .kades-info p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* ==========================================================================
+           5. SEJARAH DESA
+           ========================================================================== */
+        .sejarah-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2.5rem;
+            align-items: center;
+            background-color: #ffffff;
+            border-radius: var(--radius-lg);
+            padding: 2.5rem;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+        }
+
+        .sejarah-left p {
+            color: #4b5563;
+            margin-bottom: 1.5rem;
+            line-height: 1.75;
+            font-size: 0.95rem;
+        }
+
+        .sejarah-right {
+            display: grid;
+            grid-template-columns: 180px 1fr;
+            gap: 1.25rem;
+            align-items: center;
+        }
+
+        .sejarah-img-wrapper img {
+            width: 100%;
+            height: 210px;
+            object-fit: cover;
+            border-radius: var(--radius-md);
+        }
+
+        .sejarah-timeline-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .timeline-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+        }
+
+        .timeline-icon {
+            width: 24px;
+            height: 24px;
+            background-color: var(--accent-soft);
+            color: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            flex-shrink: 0;
+            margin-top: 0.2rem;
+        }
+
+        .timeline-text h5 {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .timeline-text p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* ==========================================================================
+           6. VISI DAN MISI
+           ========================================================================== */
+        .visi-misi-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .visi-card, .misi-card {
+            background-color: #f1f6f2;
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            border: 1px solid #e0eae2;
+        }
+
+        .card-header-flex {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .card-header-flex i {
+            font-size: 1.25rem;
+            color: var(--accent);
+        }
+
+        .card-header-flex h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .visi-quote {
+            font-size: 0.95rem;
+            font-style: italic;
+            color: #374151;
+            line-height: 1.7;
+        }
+
+        .misi-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .misi-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            font-size: 0.875rem;
+            color: #374151;
+        }
+
+        .misi-num {
+            width: 20px;
+            height: 20px;
+            background-color: var(--accent);
+            color: #ffffff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+            flex-shrink: 0;
+            margin-top: 0.15rem;
+        }
+
+        /* ==========================================================================
+           7. KONDISI GEOGRAFIS & MAP
+           ========================================================================== */
+        .geografis-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .geo-info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .geo-card {
+            background-color: #ffffff;
+            border-radius: var(--radius-md);
+            padding: 1rem 1.15rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.85rem;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .geo-icon {
+            width: 36px;
+            height: 36px;
+            background-color: var(--accent-soft);
+            color: var(--accent);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+
+        .geo-data label {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .geo-data span {
+            font-size: 0.825rem;
+            color: var(--text-muted);
+        }
+
+        .map-card {
+            position: relative;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            min-height: auto;
+            background-color: #e5e7eb;
+        }
+
+        .map-placeholder {
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=800&q=80') center/cover no-repeat;
+            position: relative;
+            min-height: 240px;
+        }
+
+        .map-pin-overlay {
+            position: absolute;
+            top: 45%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            background: #ffffff;
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow-md);
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: var(--primary);
+        }
+
+        .map-pin-overlay i {
+            color: #dc2626;
+        }
+
+        .map-btn-link {
+            position: absolute;
+            bottom: 1rem;
+            right: 1rem;
+            background-color: var(--primary);
+            color: #ffffff;
+            padding: 0.4rem 0.85rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .map-btn-link:hover {
+            background-color: var(--primary-light);
+        }
+
+        /* ==========================================================================
+           8. DATA KEPENDUDUKAN
+           ========================================================================== */
+        .demografi-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.25rem;
+        }
+
+        .demo-card {
+            background-color: #ffffff;
+            border-radius: var(--radius-md);
+            padding: 1.25rem;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .demo-icon {
+            width: 44px;
+            height: 44px;
+            background-color: var(--accent-soft);
+            color: var(--accent);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            flex-shrink: 0;
+        }
+
+        .demo-info label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            display: block;
+        }
+
+        .demo-info .value {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            line-height: 1.2;
+            margin: 0.15rem 0;
+        }
+
+        /* ==========================================================================
+           9. POTENSI DESA MEKARSARI
+           ========================================================================== */
+        .potensi-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .potensi-card {
+            background-color: #ffffff;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .potensi-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .potensi-img {
+            height: 180px;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .potensi-body {
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .potensi-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .potensi-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 1.25rem;
+            flex-grow: 1;
+        }
+
+        /* ==========================================================================
+           10. STRUKTUR PEMERINTAHAN DESA
+           ========================================================================== */
+        .organisasi-container {
+            background-color: #ffffff;
+            border-radius: var(--radius-lg);
+            padding: 2.5rem 1.5rem;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-sm);
+            overflow-x: auto;
+        }
+
+        .org-tree {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+            min-width: 800px;
+        }
+
+        .org-level {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            position: relative;
+            width: 100%;
+        }
+
+        .org-card {
+            background-color: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            padding: 0.65rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            box-shadow: var(--shadow-sm);
+            min-width: 170px;
+            background-color: #f9fafb;
+        }
+
+        .org-card.highlight {
+            background-color: var(--accent-soft);
+            border-color: #c3e2cd;
+        }
+
+        .org-avatar {
+            width: 32px;
+            height: 32px;
+            background-color: #e5e7eb;
+            color: #6b7280;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            flex-shrink: 0;
+        }
+
+        .org-card.highlight .org-avatar {
+            background-color: var(--accent);
+            color: #ffffff;
+        }
+
+        .org-info h5 {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .org-info p {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+        }
+
+        /* Tree Connector Lines */
+        .org-connector-line {
+            width: 2px;
+            height: 20px;
+            background-color: #cbd5e1;
+        }
+
+        /* ==========================================================================
+           11. GALERI DESA
+           ========================================================================== */
+        .galeri-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .galeri-link {
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+
+        .galeri-link:hover {
+            color: var(--accent-hover);
+        }
+
+        .galeri-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1rem;
+        }
+
+        .galeri-item {
+            position: relative;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            height: 140px;
+            cursor: pointer;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .galeri-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .galeri-item:hover img {
+            transform: scale(1.08);
+        }
+
+        .galeri-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(17, 58, 44, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            opacity: 0;
+            transition: opacity 0.25s ease;
+            font-size: 1.25rem;
+        }
+
+        .galeri-item:hover .galeri-overlay {
+            opacity: 1;
+        }
+
+        /* Lightbox Modal */
+        .lightbox-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 2000;
+            background-color: rgba(0, 0, 0, 0.85);
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            backdrop-filter: blur(4px);
+        }
+
+        .lightbox-modal.active {
+            display: flex;
+        }
+
+        .lightbox-content {
+            max-width: 900px;
+            max-height: 80vh;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        }
+
+        .lightbox-content img {
+            width: 100%;
+            height: auto;
+            max-height: 75vh;
+            object-fit: contain;
+            background-color: #000000;
+        }
+
+        .lightbox-caption {
+            background-color: var(--primary-dark);
+            color: #ffffff;
+            padding: 0.85rem 1.25rem;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 2rem;
+            color: #ffffff;
+            font-size: 2rem;
+            cursor: pointer;
+            z-index: 2010;
+            transition: color 0.2s;
+        }
+
+        .lightbox-close:hover {
+            color: var(--accent);
+        }
+
+        /* ==========================================================================
+           12. CALL TO ACTION BANNER
+           ========================================================================== */
+        .cta-banner {
+            position: relative;
+            background: linear-gradient(rgba(17, 58, 44, 0.88), rgba(17, 58, 44, 0.92)),
+                        url('https://images.unsplash.com/photo-1516214104703-d870798883c5?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+            color: #ffffff;
+            padding: 3.5rem 0;
+            text-align: center;
+        }
+
+        .cta-title {
+            font-family: var(--font-accent);
+            font-size: 3rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+            line-height: 1.1;
+        }
+
+        .cta-desc {
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.85);
+            margin-bottom: 1.75rem;
+            max-width: 550px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        /* ==========================================================================
+           13. FOOTER
+           ========================================================================== */
+        .footer {
+            background-color: var(--primary-dark);
+            color: rgba(255, 255, 255, 0.8);
+            padding-top: 3.5rem;
+            padding-bottom: 1.5rem;
+            font-size: 0.875rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1.5fr 1fr;
+            gap: 2.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-brand-title {
+            font-weight: 800;
+            font-size: 1.15rem;
+            color: #ffffff;
+        }
+
+        .footer-desc {
+            font-size: 0.825rem;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.65);
+        }
+
+        .footer-heading {
+            font-weight: 700;
+            font-size: 0.925rem;
+            color: #ffffff;
+            margin-bottom: 1.25rem;
+        }
+
+        .footer-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.825rem;
+        }
+
+        .footer-links a:hover {
+            color: #ffffff;
+            padding-left: 3px;
+        }
+
+        .footer-contact-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            font-size: 0.825rem;
+        }
+
+        .footer-contact-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.65rem;
+            color: rgba(255, 255, 255, 0.75);
+        }
+
+        .footer-contact-list i {
+            color: var(--accent);
+            margin-top: 0.2rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .social-icon {
+            width: 32px;
+            height: 32px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            transition: background 0.25s ease;
+        }
+
+        .social-icon:hover {
+            background-color: var(--accent);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 1.5rem;
+            text-align: center;
+            font-size: 0.775rem;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* ==========================================================================
+           14. RESPONSIVE BREAKPOINTS
+           ========================================================================== */
+        @media (max-width: 1024px) {
+            .sambutan-grid {
+                grid-template-columns: minmax(240px, 300px) 1fr;
+                gap: 2rem;
+            }
+
+            .demografi-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .galeri-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .footer-grid {
+                grid-template-columns: 1.5fr 1fr 1.5fr;
+            }
+
+            .footer-grid > div:last-child {
+                grid-column: span 3;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar-container {
+                height: 64px;
+            }
+
+            .hamburger-btn {
+                display: block;
+            }
+
+            .nav-menu {
+                position: absolute;
+                top: 64px;
+                left: 0;
+                width: 100%;
+                background-color: #ffffff;
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 1.25rem 1.5rem;
+                gap: 1rem;
+                border-bottom: 1px solid var(--border-color);
+                box-shadow: var(--shadow-md);
+                display: none;
+            }
+
+            .nav-menu.show {
+                display: flex;
+            }
+            
+            .sambutan-grid, .sejarah-grid, .visi-misi-grid, .geografis-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            .sejarah-right {
+                grid-template-columns: 1fr;
+            }
+
+            .potensi-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .galeri-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .sambutan-grid {
+                gap: 1.5rem;
+            }
+
+            .sambutan-img-box {
+                margin: 0 auto;
+                max-width: 340px;
+            }
+
+            .sambutan-content {
+                text-align: left;
+            }
+
+            .kades-card {
+                max-width: 100%;
+            }
+
+            .hero-profil {
+                padding: 3rem 0 2.5rem 0;
+            }
+
+            .section-padding {
+                padding: 3rem 0;
+            }
+
+            .sejarah-grid {
+                padding: 1.5rem;
+            }
+
+            .org-tree {
+                min-width: 0;
+            }
+
+            .org-level {
+                flex-wrap: wrap;
+                gap: 0.75rem;
+            }
+
+            .org-card {
+                min-width: 150px;
+                flex: 1 1 150px;
+                max-width: 260px;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .footer-grid > div:last-child {
+                grid-column: span 1;
+            }
+
+            .cta-title {
+                font-size: 2.25rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .demografi-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.75rem;
+            }
+
+            .geo-info-grid {
+                grid-template-columns: 2,3fr;
+            }
+
+            .galeri-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.75rem;
+            }
+
+            .sambutan-img-box {
+                max-width: 100%;
+            }
+
+            .section-title {
+                font-size: 1.3rem;
+            }
+
+            .hero-title {
+                font-size: 1.75rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="assets/css/shared-layout.css">
+</head>
+<body data-page="profil">
+
+    <!-- NAVBAR -->
+    <div id="shared-header"></div>
+
+    <!-- HERO SECTION -->
+    <section class="hero-profil">
+        <div class="container">
+            <h1 class="hero-title">Profil Desa Mekarsari</h1>
+            <p class="hero-subtitle">Mengenal sejarah, kehidupan masyarakat, dan potensi Desa Mekarsari.</p>
+        </div>
+    </section>
+
+    <!-- SAMBUTAN KEPALA DESA -->
+    <section class="section-padding">
+        <div class="container">
+            <div class="sambutan-grid">
+                <div class="sambutan-img-box">
+                    <img src="assets/galeri/profil.jpg" 
+                         alt="Foto Kepala Desa Mekarsari, Ajie Nugraha, SST. M.AP." 
+                         width="380" 
+                         height="475" 
+                         loading="lazy"
+                         onerror="this.onerror=null;this.src='https://via.placeholder.com/380x475?text=Kepala+Desa+Mekarsari'">
+                </div>
+                <div class="sambutan-content">
+                    <h2 class="section-title">
+                        <i class="fa-solid fa-leaf"></i> Sambutan Kepala Desa
+                    </h2>
+                    <p class="sambutan-text">
+                        Selamat datang di website resmi Desa Mekarsari. Melalui media ini, kami berharap dapat memberikan informasi yang akurat dan terkini mengenai program, kegiatan, serta potensi desa kami. Kami juga mengajak seluruh masyarakat untuk bersama-sama membangun Desa Mekarsari yang lebih maju, mandiri, dan sejahtera.
+                    </p>
+                    <div class="kades-card">
+                        <div class="kades-avatar">
+                            <i class="fa-solid fa-user-tie"></i>
+                        </div>
+                        <div class="kades-info">
+                            <h4 id="kadesName">Ajie Nugraha, SST. M.AP.</h4>
+                            <p>Kepala Desa Mekarsari</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEJARAH DESA -->
+    <section class="section-padding" style="background-color: #f1f5f2;">
+        <div class="container">
+            <div class="sejarah-grid">
+                <div class="sejarah-left">
+                    <h2 class="section-title">
+                        <i class="fa-solid fa-landmark"></i> Sejarah Desa Mekarsari
+                    </h2>
+                    <p>
+                        Desa Mekarsari memiliki sejarah panjang yang erat dengan kehidupan masyarakat agraris dan budaya lokal. Seiring berjalannya waktu, desa ini terus berkembang dengan memanfaatkan potensi alam serta kearifan lokal, terutama dalam bidang kerajinan bambu yang menjadi identitas dan sumber penghidupan masyarakat.
+                    </p>
+                    <a href="#potensi-section" class="btn btn-accent">
+                        Selengkapnya <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+                <div class="sejarah-right">
+                    <div class="sejarah-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1584992236310-6edddc08acff?auto=format&fit=crop&w=600&q=80" 
+                             alt="Pengrajin Bambu Mekarsari" 
+                             width="180" 
+                             height="210" 
+                             loading="lazy"
+                             onerror="this.src='https://via.placeholder.com/180x210?text=Kerajinan+Bambu'">
+                    </div>
+                    <div class="sejarah-timeline-list">
+                        <div class="timeline-item">
+                            <div class="timeline-icon"><i class="fa-solid fa-clock-rotate-left"></i></div>
+                            <div class="timeline-text">
+                                <h5>Masa Awal</h5>
+                                <p>Cerita asal-usul dan terbentuknya desa.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-icon"><i class="fa-solid fa-chart-line"></i></div>
+                            <div class="timeline-text">
+                                <h5>Perkembangan</h5>
+                                <p>Perjalanan desa dari masa ke masa.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-icon"><i class="fa-solid fa-wheat-awn"></i></div>
+                            <div class="timeline-text">
+                                <h5>Ekonomi & Kerajinan</h5>
+                                <p>Tumbuhnya UMKM dan kerajinan bambu.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- VISI DAN MISI -->
+    <section class="section-padding">
+        <div class="container">
+            <div class="visi-misi-grid">
+                <!-- VISI -->
+                <div class="visi-card">
+                    <div class="card-header-flex">
+                        <i class="fa-solid fa-eye"></i>
+                        <h3>Visi Desa</h3>
+                    </div>
+                    <p class="visi-quote">
+                        "Terwujudnya Desa Mekarsari yang Unggul, Berkarakter, Menuju Masyarakat Sejahtera Lahir Batin"
+                    </p>
+                </div>
+
+                <!-- MISI -->
+                <div class="misi-card">
+                    <div class="card-header-flex">
+                        <i class="fa-solid fa-bullseye"></i>
+                        <h3>Misi Desa</h3>
+                    </div>
+                    <ul class="misi-list" id="misiContainer">
+                        <!-- Populated by JavaScript -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- KONDISI GEOGRAFIS -->
+    <section class="section-padding" style="background-color: #f1f5f2;">
+        <div class="container">
+            <h2 class="section-title">
+                <i class="fa-solid fa-location-dot"></i> Kondisi Geografis
+            </h2>
+            <div class="geografis-wrapper">
+                <div class="geo-info-grid">
+                    <div class="geo-card">
+                        <div class="geo-icon"><i class="fa-solid fa-map"></i></div>
+                        <div class="geo-data">
+                            <label>Kecamatan</label>
+                            <span>Selaawi</span>
+                        </div>
+                    </div>
+                    <div class="geo-card">
+                        <div class="geo-icon"><i class="fa-solid fa-layer-group"></i></div>
+                        <div class="geo-data">
+                            <label>Kabupaten</label>
+                            <span>Garut</span>
+                        </div>
+                    </div>
+                    <div class="geo-card">
+                        <div class="geo-icon"><i class="fa-solid fa-vector-square"></i></div>
+                        <div class="geo-data">
+                            <label>Luas Wilayah</label>
+                            <span class="badge-verify">302,209 ha</span>
+                        </div>
+                    </div>
+                    <div class="geo-card">
+                        <div class="geo-icon"><i class="fa-solid fa-mountain"></i></div>
+                        <div class="geo-data">
+                            <label>Ketinggian</label>
+                            <span class="badge-verify">600 mdpl</span>
+                        </div>
+                    </div>
+                    <div class="geo-card">
+                        <div class="geo-icon"><i class="fa-solid fa-border-all"></i></div>
+                        <div class="geo-data">
+                            <label>Batas Wilayah</label>
+                            <span class="badge-verify">Data belum tersedia</span>
+                        </div>
+                    </div>
+                    <div class="geo-card">
+                        <div class="geo-icon"><i class="fa-solid fa-tree"></i></div>
+                        <div class="geo-data">
+                            <label>Karakteristik Wilayah</label>
+                            <span class="badge-verify">Data belum tersedia</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SIMULASI MAP PETA -->
+                <div class="map-card">
+                    <div class="">
+                        <img src="assets/peta-desa.jpg" alt="">
+                        <div class="map-pin-overlay">
+                            <i class="fa-solid fa-location-dot"></i>
+                            <span>Desa Mekarsari</span>
+                        </div>
+                        <a href="kontak.html#lokasi" target="_blank" rel="noopener noreferrer" class="map-btn-link">
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i> Lihat Detail Lokasi
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DATA KEPENDUDUKAN -->
+    <section class="section-padding">
+        <div class="container">
+            <h2 class="section-title">
+                <i class="fa-solid fa-users"></i> Data Kependudukan
+            </h2>
+            <div class="demografi-grid" id="demografiGrid">
+                <!-- Rendered dynamically by Javascript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- POTENSI DESA MEKARSARI -->
+    <section class="section-padding" id="potensi-section" style="background-color: #f1f5f2;">
+        <div class="container">
+            <h2 class="section-title">
+                <i class="fa-solid fa-leaf"></i> Potensi Desa Mekarsari
+            </h2>
+            <div class="potensi-grid">
+                <!-- CARD 1 -->
+                <div class="potensi-card">
+                    <img src="https://images.unsplash.com/photo-1590736969955-71cc94801759?auto=format&fit=crop&w=600&q=80" 
+                         alt="Kerajinan Anyaman Bambu" 
+                         class="potensi-img"
+                         loading="lazy"
+                         onerror="this.src='https://via.placeholder.com/600x400?text=Kerajinan+Bambu'">
+                    <div class="potensi-body">
+                        <h3 class="potensi-title">Kerajinan Anyaman Bambu</h3>
+                        <p class="potensi-desc">Produk kerajinan bambu berkualitas dengan berbagai bentuk dan fungsi, menjadi identitas khas Desa Mekarsari.</p>
+                        <a href="umkm.html" class="btn btn-primary" style="align-self: flex-start;">
+                            Jelajahi Potensi <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- CARD 2 -->
+                <div class="potensi-card">
+                    <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=600&q=80" 
+                         alt="UMKM dan Ekonomi Masyarakat" 
+                         class="potensi-img"
+                         loading="lazy"
+                         onerror="this.src='https://via.placeholder.com/600x400?text=UMKM+Masyarakat'">
+                    <div class="potensi-body">
+                        <h3 class="potensi-title">UMKM dan Ekonomi Masyarakat</h3>
+                        <p class="potensi-desc">Berbagai UMKM lokal yang menggerakkan ekonomi desa dan membuka peluang usaha bagi masyarakat.</p>
+                        <a href="umkm.html" class="btn btn-primary" style="align-self: flex-start;">
+                            Jelajahi Potensi <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- CARD 3 -->
+                <div class="potensi-card">
+                    <img src="https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=600&q=80" 
+                         alt="Eduwisata dan Potensi Alam" 
+                         class="potensi-img"
+                         loading="lazy"
+                         onerror="this.src='https://via.placeholder.com/600x400?text=Eduwisata+Alam'">
+                    <div class="potensi-body">
+                        <h3 class="potensi-title">Eduwisata dan Potensi Alam</h3>
+                        <p class="potensi-desc">Keindahan alam dan suasana pedesaan yang asri menjadi daya tarik untuk eduwisata dan wisata alam terpadu.</p>
+                        <a href="umkm.html" class="btn btn-primary" style="align-self: flex-start;">
+                            Jelajahi Potensi <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STRUKTUR PEMERINTAHAN DESA -->
+    <section class="section-padding">
+        <div class="container">
+            <h2 class="section-title">
+                <i class="fa-solid fa-sitemap"></i> Struktur Pemerintahan Desa
+            </h2>
+            <div class="organisasi-container">
+                <div class="org-tree" id="orgTreeContainer">
+                    <!-- Dynamic rendering by JS -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GALERI DESA -->
+    <section class="section-padding" style="background-color: #f1f5f2;">
+        <div class="container">
+            <div class="galeri-header">
+                <h2 class="section-title" style="margin-bottom: 0;">
+                    <i class="fa-solid fa-images"></i> Galeri Desa
+                </h2>
+                <a href="berita.html" class="galeri-link">Lihat Semua <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+            <div class="galeri-grid" id="galeriGrid">
+                <!-- Rendered dynamically by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- LIGHTBOX MODAL -->
+    <div class="lightbox-modal" id="lightboxModal" aria-hidden="true" role="dialog">
+        <span class="lightbox-close" id="lightboxClose">&times;</span>
+        <div class="lightbox-content">
+            <img id="lightboxImg" src="" alt="Galeri Tampilan Penuh">
+            <div class="lightbox-caption" id="lightboxCaption"></div>
+        </div>
+    </div>
+
+    <!-- CALL TO ACTION BANNER -->
+    <section class="cta-banner">
+        <div class="container">
+            <h2 class="cta-title">Maju Bersama, Lestari dengan Bambu</h2>
+            <p class="cta-desc">Dukung potensi lokal, jaga lingkungan, dan wujudkan Desa Mekarsari yang lebih baik.</p>
+            <div class="cta-buttons">
+                <a href="umkm.html" class="btn btn-accent">Lihat UMKM Desa</a>
+                <a href="kontak.html" class="btn btn-outline-light">Hubungi Kami</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <div id="shared-footer"></div>
+
+    <!-- JAVASCRIPT ES6+ -->
+    <script>
+        /**
+         * DATA PLACEHOLDER - Disesuaikan dengan Prototype
+         * Semua data statistik & aparatur bertanda awal/placeholder untuk diverifikasi.
+         */
+        const PROFIL_DATA = {
+            misi: [
+                "Meningkatkan kualitas Sumber Daya Manusia (SDM) aparatur pemerintah desa",
+                "Meningkatkan kualitas pelayanan publik berbasis penerapan teknologi dan informasi",
+                "Membangun sinegritas pemerintahan bersama lembaga ke masyarakatan dan komunitas masyarakat",
+                "Meningkatkan kualitas pengelolaan Sumber Daya Alam (SDA) ke unggulan desa",
+                "Mengoptimalkan kerjasama kawasan pedesaan"
+            ],
+            demografi: [
+                { title: " ", value: "7.842", icon: "fa-solid fa-users", verifyText: "Penduduk" },
+                { title: " ", value: "2.346", icon: "fa-solid fa-house-chimney", verifyText: "KK" },
+                { title: " ", value: "3", icon: "fa-solid fa-building-flag", verifyText: "Dusun" },
+                { title: " ", value: "9 / 27", icon: "fa-solid fa-users-rectangle", verifyText: "RW/RT" }
+            ],
+            pemerintahan: {
+                top: [
+                    { jabatan: "Kepala Desa", nama: "Nama Kepala Desa", highlight: true },
+                    { jabatan: "Sekretaris Desa", nama: "Nama Sekretaris", highlight: false }
+                ],
+                middle: [
+                    { jabatan: "Kaur Pemerintahan", nama: "Nama Kaur" },
+                    { jabatan: "Kaur Keuangan", nama: "Nama Kaur" },
+                    { jabatan: "Kaur Umum", nama: "Nama Kaur" },
+                    { jabatan: "Kasi Pemerintahan", nama: "Nama Kasi" },
+                    { jabatan: "Kasi Pelayanan", nama: "Nama Kasi" },
+                    { jabatan: "Kasi Kesra", nama: "Nama Kasi" }
+                ],
+                bottom: [
+                    { jabatan: "Kepala Dusun 1", nama: "Nama Kepala Dusun" },
+                    { jabatan: "Kepala Dusun 2", nama: "Nama Kepala Dusun" },
+                    { jabatan: "Kepala Dusun 3", nama: "Nama Kepala Dusun" },
+                    { jabatan: "Kepala Dusun 4", nama: "Nama Kepala Dusun" },
+                    { jabatan: "Kepala Dusun 5", nama: "Nama Kepala Dusun" }
+                ]
+            },
+            galeri: [
+                {
+                    src: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=800&q=80",
+                    title: "Lanskap Perbukitan Hijau Desa Mekarsari"
+                },
+                {
+                    src: "https://images.unsplash.com/photo-1590736969955-71cc94801759?auto=format&fit=crop&w=800&q=80",
+                    title: "Produk Kerajinan Bambu Unggulan"
+                },
+                {
+                    src: "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=800&q=80",
+                    title: "Aktivitas Pemberdayaan UMKM Masyarakat"
+                },
+                {
+                    src: "https://images.unsplash.com/photo-1577495508048-b635879837f1?auto=format&fit=crop&w=800&q=80",
+                    title: "Suasana Upacara di Halaman Kantor Desa"
+                },
+                {
+                    src: "https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=800&q=80",
+                    title: "Jalur Eduwisata dan Keasrian Alam Mekarsari"
+                }
+            ]
+        };
+
+        // DOM Content Loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            initMobileMenu();
+            renderMisi();
+            renderDemografi();
+            renderStrukturOrganisasi();
+            renderGaleri();
+            initLightbox();
+        });
+
+        /* 1. Mobile Menu Toggle */
+        function initMobileMenu() {
+            const hamburgerBtn = document.getElementById('hamburgerBtn');
+            const navMenu = document.getElementById('navMenu');
+
+            if (hamburgerBtn && navMenu) {
+                hamburgerBtn.addEventListener('click', () => {
+                    navMenu.classList.toggle('show');
+                });
+            }
+        }
+
+        /* 2. Render Misi List */
+        function renderMisi() {
+            const container = document.getElementById('misiContainer');
+            if (!container) return;
+
+            container.innerHTML = PROFIL_DATA.misi.map((item, index) => `
+                <li>
+                    <span class="misi-num">${index + 1}</span>
+                    <span>${item}</span>
+                </li>
+            `).join('');
+        }
+
+        /* 3. Render Data Demografi */
+        function renderDemografi() {
+            const container = document.getElementById('demografiGrid');
+            if (!container) return;
+
+            container.innerHTML = PROFIL_DATA.demografi.map(item => `
+                <div class="demo-card">
+                    <div class="demo-icon"><i class="${item.icon}"></i></div>
+                    <div class="demo-info">
+                        <label>${item.title}</label>
+                        <div class="value">${item.value}</div>
+                        <span class="badge-verify">${item.verifyText}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        /* 4. Render Bagan Organisasi */
+        function renderStrukturOrganisasi() {
+            const container = document.getElementById('orgTreeContainer');
+            if (!container) return;
+
+            const { top, middle, bottom } = PROFIL_DATA.pemerintahan;
+
+            container.innerHTML = `
+                <!-- LEVEL 1: PIMPINAN UTAMA -->
+                <div class="org-level">
+                    ${top.map(person => `
+                        <div class="org-card ${person.highlight ? 'highlight' : ''}">
+                            <div class="org-avatar"><i class="fa-solid fa-user"></i></div>
+                            <div class="org-info">
+                                <h5>${person.jabatan}</h5>
+                                <p>${person.nama}</p>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+
+                <div class="org-connector-line"></div>
+
+                <!-- LEVEL 2: KAUR & KASI -->
+                <div class="org-level">
+                    ${middle.map(person => `
+                        <div class="org-card">
+                            <div class="org-avatar"><i class="fa-solid fa-user"></i></div>
+                            <div class="org-info">
+                                <h5>${person.jabatan}</h5>
+                                <p>${person.nama}</p>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+
+                <div class="org-connector-line"></div>
+
+                <!-- LEVEL 3: KEPALA DUSUN -->
+                <div class="org-level">
+                    ${bottom.map(person => `
+                        <div class="org-card">
+                            <div class="org-avatar"><i class="fa-solid fa-user"></i></div>
+                            <div class="org-info">
+                                <h5>${person.jabatan}</h5>
+                                <p>${person.nama}</p>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        /* 5. Render Galeri Foto */
+        function renderGaleri() {
+            const container = document.getElementById('galeriGrid');
+            if (!container) return;
+
+            container.innerHTML = PROFIL_DATA.galeri.map((item, index) => `
+                <div class="galeri-item" onclick="openLightbox(${index})">
+                    <img src="${item.src}" alt="${item.title}" loading="lazy" onerror="this.src='https://via.placeholder.com/400x300?text=Dokumentasi+Desa'">
+                    <div class="galeri-overlay">
+                        <i class="fa-solid fa-magnifying-glass-plus"></i>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        /* 6. Lightbox Handler */
+        function initLightbox() {
+            const modal = document.getElementById('lightboxModal');
+            const closeBtn = document.getElementById('lightboxClose');
+
+            if (closeBtn && modal) {
+                closeBtn.addEventListener('click', closeLightbox);
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) closeLightbox();
+                });
+            }
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') closeLightbox();
+            });
+        }
+
+        function openLightbox(index) {
+            const modal = document.getElementById('lightboxModal');
+            const img = document.getElementById('lightboxImg');
+            const caption = document.getElementById('lightboxCaption');
+            const item = PROFIL_DATA.galeri[index];
+
+            if (modal && img && caption && item) {
+                img.src = item.src;
+                img.alt = item.title;
+                caption.textContent = item.title;
+                modal.classList.add('active');
+                modal.setAttribute('aria-hidden', 'false');
+            }
+        }
+
+        function closeLightbox() {
+            const modal = document.getElementById('lightboxModal');
+            if (modal) {
+                modal.classList.remove('active');
+                modal.setAttribute('aria-hidden', 'true');
+            }
+        }
+
+        /* Search Modal Placeholder */
+        function toggleSearchModal() {
+            alert("Fungsi pencarian kata kunci informasi desa dapat dihubungkan dengan skrip indeks pencarian.");
+        }
+    </script>
+    <script src="assets/js/shared-layout.js" defer></script>
+</body>
+</html>

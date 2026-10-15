@@ -1,0 +1,27 @@
+/* Shared header/footer styles — namespaced to avoid conflicts with page-specific CSS. */
+.mk-header{position:sticky;top:0;z-index:1000;background:#fff;border-bottom:1px solid #e5e7eb;box-shadow:0 3px 14px rgba(19,42,24,.07);font-family:'Plus Jakarta Sans',sans-serif}
+.mk-header *,.mk-footer *{box-sizing:border-box}
+.mk-header-inner{max-width:1200px;min-height:78px;margin:0 auto;padding:12px 22px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.mk-brand{display:flex;align-items:center;gap:12px;flex-shrink:0;text-decoration:none;color:#1e4620}
+.mk-brand-icon{width:35px;height:35px;border-radius:50%;display:grid;place-items:center;color:#fff;}
+.mk-brand-icon img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+.mk-brand-copy{display:flex;flex-direction:column;line-height:1.25}.mk-brand-copy strong{font-size:17px;font-weight:800}.mk-brand-copy small{margin-top:3px;color:#647067;font-size:11px;font-weight:500}
+.mk-nav{display:flex;align-items:center;justify-content:flex-end;gap:clamp(12px,1.6vw,24px)}
+.mk-nav a{position:relative;display:inline-flex;align-items:center;gap:7px;padding:9px 0;color:#374151;text-decoration:none;font-size:13px;font-weight:600;white-space:nowrap;transition:color .2s ease}
+.mk-nav a:hover,.mk-nav a.is-active{color:#1e4620}.mk-nav a.is-active:after{content:"";position:absolute;left:0;right:0;bottom:2px;height:2px;border-radius:2px;background:#2d6a4f}
+.mk-nav .mk-admin-link{padding:10px 12px;border-radius:9px;background:#eaf2e8;color:#1e4620}.mk-nav .mk-admin-link:after{display:none}.mk-nav .mk-admin-link:hover{background:#dcebd9}
+.mk-menu-toggle{display:none;border:0;background:#eaf2e8;color:#1e4620;border-radius:9px;width:42px;height:42px;font-size:19px;cursor:pointer}
+.mk-footer{margin-top:auto;background:#132a18;color:#f8faf7;font-family:'Plus Jakarta Sans',sans-serif}
+.mk-footer-inner{max-width:1200px;margin:0 auto;padding:46px 22px 34px;display:grid;grid-template-columns:1.5fr .8fr 1.2fr;gap:44px}
+.mk-footer-brand{display:inline-flex;align-items:center;gap:10px;color:#fff;font-size:18px;font-weight:800;text-decoration:none}.mk-footer-icon{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:#2d6a4f;color:#fff}
+.mk-footer-about p{max-width:390px;margin-top:15px;color:#d3ded5;font-size:13px;line-height:1.8}.mk-footer h2{margin:2px 0 15px;color:#fff;font-size:14px;font-weight:800}.mk-footer-links{display:flex;flex-direction:column;align-items:flex-start;gap:9px}.mk-footer-links a{color:#d3ded5;font-size:13px;text-decoration:none}.mk-footer-links a:hover{color:#a7e2b5}.mk-footer-contact p{display:flex;align-items:flex-start;gap:10px;margin:0 0 12px;color:#d3ded5;font-size:13px;line-height:1.7}.mk-footer-contact i{margin-top:4px;color:#a7e2b5}.mk-footer-bottom{max-width:1200px;margin:0 auto;padding:17px 22px;border-top:1px solid #ffffff24;display:flex;justify-content:space-between;gap:16px;color:#c5d1c7;font-size:11px}
+@media(max-width:1000px){.mk-header-inner{gap:14px}.mk-nav{gap:13px}.mk-nav a{font-size:12px}.mk-brand-copy strong{font-size:15px}}
+@media(max-width:820px){.mk-header-inner{min-height:72px;padding:10px 18px;flex-wrap:wrap}.mk-menu-toggle{display:grid;place-items:center;margin-left:auto}.mk-nav{display:none;order:3;width:100%;padding:8px 0 12px;align-items:stretch;flex-direction:column;gap:3px}.mk-nav.is-open{display:flex}.mk-nav a{padding:11px 12px;border-radius:8px;font-size:14px}.mk-nav a.is-active:after{display:none}.mk-nav a.is-active{background:#eaf2e8}.mk-nav .mk-admin-link{justify-content:center;margin-top:5px}.mk-footer-inner{grid-template-columns:1fr 1fr;gap:30px}.mk-footer-about{grid-column:1/-1}}
+@media(max-width:520px){.mk-footer-inner{grid-template-columns:1fr;gap:27px;padding-top:34px}.mk-footer-about{grid-column:auto}.mk-footer-bottom{flex-direction:column;gap:6px}.mk-brand-copy strong{font-size:15px}.mk-brand-copy small{font-size:10px}}

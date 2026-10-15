@@ -1,0 +1,69 @@
+/* Kelola UMKM (panel admin). Semua kelas berawalan "um-" agar tidak bentrok dengan CSS lain. */
+
+.um-header-actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.um-link-btn { display: inline-flex; align-items: center; gap: 6px; text-decoration: none; }
+
+.um-name { display: flex; align-items: center; gap: 10px; min-width: 190px; }
+.um-thumb { width: 44px; height: 44px; border-radius: 8px; object-fit: cover; background: #e2e8f0; flex: none; }
+
+.um-actions { display: flex; flex-wrap: wrap; gap: 6px; }
+.um-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  border: 1px solid #d0d5dd; background: #fff; color: #344054;
+  border-radius: 8px; padding: 6px 10px;
+  font: inherit; font-size: 12.5px; font-weight: 600; cursor: pointer;
+}
+.um-btn:hover { background: #f2f4f7; }
+.um-btn:disabled { opacity: .5; cursor: not-allowed; }
+.um-btn-danger { color: #b42318; border-color: #fda29b; }
+.um-btn-danger:hover { background: #fef3f2; }
+
+.um-import { margin-top: 12px; padding: 14px 16px; border: 1px dashed #95d5b2; border-radius: 10px; background: #f3faf6; }
+.um-import[hidden] { display: none; }
+.um-import p { margin: 0 0 10px; font-size: 14px; color: #1b4332; }
+
+/* Modal form */
+.um-overlay {
+  position: fixed; inset: 0; z-index: 1100;
+  display: none; align-items: flex-start; justify-content: center;
+  padding: 24px 16px; overflow-y: auto;
+  background: rgba(15, 35, 23, .55);
+}
+.um-overlay.active { display: flex; }
+.um-modal {
+  width: 100%; max-width: 640px; margin: auto;
+  background: #fff; border-radius: 14px; padding: 20px 22px 22px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, .25);
+}
+.um-modal-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+.um-modal-head h3 { margin: 0; font-size: 18px; color: #1b4332; }
+.um-close { border: 0; background: transparent; font-size: 26px; line-height: 1; color: #667085; cursor: pointer; padding: 0 4px; }
+.um-close:hover { color: #101828; }
+
+.um-error {
+  margin-bottom: 12px; padding: 10px 12px; border-radius: 8px;
+  background: #fef3f2; border: 1px solid #fda29b; color: #b42318; font-size: 13.5px;
+}
+.um-error[hidden] { display: none; }
+
+.um-field { margin-bottom: 14px; }
+.um-field label { display: block; margin-bottom: 6px; font-size: 13px; font-weight: 600; color: #344054; }
+.um-field .form-control { width: 100%; box-sizing: border-box; }
+.um-field textarea.form-control { resize: vertical; font: inherit; }
+.um-field small { display: block; margin-top: 5px; font-size: 12px; color: #667085; line-height: 1.45; }
+.um-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+.um-preview { margin-top: 8px; font-size: 12.5px; color: #b54708; }
+.um-preview img { display: block; width: 100%; max-height: 180px; object-fit: cover; border-radius: 10px; border: 1px solid #e2e8f0; }
+
+.um-modal-foot { display: flex; justify-content: flex-end; gap: 10px; margin-top: 18px; }
+.um-ghost {
+  border: 1px solid #d0d5dd; background: #fff; color: #344054;
+  border-radius: 8px; padding: 9px 16px; font: inherit; font-weight: 600; cursor: pointer;
+}
+.um-ghost:hover { background: #f2f4f7; }
+
+@media (max-width: 560px) {
+  .um-row-2 { grid-template-columns: 1fr; }
+  .um-modal { padding: 16px; }
+}

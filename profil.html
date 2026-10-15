@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
+    <link rel="icon" type="image/png" href="assets/logo.png">
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
@@ -739,84 +739,381 @@
         /* ==========================================================================
            10. STRUKTUR PEMERINTAHAN DESA
            ========================================================================== */
-        .organisasi-container {
-            background-color: #ffffff;
-            border-radius: var(--radius-lg);
-            padding: 2.5rem 1.5rem;
-            border: 1px solid var(--border-color);
-            box-shadow: var(--shadow-sm);
-            overflow-x: auto;
-        }
+            
 
-        .org-tree {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 2rem;
-            min-width: 800px;
-        }
+/* =====================================================
+   STRUKTUR PEMERINTAHAN DESA MEKARSARI
+   Desain panel modern + hierarki bertingkat
+   ===================================================== */
 
-        .org-level {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            position: relative;
-            width: 100%;
-        }
+.organisasi-container {
+    --org-primary: #176344;
+    --org-dark: #104b35;
+    --org-accent: #398663;
+    --org-line: #a8c8b3;
+    --org-border: #dce9df;
+    --org-soft: #f1f7f2;
 
-        .org-card {
-            background-color: #ffffff;
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-sm);
-            padding: 0.65rem 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            box-shadow: var(--shadow-sm);
-            min-width: 170px;
-            background-color: #f9fafb;
-        }
+    width: 100%;
+    padding: clamp(14px, 2.5vw, 32px);
+    overflow: hidden;
+    background: linear-gradient(145deg, #ffffff, #f6faf6);
+    border: 1px solid var(--org-border);
+    border-radius: 22px;
+    box-shadow: 0 10px 32px rgba(16, 75, 53, .07);
+}
 
-        .org-card.highlight {
-            background-color: var(--accent-soft);
-            border-color: #c3e2cd;
-        }
+.org-tree {
+    width: 100%;
+    max-width: 1500px;
+    margin-inline: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
-        .org-avatar {
-            width: 32px;
-            height: 32px;
-            background-color: #e5e7eb;
-            color: #6b7280;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.85rem;
-            flex-shrink: 0;
-        }
+/* Kartu pejabat */
+.org-card {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    width: 100%;
+    min-width: 0;
+    padding: 13px;
+    background: #fff;
+    border: 1px solid var(--org-border);
+    border-radius: 13px;
+    box-shadow: 0 4px 12px rgba(16, 75, 53, .05);
+    transition: transform .2s ease, box-shadow .2s ease;
+}
 
-        .org-card.highlight .org-avatar {
-            background-color: var(--accent);
-            color: #ffffff;
-        }
+.org-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(16, 75, 53, .1);
+}
 
-        .org-info h5 {
-            font-size: 0.8rem;
-            font-weight: 700;
-            color: var(--primary);
-        }
+.org-card.highlight {
+    color: #fff;
+    background: linear-gradient(135deg, #1b704d, #104b35);
+    border-color: #104b35;
+    box-shadow: 0 9px 24px rgba(16, 75, 53, .16);
+}
 
-        .org-info p {
-            font-size: 0.7rem;
-            color: var(--text-muted);
-        }
+/* Foto pejabat */
+.org-avatar {
+    flex: 0 0 66px;
+    width: 66px;
+    height: 66px;
+    overflow: hidden;
+    border: 3px solid #e0eee3;
+    border-radius: 50%;
+    background: #edf5ef;
+}
 
-        /* Tree Connector Lines */
-        .org-connector-line {
-            width: 2px;
-            height: 20px;
-            background-color: #cbd5e1;
-        }
+.org-card.highlight .org-avatar {
+    border-color: rgba(255,255,255,.75);
+}
+
+.org-avatar img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+}
+
+.org-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.org-info h5 {
+    margin: 0 0 5px;
+    color: var(--org-dark);
+    font-size: .88rem;
+    font-weight: 800;
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+}
+
+.org-info p {
+    margin: 0;
+    color: #68796e;
+    font-size: .8rem;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+.org-card.highlight .org-info h5,
+.org-card.highlight .org-info p {
+    color: #fff;
+}
+
+.org-card.highlight .org-info p {
+    opacity: .85;
+}
+
+/* Kepala Desa */
+.org-leader {
+    width: min(100%, 350px);
+}
+
+.org-leader .org-card {
+    padding: 18px;
+}
+
+.org-leader .org-avatar {
+    flex-basis: 82px;
+    width: 82px;
+    height: 82px;
+}
+
+.org-leader .org-info h5 {
+    font-size: 1rem;
+}
+
+/* Garis vertikal dari pimpinan */
+.org-connector-line {
+    width: 2px;
+    height: 28px;
+    flex: 0 0 28px;
+    background: var(--org-line);
+}
+
+/* Tiga panel utama */
+.org-branches {
+    position: relative;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: start;
+    gap: clamp(12px, 1.8vw, 24px);
+    padding-top: 28px;
+}
+
+/* Garis cabang horizontal */
+.org-branches::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 16.666%;
+    right: 16.666%;
+    height: 2px;
+    background: var(--org-line);
+}
+
+/* Panel per bagian */
+.org-group {
+    position: relative;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 15px;
+    border: 1px solid var(--org-border);
+    border-radius: 16px;
+    background: rgba(239, 247, 241, .7);
+}
+
+.org-group::before {
+    content: "";
+    position: absolute;
+    top: -29px;
+    left: 50%;
+    height: 29px;
+    width: 2px;
+    background: var(--org-line);
+}
+
+.org-group-title {
+    margin: 0;
+    padding: 10px 12px;
+    color: #fff;
+    background: linear-gradient(135deg, #398663, #176344);
+    border-radius: 9px;
+    text-align: center;
+    font-size: .9rem;
+    font-weight: 800;
+    line-height: 1.4;
+}
+
+/* Sekdes dan Kaur */
+.org-secretary-card {
+    width: 100%;
+}
+
+.org-subordinates {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 16px 0 0 13px;
+    border-left: 2px solid var(--org-line);
+}
+
+.org-subordinates::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -2px;
+    width: 16px;
+    height: 2px;
+    background: var(--org-line);
+}
+
+.org-subordinates-title {
+    margin: 0 0 2px;
+    color: #4c735c;
+    font-size: .76rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+}
+
+.org-subordinates .org-card,
+.org-group > .org-card {
+    padding: 11px;
+    gap: 10px;
+}
+
+.org-subordinates .org-avatar,
+.org-group > .org-card .org-avatar {
+    flex-basis: 54px;
+    width: 54px;
+    height: 54px;
+}
+
+.org-subordinates .org-info h5,
+.org-group > .org-card .org-info h5 {
+    font-size: .8rem;
+}
+
+.org-subordinates .org-info p,
+.org-group > .org-card .org-info p {
+    font-size: .75rem;
+}
+
+/* Desktop sedang / laptop */
+@media (max-width: 1100px) {
+    .org-group {
+        padding: 10px;
+        gap: 10px;
+    }
+
+    .org-card {
+        gap: 9px;
+        padding: 10px;
+    }
+
+    .org-avatar {
+        flex-basis: 55px;
+        width: 55px;
+        height: 55px;
+    }
+
+    .org-subordinates .org-avatar,
+    .org-group > .org-card .org-avatar {
+        flex-basis: 44px;
+        width: 44px;
+        height: 44px;
+    }
+
+    .org-info h5 {
+        font-size: .8rem;
+    }
+
+    .org-info p {
+        font-size: .74rem;
+    }
+}
+
+/* Tablet dan layar lebih sempit */
+@media (max-width: 760px) {
+    .organisasi-container {
+        padding: 14px 10px;
+        border-radius: 15px;
+    }
+    .org-leader {
+        width: min(100%, 350px);
+        margin-left: auto;
+        margin-right: auto;
+        align-self: center;
+    }
+
+    .org-leader .org-card {
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .org-branches {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 24px;
+        padding-top: 0;
+    }
+
+    .org-branches::before,
+    .org-group::before {
+        display: none;
+    }
+
+    .org-group {
+        padding: 13px;
+        gap: 11px;
+    }
+
+    .org-group-title {
+        font-size: .9rem;
+    }
+
+    .org-card,
+    .org-subordinates .org-card,
+    .org-group > .org-card {
+        padding: 12px;
+        gap: 12px;
+    }
+
+    .org-avatar,
+    .org-subordinates .org-avatar,
+    .org-group > .org-card .org-avatar {
+        flex-basis: 62px;
+        width: 62px;
+        height: 62px;
+    }
+
+    .org-info h5,
+    .org-subordinates .org-info h5,
+    .org-group > .org-card .org-info h5 {
+        font-size: .86rem;
+    }
+
+    .org-info p,
+    .org-subordinates .org-info p,
+    .org-group > .org-card .org-info p {
+        font-size: .79rem;
+    }
+}
+
+/* HP kecil */
+@media (max-width: 380px) {
+    .org-avatar,
+    .org-subordinates .org-avatar,
+    .org-group > .org-card .org-avatar {
+        flex-basis: 52px;
+        width: 52px;
+        height: 52px;
+    }
+
+    .org-card,
+    .org-subordinates .org-card,
+    .org-group > .org-card {
+        padding: 9px;
+        gap: 9px;
+    }
+}
+
+
+
 
         /* ==========================================================================
            11. GALERI DESA
@@ -1595,27 +1892,79 @@
                 { title: " ", value: "3", icon: "fa-solid fa-building-flag", verifyText: "Dusun" },
                 { title: " ", value: "9 / 27", icon: "fa-solid fa-users-rectangle", verifyText: "RW/RT" }
             ],
-            pemerintahan: {
-                top: [
-                    { jabatan: "Kepala Desa", nama: "Nama Kepala Desa", highlight: true },
-                    { jabatan: "Sekretaris Desa", nama: "Nama Sekretaris", highlight: false }
-                ],
-                middle: [
-                    { jabatan: "Kaur Pemerintahan", nama: "Nama Kaur" },
-                    { jabatan: "Kaur Keuangan", nama: "Nama Kaur" },
-                    { jabatan: "Kaur Umum", nama: "Nama Kaur" },
-                    { jabatan: "Kasi Pemerintahan", nama: "Nama Kasi" },
-                    { jabatan: "Kasi Pelayanan", nama: "Nama Kasi" },
-                    { jabatan: "Kasi Kesra", nama: "Nama Kasi" }
-                ],
-                bottom: [
-                    { jabatan: "Kepala Dusun 1", nama: "Nama Kepala Dusun" },
-                    { jabatan: "Kepala Dusun 2", nama: "Nama Kepala Dusun" },
-                    { jabatan: "Kepala Dusun 3", nama: "Nama Kepala Dusun" },
-                    { jabatan: "Kepala Dusun 4", nama: "Nama Kepala Dusun" },
-                    { jabatan: "Kepala Dusun 5", nama: "Nama Kepala Dusun" }
-                ]
-            },
+            
+
+
+pemerintahan: {
+    kepalaDesa: {
+        jabatan: "Kepala Desa",
+        nama: "Ajie Nugraha, SST., M.AP.",
+        foto: "assets/images/aparatur/kepala-desa.jpg"
+    },
+
+    sekretarisDesa: {
+        jabatan: "Sekretaris Desa",
+        nama: "Haris Nur Kresna",
+        foto: "assets/images/aparatur/sekretaris-desa.jpg"
+    },
+
+    kaur: [
+        {
+            jabatan: "Kepala Urusan  Tata Usaha & Umum",
+            nama: "Aisyah",
+            foto: "assets/images/aparatur/kaur-1.jpg"
+        },
+        {
+            jabatan: "Kepala Urusan Keuangan",
+            nama: "Wildan Alissandi",
+            foto: "assets/images/aparatur/kaur-2.jpg"
+        },
+        {
+            jabatan: "Kepala Urusan Perencanaan",
+            nama: "Soleh",
+            foto: "assets/images/aparatur/kaur-3.jpg"
+        }
+    ],
+
+    kasi: [
+        {
+            jabatan: "Kepala Seksi Pemerintahan",
+            nama: "Ajat Sudrajat",
+            foto: "assets/images/aparatur/kasi-1.jpg"
+        },
+        {
+            jabatan: "Kepala Seksi Kesejahteraan",
+            nama: "Ahmad Jaelani",
+            foto: "assets/images/aparatur/kasi-2.jpg"
+        },
+        {
+            jabatan: "Kepala Seksi Pelayanan",
+            nama: "Rusdiman",
+            foto: "assets/images/aparatur/kasi-3.jpg"
+        }
+    ],
+
+    kadus: [
+        {
+            jabatan: "Kepala Dusun I",
+            nama: "Nur Ali Hidayat",
+            foto: "assets/images/aparatur/kadus-1.jpg"
+        },
+        {
+            jabatan: "Kepala Dusun II",
+            nama: "Hengki Jamaludin",
+            foto: "assets/images/aparatur/kadus-2.jpg"
+        },
+        {
+            jabatan: "Kepala Dusun III",
+            nama: "Jaenal Amsor",
+            foto: "assets/images/aparatur/kadus-3.jpg"
+        }
+    ]
+},
+
+
+
             galeri: [
                 {
                     src: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=800&q=80",
@@ -1693,57 +2042,104 @@
         }
 
         /* 4. Render Bagan Organisasi */
-        function renderStrukturOrganisasi() {
-            const container = document.getElementById('orgTreeContainer');
-            if (!container) return;
+        
+/* 4. Render Bagan Organisasi Desa */
 
-            const { top, middle, bottom } = PROFIL_DATA.pemerintahan;
 
-            container.innerHTML = `
-                <!-- LEVEL 1: PIMPINAN UTAMA -->
-                <div class="org-level">
-                    ${top.map(person => `
-                        <div class="org-card ${person.highlight ? 'highlight' : ''}">
-                            <div class="org-avatar"><i class="fa-solid fa-user"></i></div>
-                            <div class="org-info">
-                                <h5>${person.jabatan}</h5>
-                                <p>${person.nama}</p>
-                            </div>
-                        </div>
-                    `).join('')}
+/* Render Bagan Struktur Pemerintahan */
+function renderStrukturOrganisasi() {
+    const container = document.getElementById("orgTreeContainer");
+    if (!container) return;
+
+    const data = PROFIL_DATA.pemerintahan;
+    if (!data) return;
+
+    // Amankan teks sebelum dimasukkan ke HTML.
+    function aman(value) {
+        return String(value ?? "").replace(/[&<>"']/g, char => ({
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            '"': "&quot;",
+            "'": "&#39;"
+        })[char]);
+    }
+
+    function buatKartu(person, highlight = false) {
+        const jabatan = aman(person?.jabatan || "Jabatan");
+        const nama = aman(person?.nama || "Nama belum diisi");
+        const foto = aman(person?.foto || "");
+
+        return `
+            <article class="org-card ${highlight ? "highlight" : ""}">
+                <div class="org-avatar">
+                    <img
+                        src="${foto}"
+                        alt="Foto ${jabatan}"
+                        loading="lazy"
+                        onerror="this.onerror=null;this.src='https://placehold.co/300x300/eaf4ec/195c3d?text=Foto';"
+                    >
                 </div>
 
-                <div class="org-connector-line"></div>
+                <div class="org-info">
+                    <h5>${jabatan}</h5>
+                    <p>${nama}</p>
+                </div>
+            </article>
+        `;
+    }
 
-                <!-- LEVEL 2: KAUR & KASI -->
-                <div class="org-level">
-                    ${middle.map(person => `
-                        <div class="org-card">
-                            <div class="org-avatar"><i class="fa-solid fa-user"></i></div>
-                            <div class="org-info">
-                                <h5>${person.jabatan}</h5>
-                                <p>${person.nama}</p>
-                            </div>
-                        </div>
-                    `).join('')}
+    function buatKelompok(judul, daftar) {
+        return `
+            <section class="org-group">
+                <h4 class="org-group-title">${aman(judul)}</h4>
+                ${(daftar || []).map(person => buatKartu(person)).join("")}
+            </section>
+        `;
+    }
+
+    container.innerHTML = `
+        <!-- PIMPINAN UTAMA -->
+        <div class="org-leader">
+            ${buatKartu(data.kepalaDesa, true)}
+        </div>
+
+        <div class="org-connector-line"></div>
+
+        <!-- CABANG ORGANISASI -->
+        <div class="org-branches">
+
+            <!-- SEKRETARIAT DAN KAUR -->
+            <section class="org-group">
+                <h4 class="org-group-title">Sekretariat Desa</h4>
+
+                <div class="org-secretary-card">
+                    ${buatKartu(data.sekretarisDesa)}
                 </div>
 
-                <div class="org-connector-line"></div>
+                <div class="org-subordinates">
+                    <p class="org-subordinates-title">
+                        Kepala Urusan
+                    </p>
 
-                <!-- LEVEL 3: KEPALA DUSUN -->
-                <div class="org-level">
-                    ${bottom.map(person => `
-                        <div class="org-card">
-                            <div class="org-avatar"><i class="fa-solid fa-user"></i></div>
-                            <div class="org-info">
-                                <h5>${person.jabatan}</h5>
-                                <p>${person.nama}</p>
-                            </div>
-                        </div>
-                    `).join('')}
+                    ${(data.kaur || []).map(person =>
+                        buatKartu(person)
+                    ).join("")}
                 </div>
-            `;
-        }
+            </section>
+
+            <!-- KEPALA SEKSI -->
+            ${buatKelompok("Kepala Seksi", data.kasi)}
+
+            <!-- KEPALA DUSUN -->
+            ${buatKelompok("Kepala Dusun", data.kadus)}
+
+        </div>
+    `;
+}
+
+
+
 
         /* 5. Render Galeri Foto */
         function renderGaleri() {

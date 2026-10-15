@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Admin — Desa Mekarsari</title>
+
+  <!-- Google Fonts: Plus Jakarta Sans & Caveat -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- CSS Admin (asli) + tambahan untuk fitur baru -->
+  <link rel="stylesheet" href="../assets/css/admin.css">
+  <link rel="stylesheet" href="../assets/css/admin-extra.css">
+  <link rel="stylesheet" href="../assets/css/admin-news.css">
+  <link rel="stylesheet" href="../assets/css/admin-surat.css">
+  <link rel="stylesheet" href="../assets/css/admin-umkm.css">
+</head>
+<body>
+
+  <div class="admin-wrapper">
+    <!-- Sidebar Kiri -->
+    <aside class="admin-sidebar" id="adminSidebar">
+      <div class="sidebar-header">
+        <img class="sidebar-logo" src="../assets/logo.png" alt="">
+        <span class="sidebar-title">Desa Mekarsari</span>
+      </div>
+
+      <ul class="sidebar-menu">
+        <li class="menu-item"><a href="#dashboard" class="menu-link active" data-view="dashboard"><i class="fa-solid fa-house"></i><span>Beranda</span></a></li>
+        <li class="menu-item"><a href="#pengajuan" class="menu-link" data-view="pengajuan"><i class="fa-solid fa-file-signature"></i><span>Pengajuan Surat</span></a></li>
+        <li class="menu-item"><a href="#pengaduan" class="menu-link" data-view="pengaduan"><i class="fa-solid fa-comments"></i><span>Pengaduan</span></a></li>
+        <li class="menu-item"><a href="#berita" class="menu-link" data-view="berita"><i class="fa-solid fa-newspaper"></i><span>Berita &amp; Kegiatan</span></a></li>
+        <li class="menu-item"><a href="#umkm" class="menu-link" data-view="umkm"><i class="fa-solid fa-store"></i><span>Pengrajin</span></a></li>
+        <li class="menu-item"><a href="#pengguna" class="menu-link" data-view="pengguna"><i class="fa-solid fa-users"></i><span>Pengguna</span></a></li>
+        <li class="menu-item"><a href="#pengaturan" class="menu-link" data-view="pengaturan"><i class="fa-solid fa-gear"></i><span>Pengaturan</span></a></li>
+      </ul>
+
+      <div class="sidebar-footer">
+        <button type="button" class="btn-logout" id="logoutBtn">
+          <i class="fa-solid fa-right-from-bracket"></i>
+          <span>Logout</span>
+        </button>
+      </div>
+    </aside>
+    <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+    <!-- Content Area Kanan -->
+    <div class="admin-main">
+      <header class="admin-header">
+        <div class="header-left">
+          <button type="button" class="mobile-toggle" id="mobileToggle" aria-label="Buka/tutup menu samping" aria-controls="adminSidebar" aria-expanded="false">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+          <div class="header-title-group">
+            <h1 id="pageTitle">Dashboard</h1>
+            <p id="pageSubtitle">Selamat datang, Admin</p>
+          </div>
+        </div>
+
+        <div class="user-profile-pill">
+          <div class="user-info">
+            <div class="user-name" id="adminUserName">Admin Desa</div>
+            <div class="user-role">Petugas Desa</div>
+          </div>
+          <div class="avatar-circle"><img src="../assets/galeri/profil.jpg" alt=""></div>
+        </div>
+      </header>
+
+      <main class="admin-content">
+
+        <!-- ===== VIEW: DASHBOARD ===== -->
+        <section class="view" id="view-dashboard">
+          <div class="stats-grid">
+            <div class="stat-card new">
+              <div class="stat-card-header">
+                <span class="stat-card-title">Pengajuan Baru</span>
+                <div class="stat-icon"><i class="fa-solid fa-folder-plus"></i></div>
+              </div>
+              <div class="stat-value" id="statNewCount">0</div>
+            </div>
+            <div class="stat-card process">
+              <div class="stat-card-header">
+                <span class="stat-card-title">Sedang Diperiksa</span>
+                <div class="stat-icon"><i class="fa-solid fa-hourglass-half"></i></div>
+              </div>
+              <div class="stat-value" id="statProcessCount">0</div>
+            </div>
+            <div class="stat-card revision">
+              <div class="stat-card-header">
+                <span class="stat-card-title">Perlu Perbaikan</span>
+                <div class="stat-icon"><i class="fa-solid fa-circle-exclamation"></i></div>
+              </div>
+              <div class="stat-value" id="statRevisionCount">0</div>
+            </div>
+            <div class="stat-card completed">
+              <div class="stat-card-header">
+                <span class="stat-card-title">Selesai</span>
+                <div class="stat-icon"><i class="fa-solid fa-circle-check"></i></div>
+              </div>
+              <div class="stat-value" id="statCompletedCount">0</div>
+            </div>
+          </div>
+
+          <section class="section-card">
+            <div class="section-header">
+              <h2 class="section-title">Pengajuan Terbaru</h2>
+              <a href="#pengajuan" class="view-all-link">Lihat Semua <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+            <div class="filter-bar">
+              <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="search" id="searchInput" class="form-control" placeholder="Cari nomor pengajuan / nama pemohon..." aria-label="Cari pengajuan">
+              </div>
+              <select id="statusFilter" class="form-control select-filter" aria-label="Filter status">
+                <option value="all">Semua Status</option>
+                <option value="Diajukan">Diajukan</option>
+                <option value="Diperiksa">Diperiksa</option>
+                <option value="Perlu Perbaikan">Perlu Perbaikan</option>
+                <option value="Disetujui">Disetujui</option>
+                <option value="Selesai">Selesai</option>
+              </select>
+            </div>
+            <div class="table-responsive">
+              <table class="admin-table">
+                <thead><tr><th>No. Pengajuan</th><th>Pemohon</th><th>Jenis Surat</th><th>Tanggal</th><th>Status</th><th>Aksi</th></tr></thead>
+                <tbody id="submissionsTableBody"></tbody>
+              </table>
+            </div>
+          </section>
+        </section>
+
+        <!-- ===== VIEW: PENGAJUAN SURAT ===== -->
+        <section class="view" id="view-pengajuan" hidden>
+          <section class="section-card">
+            <div class="section-header">
+              <h2 class="section-title">Semua Pengajuan Surat</h2>
+              <button type="button" class="btn-secondary-admin" id="exportCsvBtn"><i class="fa-solid fa-file-csv"></i> Ekspor CSV</button>
+            </div>
+            <div class="filter-bar">
+              <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="search" id="searchInputAll" class="form-control" placeholder="Cari nomor pengajuan / nama pemohon..." aria-label="Cari pengajuan">
+              </div>
+              <select id="statusFilterAll" class="form-control select-filter" aria-label="Filter status">
+                <option value="all">Semua Status</option>
+                <option value="Diajukan">Diajukan</option>
+                <option value="Diperiksa">Diperiksa</option>
+                <option value="Perlu Perbaikan">Perlu Perbaikan</option>
+                <option value="Disetujui">Disetujui</option>
+                <option value="Selesai">Selesai</option>
+              </select>
+            </div>
+            <div class="table-responsive">
+              <table class="admin-table">
+                <thead><tr><th>No. Pengajuan</th><th>Pemohon</th><th>Jenis Surat</th><th>Tanggal</th><th>Status</th><th>Aksi</th></tr></thead>
+                <tbody id="submissionsAllBody"></tbody>
+              </table>
+            </div>
+            <p class="table-count" id="submissionsAllCount"></p>
+          </section>
+        </section>
+
+        <!-- ===== VIEW: PENGADUAN ===== -->
+        <section class="view" id="view-pengaduan" hidden>
+          <section class="section-card">
+            <div class="section-header"><h2 class="section-title">Pengaduan Warga</h2></div>
+            <div class="filter-bar">
+              <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="search" id="searchComplaints" class="form-control" placeholder="Cari nomor / pelapor / kategori..." aria-label="Cari pengaduan">
+              </div>
+              <select id="statusComplaints" class="form-control select-filter" aria-label="Filter status">
+                <option value="all">Semua Status</option>
+                <option value="Baru">Baru</option>
+                <option value="Diproses">Diproses</option>
+                <option value="Selesai">Selesai</option>
+              </select>
+            </div>
+            <div class="table-responsive">
+              <table class="admin-table">
+                <thead><tr><th>No. Pengaduan</th><th>Pelapor</th><th>Kategori</th><th>Tanggal</th><th>Status</th><th>Aksi</th></tr></thead>
+                <tbody id="complaintsBody"></tbody>
+              </table>
+            </div>
+          </section>
+        </section>
+
+        <!-- ===== VIEW: BERITA ===== -->
+        <section class="view" id="view-berita" hidden>
+          <section class="section-card">
+            <div class="section-header">
+              <h2 class="section-title">Berita &amp; Kegiatan</h2>
+              <button type="button" class="nw-btn-primary" id="newsAddBtn"><i class="fa-solid fa-plus"></i> Tambah Berita</button>
+            </div>
+            <p class="notice" id="newsModeNotice"></p>
+            <div class="filter-bar">
+              <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="search" id="searchNews" class="form-control" placeholder="Cari judul / kategori..." aria-label="Cari berita">
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table class="admin-table">
+                <thead><tr><th>Judul</th><th>Kategori</th><th>Tanggal</th><th>Status</th><th>Aksi</th></tr></thead>
+                <tbody id="newsBody"></tbody>
+              </table>
+            </div>
+          </section>
+        </section>
+
+        <!-- ===== VIEW: UMKM ===== -->
+        <section class="view" id="view-umkm" hidden>
+          <section class="section-card">
+            <div class="section-header">
+              <h2 class="section-title">Pengrajin Desa Mekarsari</h2>
+              <div class="um-header-actions">
+                <a href="../umkm.html" target="_blank" rel="noopener" class="btn-secondary-admin um-link-btn"><i class="fa-solid fa-arrow-up-right-from-square"></i> Lihat Halaman Publik</a>
+                <button type="button" class="btn-primary-admin" id="umkmAddBtn"><i class="fa-solid fa-plus"></i> Tambah Pengrajin</button>
+              </div>
+            </div>
+            <p class="notice" id="umkmModeNotice"></p>
+            <div class="filter-bar">
+              <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="search" id="searchUmkm" class="form-control" placeholder="Cari usaha / pemilik / kategori..." aria-label="Cari UMKM">
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table class="admin-table">
+                <thead><tr><th>Nama Usaha</th><th>Kategori</th><th>Pemilik</th><th>WhatsApp</th><th>Status</th><th>Aksi</th></tr></thead>
+                <tbody id="umkmBody"></tbody>
+              </table>
+            </div>
+            <p class="table-count" id="umkmCount"></p>
+            <div class="um-import" id="umkmImportBox" hidden>
+              <p>Koleksi UMKM masih kosong. Anda bisa mengimpor 8 data contoh yang sebelumnya tampil di halaman publik, lalu mengeditnya satu per satu.</p>
+              <button type="button" class="btn-secondary-admin" id="umkmImportBtn"><i class="fa-solid fa-file-import"></i> Impor 8 data contoh</button>
+            </div>
+          </section>
+        </section>
+
+        <!-- ===== VIEW: PENGGUNA ===== -->
+        <section class="view" id="view-pengguna" hidden>
+          <section class="section-card">
+            <div class="section-header"><h2 class="section-title">Pengguna Panel Admin</h2></div>
+            <p class="notice"><i class="fa-solid fa-circle-info"></i> Manajemen pengguna butuh backend (mis. Firebase Auth). Saat ini hanya menampilkan sesi yang sedang aktif.</p>
+            <div class="table-responsive">
+              <table class="admin-table">
+                <thead><tr><th>Nama</th><th>Peran</th><th>Status</th></tr></thead>
+                <tbody id="usersBody"></tbody>
+              </table>
+            </div>
+          </section>
+        </section>
+
+        <!-- ===== VIEW: PENGATURAN ===== -->
+        <section class="view" id="view-pengaturan" hidden>
+          <section class="section-card">
+            <div class="section-header"><h2 class="section-title">Pengaturan</h2></div>
+            <div class="detail-grid">
+              <div class="detail-block"><span class="detail-label">Nama Akun</span><p id="settingsName" class="detail-value">-</p></div>
+              <div class="detail-block"><span class="detail-label">Peran</span><p class="detail-value">Petugas Desa</p></div>
+            </div>
+            <p class="notice"><i class="fa-solid fa-circle-info"></i> Perubahan status surat dan pengaduan disimpan di browser ini (localStorage), bukan di server. Data tidak terlihat di perangkat lain.</p>
+            <button type="button" class="btn-secondary-admin" id="resetDataBtn"><i class="fa-solid fa-rotate-left"></i> Reset Data Contoh</button>
+          </section>
+        </section>
+
+      </main>
+
+      <footer class="admin-footer">
+        &copy; <span id="footerYear">2026</span> Desa Mekarsari. Semua hak dilindungi.
+        <span><br>KKN GRADASI 2026 KELOMPOK 09</span>
+      </footer>
+    </div>
+  </div>
+
+  <!-- Modal Detail -->
+  <div class="modal-overlay" id="detailModal" aria-hidden="true">
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-header">
+        <h3 id="modalTitle" class="modal-title">Detail</h3>
+        <button type="button" class="modal-close" id="modalCloseBtn" aria-label="Tutup">&times;</button>
+      </div>
+      <div id="modalDetailBody"></div>
+    </div>
+  </div>
+
+  <!-- Modal Form Berita -->
+  <div class="nw-overlay" id="newsFormOverlay" aria-hidden="true">
+    <div class="nw-modal" role="dialog" aria-modal="true" aria-labelledby="newsFormTitle">
+      <div class="nw-modal-head">
+        <h3 id="newsFormTitle">Tambah Berita</h3>
+        <button type="button" class="nw-close" id="newsFormClose" aria-label="Tutup">&times;</button>
+      </div>
+      <form id="newsForm" novalidate>
+        <input type="hidden" name="newsId">
+        <div class="nw-error" id="newsFormError" role="alert" hidden></div>
+
+        <div class="nw-field">
+          <label for="nwJudul">Judul</label>
+          <input type="text" id="nwJudul" name="judul" class="form-control" maxlength="150" required>
+        </div>
+
+        <div class="nw-row-2">
+          <div class="nw-field">
+            <label for="nwKategori">Kategori</label>
+            <select id="nwKategori" name="kategori" class="form-control">
+              <option value="pemerintahan">Pemerintahan</option>
+              <option value="kegiatan">Kegiatan</option>
+              <option value="umkm">UMKM</option>
+              <option value="pembangunan">Pembangunan</option>
+            </select>
+          </div>
+          <div class="nw-field">
+            <label for="nwTanggal">Tanggal</label>
+            <input type="date" id="nwTanggal" name="tanggal" class="form-control" required>
+          </div>
+          <div class="nw-field">
+            <label for="nwStatus">Status</label>
+            <select id="nwStatus" name="status" class="form-control">
+              <option value="published">Terbit</option>
+              <option value="draft">Draf</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="nw-field">
+          <label for="nwFoto">Link foto Google Drive</label>
+          <input type="text" id="nwFoto" name="foto" class="form-control" placeholder="https://drive.google.com/file/d/.../view" autocomplete="off">
+          <small>Di Drive: klik kanan foto &gt; Bagikan &gt; Akses umum &quot;Siapa saja yang memiliki link&quot; (Pelihat) &gt; Salin link. Boleh dikosongkan.</small>
+          <div class="nw-preview" id="newsPhotoPreview"></div>
+        </div>
+
+        <div class="nw-field">
+          <label for="nwRingkasan">Ringkasan</label>
+          <textarea id="nwRingkasan" name="ringkasan" rows="2" maxlength="220" required></textarea>
+          <small>Tampil di kartu berita. Maksimal 220 karakter.</small>
+        </div>
+
+        <div class="nw-field">
+          <label for="nwIsi">Isi berita</label>
+          <textarea id="nwIsi" name="isi" rows="7" required></textarea>
+          <small>Tekan Enter dua kali untuk membuat paragraf baru.</small>
+        </div>
+
+        <div class="nw-modal-foot">
+          <button type="button" class="nw-btn-ghost" id="newsCancelBtn">Batal</button>
+          <button type="submit" class="nw-btn-primary" id="newsSaveBtn">Simpan berita</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal Form UMKM -->
+  <div class="um-overlay" id="umkmFormOverlay" aria-hidden="true">
+    <div class="um-modal" role="dialog" aria-modal="true" aria-labelledby="umkmFormTitle">
+      <div class="um-modal-head">
+        <h3 id="umkmFormTitle">Tambah UMKM</h3>
+        <button type="button" class="um-close" id="umkmFormClose" aria-label="Tutup">&times;</button>
+      </div>
+      <form id="umkmForm" novalidate>
+        <div class="um-error" id="umkmFormError" role="alert" hidden></div>
+
+        <div class="um-field">
+          <label for="umkmNama">Nama usaha</label>
+          <input type="text" id="umkmNama" name="nama" class="form-control" maxlength="80" required>
+        </div>
+
+        <div class="um-row-2">
+          <div class="um-field">
+            <label for="umkmKategori">Kategori</label>
+            <select id="umkmKategori" name="kategori" class="form-control" required></select>
+          </div>
+          <div class="um-field">
+            <label for="umkmStatus">Status</label>
+            <select id="umkmStatus" name="status" class="form-control">
+              <option value="Aktif">Aktif (tampil di halaman publik)</option>
+              <option value="Nonaktif">Nonaktif (disembunyikan)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="um-row-2">
+          <div class="um-field">
+            <label for="umkmPemilik">Nama pemilik</label>
+            <input type="text" id="umkmPemilik" name="pemilik" class="form-control" maxlength="80" required>
+          </div>
+          <div class="um-field">
+            <label for="umkmTelepon">Nomor WhatsApp</label>
+            <input type="tel" id="umkmTelepon" name="telepon" class="form-control" maxlength="20" placeholder="081234567890" inputmode="tel" required>
+          </div>
+        </div>
+
+        <div class="um-field">
+          <label for="umkmAlamat">Alamat</label>
+          <input type="text" id="umkmAlamat" name="alamat" class="form-control" maxlength="120" placeholder="Kp. Mekarsari, RT 02/RW 03" required>
+        </div>
+
+        <div class="um-field">
+          <label for="umkmHarga">Kisaran harga</label>
+          <input type="text" id="umkmHarga" name="hargaRentang" class="form-control" maxlength="60" placeholder="Rp 25.000 - Rp 150.000">
+          <small>Boleh dikosongkan.</small>
+        </div>
+
+        <div class="um-field">
+          <label for="umkmRingkasan">Ringkasan produk</label>
+          <textarea id="umkmRingkasan" name="ringkasan" class="form-control" rows="2" maxlength="160" required></textarea>
+          <small>Tampil di kartu UMKM. Maksimal 160 karakter.</small>
+        </div>
+
+        <div class="um-field">
+          <label for="umkmDeskripsi">Deskripsi lengkap</label>
+          <textarea id="umkmDeskripsi" name="deskripsi" class="form-control" rows="4" maxlength="800"></textarea>
+          <small>Tampil saat pengunjung menekan tombol Detail. Boleh dikosongkan.</small>
+        </div>
+
+        <div class="um-field">
+          <label for="umkmFoto">Link foto</label>
+          <input type="text" id="umkmFoto" name="foto" class="form-control" placeholder="https://drive.google.com/file/d/.../view" autocomplete="off">
+          <small>Di Google Drive: klik kanan foto &gt; Bagikan &gt; Akses umum &quot;Siapa saja yang memiliki link&quot; (Pelihat) &gt; Salin link. Link gambar lain (https://...) juga bisa. Boleh dikosongkan.</small>
+          <div class="um-preview" id="umkmPhotoPreview"></div>
+        </div>
+
+        <div class="um-modal-foot">
+          <button type="button" class="um-ghost" id="umkmCancelBtn">Batal</button>
+          <button type="submit" class="btn-primary-admin" id="umkmSaveBtn">Simpan UMKM</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+  <!-- Firebase (opsional, hanya jika admin-auth.js memakainya) -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+
+  <script src="../assets/js/firebase-config.js"></script>
+  <script src="../assets/js/admin-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-check-compat.js"></script>
+  <script src="../assets/js/submission-store.js"></script>
+  <script src="../assets/js/umkm-store.js"></script>
+  <script src="../assets/js/admin-dashboard.js"></script>
+
+  <!-- Kelola berita (harus setelah admin-dashboard.js) -->
+  <script src="../assets/js/news-store.js"></script>
+  <script src="../assets/js/admin-news.js"></script>
+  <!-- Kelola UMKM (setelah umkm-store.js dan admin-dashboard.js) -->
+  <script src="../assets/js/admin-umkm.js"></script>
+  <!-- Pengajuan surat: data form pemohon, cetak A4, WhatsApp (paling akhir) -->
+  <script src="../assets/js/admin-surat.js"></script>
+</body>
+</html>

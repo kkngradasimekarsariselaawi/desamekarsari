@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Admin — Desa Mekarsari</title>
+  
+  <!-- Google Fonts: Plus Jakarta Sans & Caveat -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- CSS Khusus Admin -->
+  <link rel="stylesheet" href="../assets/css/admin.css">
+</head>
+<body class="login-body">
+
+  <main class="login-card">
+    <div class="login-brand">
+      <!-- Logo Lambang Desa Mekarsari -->
+      <img class="login-logo" src="../assets/logo.png" alt="">
+      <h1 class="login-title">Desa Mekarsari</h1>
+      <p class="login-subtitle">Dashboard Admin</p>
+    </div>
+
+    <form id="loginForm" autocomplete="off">
+      <div class="form-group">
+        <label for="identifier" class="form-label">Email</label>
+        <div class="input-wrapper">
+          <input 
+            type="email" 
+            id="identifier" 
+            class="form-control" 
+            placeholder="Masukkan email admin"
+            autocomplete="username"
+            required
+          >
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password" class="form-label">Password</label>
+        <div class="input-wrapper">
+          <input 
+            type="password" 
+            id="password" 
+            class="form-control" 
+            placeholder="Masukkan password"
+            autocomplete="current-password"
+            required
+          >
+          <button type="button" class="toggle-password" id="togglePasswordBtn" aria-label="Tampilkan Password">
+            <i class="fa-regular fa-eye" id="togglePasswordIcon"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="form-options">
+        <label class="checkbox-label">
+          <input type="checkbox" id="rememberMe">
+          <span>Ingat saya</span>
+        </label>
+        <a href="#" class="forgot-link" onclick="alert('Silakan hubungi Administrator Sistem Desa untuk reset password.'); return false;">Lupa password?</a>
+      </div>
+
+      <button type="submit" class="btn-primary-admin" id="loginSubmitBtn">
+        <span id="btnText">Login</span>
+      </button>
+    </form>
+
+    <div class="login-footer-text">
+      &copy; 2024 Desa Mekarsari, Semua hak dilindungi.
+    </div>
+  </main>
+
+  <!-- Firebase Compatibility Scripts (Opsional jika mengaktifkan backend) -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+  <script src="../assets/js/firebase-config.js"></script>
+  <!-- Script Autentikasi -->
+  <script src="../assets/js/admin-auth.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Guard Check - jika sudah login langsung redirect ke index.html
+      if (window.adminAuth) {
+        window.adminAuth.checkAuthGuard(true);
+      }
+
+      // Password Visibility Toggle
+      const passwordInput = document.getElementById('password');
+      const toggleBtn = document.getElementById('togglePasswordBtn');
+      const toggleIcon = document.getElementById('togglePasswordIcon');
+
+      toggleBtn.addEventListener('click', () => {
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+        toggleIcon.className = type === 'password' ? 'fa-regular fa-eye' : 'fa-regular fa-eye-slash';
+      });
+
+      // Submit Form
+      const form = document.getElementById('loginForm');
+      const submitBtn = document.getElementById('loginSubmitBtn');
+      const btnText = document.getElementById('btnText');
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const identifier = document.getElementById('identifier').value.trim();
+        const password = document.getElementById('password').value.trim();
+        const remember = document.getElementById('rememberMe').checked;
+
+        submitBtn.disabled = true;
+        btnText.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Memproses...';
+
+        try {
+          await window.adminAuth.login(identifier, password, remember);
+          window.location.href = 'index.html';
+        } catch (err) {
+          alert(err.message);
+          submitBtn.disabled = false;
+          btnText.textContent = 'Login';
+        }
+      });
+    });
+  </script>
+</body>
+</html>

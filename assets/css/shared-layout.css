@@ -20,7 +20,16 @@
 .mk-menu-toggle{display:none;border:0;background:#eaf2e8;color:#1e4620;border-radius:9px;width:42px;height:42px;font-size:19px;cursor:pointer}
 .mk-footer{margin-top:auto;background:#132a18;color:#f8faf7;font-family:'Plus Jakarta Sans',sans-serif}
 .mk-footer-inner{max-width:1200px;margin:0 auto;padding:46px 22px 34px;display:grid;grid-template-columns:1.5fr .8fr 1.2fr;gap:44px}
-.mk-footer-brand{display:inline-flex;align-items:center;gap:10px;color:#fff;font-size:18px;font-weight:800;text-decoration:none}.mk-footer-icon{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:#2d6a4f;color:#fff}
+.mk-footer-brand{display:inline-flex;align-items:center;gap:10px;color:#fff;font-size:18px;font-weight:800;text-decoration:none}.mk-footer-icon{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;}
+
+.mk-footer-brand img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
 .mk-footer-about p{max-width:390px;margin-top:15px;color:#d3ded5;font-size:13px;line-height:1.8}.mk-footer h2{margin:2px 0 15px;color:#fff;font-size:14px;font-weight:800}.mk-footer-links{display:flex;flex-direction:column;align-items:flex-start;gap:9px}.mk-footer-links a{color:#d3ded5;font-size:13px;text-decoration:none}.mk-footer-links a:hover{color:#a7e2b5}.mk-footer-contact p{display:flex;align-items:flex-start;gap:10px;margin:0 0 12px;color:#d3ded5;font-size:13px;line-height:1.7}.mk-footer-contact i{margin-top:4px;color:#a7e2b5}.mk-footer-bottom{max-width:1200px;margin:0 auto;padding:17px 22px;border-top:1px solid #ffffff24;display:flex;justify-content:space-between;gap:16px;color:#c5d1c7;font-size:11px}
 @media(max-width:1000px){.mk-header-inner{gap:14px}.mk-nav{gap:13px}.mk-nav a{font-size:12px}.mk-brand-copy strong{font-size:15px}}
 @media(max-width:820px){.mk-header-inner{min-height:72px;padding:10px 18px;flex-wrap:wrap}.mk-menu-toggle{display:grid;place-items:center;margin-left:auto}.mk-nav{display:none;order:3;width:100%;padding:8px 0 12px;align-items:stretch;flex-direction:column;gap:3px}.mk-nav.is-open{display:flex}.mk-nav a{padding:11px 12px;border-radius:8px;font-size:14px}.mk-nav a.is-active:after{display:none}.mk-nav a.is-active{background:#eaf2e8}.mk-nav .mk-admin-link{justify-content:center;margin-top:5px}.mk-footer-inner{grid-template-columns:1fr 1fr;gap:30px}.mk-footer-about{grid-column:1/-1}}

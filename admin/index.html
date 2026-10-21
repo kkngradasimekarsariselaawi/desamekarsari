@@ -12,6 +12,7 @@
 
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="icon" type="image/png" href="../assets/logo.png">
 
   <!-- CSS Admin (asli) + tambahan untuk fitur baru -->
   <link rel="stylesheet" href="../assets/css/admin.css">
@@ -67,7 +68,7 @@
             <div class="user-name" id="adminUserName">Admin Desa</div>
             <div class="user-role">Petugas Desa</div>
           </div>
-          <div class="avatar-circle"><img src="../assets/galeri/profil.jpg" alt=""></div>
+          <div class="avatar-circle"><img src="../assets/images/aparatur/kasi-3.jpeg" alt=""></div>
         </div>
       </header>
 
@@ -198,6 +199,47 @@
               <button type="button" class="nw-btn-primary" id="newsAddBtn"><i class="fa-solid fa-plus"></i> Tambah Berita</button>
             </div>
             <p class="notice" id="newsModeNotice"></p>
+
+
+            
+<!-- Impor Berita & Kegiatan -->
+<div class="nw-import-box">
+  <div class="nw-import-heading">
+    <i class="fa-solid fa-file-excel"></i>
+    <div>
+      <h3>Impor Berita & Kegiatan</h3>
+      <p>Tambahkan banyak berita sekaligus melalui Excel atau CSV.</p>
+    </div>
+  </div>
+
+  <div class="nw-import-actions">
+    <button type="button" class="nw-btn-ghost" id="newsTemplateBtn">
+      <i class="fa-solid fa-download"></i>
+      Unduh Template
+    </button>
+
+    <input
+      type="file"
+      id="newsExcelInput"
+      accept=".xlsx,.xls,.csv"
+      aria-label="Pilih file Excel berita"
+    >
+
+    <button type="button" class="nw-btn-primary" id="newsImportBtn">
+      <i class="fa-solid fa-file-import"></i>
+      Impor Berita
+    </button>
+  </div>
+
+  <small>
+    Kolom wajib: judul, kategori, tanggal, ringkasan, dan isi.
+    Kolom foto dan status bersifat opsional.
+    Jika status kosong, berita akan disimpan sebagai draf.
+  </small>
+
+  <div id="newsImportResult" role="status" aria-live="polite"></div>
+</div>
+
             <div class="filter-bar">
               <div class="search-box">
                 <i class="fa-solid fa-magnifying-glass"></i>
@@ -238,9 +280,45 @@
             </div>
             <p class="table-count" id="umkmCount"></p>
             <div class="um-import" id="umkmImportBox" hidden>
-              <p>Koleksi UMKM masih kosong. Anda bisa mengimpor 8 data contoh yang sebelumnya tampil di halaman publik, lalu mengeditnya satu per satu.</p>
-              <button type="button" class="btn-secondary-admin" id="umkmImportBtn"><i class="fa-solid fa-file-import"></i> Impor 8 data contoh</button>
-            </div>
+  <h3>
+    <i class="fa-solid fa-file-excel"></i>
+    Impor Data Pengrajin dari Excel
+  </h3>
+
+  <p>
+    Unggah file Excel untuk memasukkan banyak data pengrajin
+    sekaligus. Data yang tidak valid atau duplikat akan dilewati.
+  </p>
+
+  <div class="um-import-actions"
+       style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:12px">
+
+    <button type="button"
+            class="btn-secondary-admin"
+            id="umkmTemplateBtn">
+      <i class="fa-solid fa-download"></i>
+      Unduh Template Excel
+    </button>
+
+    <input type="file"
+           id="umkmExcelInput"
+           accept=".xlsx,.xls,.csv"
+           style="max-width:100%">
+
+    <button type="button"
+            class="btn-primary-admin"
+            id="umkmImportRunBtn">
+      <i class="fa-solid fa-file-import"></i>
+      Impor Data
+    </button>
+  </div>
+
+  <small style="display:block;margin-top:10px">
+    Format file: XLSX, XLS, atau CSV. Isi data sesuai kolom pada
+    template. Kolom wajib meliputi nama usaha, kategori, pemilik,
+    WhatsApp, alamat, dan ringkasan produk.
+  </small>
+</div>
           </section>
         </section>
 
@@ -275,7 +353,7 @@
 
       <footer class="admin-footer">
         &copy; <span id="footerYear">2026</span> Desa Mekarsari. Semua hak dilindungi.
-        <span><br>KKN GRADASI 2026 KELOMPOK 09</span>
+        <span><br>Diinisiasi melalui program KKN GRADASI 2026</span>
       </footer>
     </div>
   </div>
@@ -315,6 +393,7 @@
               <option value="kegiatan">Kegiatan</option>
               <option value="umkm">UMKM</option>
               <option value="pembangunan">Pembangunan</option>
+              <option value="pemberdayaan">Pemberdayaan</option>
             </select>
           </div>
           <div class="nw-field">
@@ -451,6 +530,9 @@
 
   <!-- Kelola berita (harus setelah admin-dashboard.js) -->
   <script src="../assets/js/news-store.js"></script>
+  <!-- Library pembaca Excel -->
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+
   <script src="../assets/js/admin-news.js"></script>
   <!-- Kelola UMKM (setelah umkm-store.js dan admin-dashboard.js) -->
   <script src="../assets/js/admin-umkm.js"></script>

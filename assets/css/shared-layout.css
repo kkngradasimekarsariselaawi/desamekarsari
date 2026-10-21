@@ -1,5 +1,16 @@
 /* Shared header/footer styles — namespaced to avoid conflicts with page-specific CSS. */
-.mk-header{position:sticky;top:0;z-index:1000;background:#fff;border-bottom:1px solid #e5e7eb;box-shadow:0 3px 14px rgba(19,42,24,.07);font-family:'Plus Jakarta Sans',sans-serif}
+.mk-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 1000;
+  background: #fff;
+  border-bottom: 1px solid #e5e7eb;
+  box-shadow: 0 3px 14px rgba(19,42,24,.07);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
 .mk-header *,.mk-footer *{box-sizing:border-box}
 .mk-header-inner{max-width:1200px;min-height:78px;margin:0 auto;padding:12px 22px;display:flex;align-items:center;justify-content:space-between;gap:24px}
 .mk-brand{display:flex;align-items:center;gap:12px;flex-shrink:0;text-decoration:none;color:#1e4620}
@@ -22,7 +33,7 @@
 .mk-footer-inner{max-width:1200px;margin:0 auto;padding:46px 22px 34px;display:grid;grid-template-columns:1.5fr .8fr 1.2fr;gap:44px}
 .mk-footer-brand{display:inline-flex;align-items:center;gap:10px;color:#fff;font-size:18px;font-weight:800;text-decoration:none}.mk-footer-icon{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;}
 
-.mk-footer-brand img {
+.mk-footer-icon img {
   display: block;
   width: 100%;
   height: 100%;

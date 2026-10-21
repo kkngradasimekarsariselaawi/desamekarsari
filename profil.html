@@ -264,11 +264,13 @@
            3. HERO SECTION
            ========================================================================== */
         .hero-profil {
-            position: relative;
-            background: linear-gradient(rgba(10, 38, 28, 0.75), rgba(10, 38, 28, 0.85)), 
-                        url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
-            color: #ffffff;
-            padding: 4.5rem 0 3.5rem 0;
+                position: relative;
+                min-height: 520px;
+                background: linear-gradient(rgba(15, 35, 16, 0.55), rgba(15, 35, 16, 0.65)), url(https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1600&q=80) center / cover no-repeat;
+                display: flex;
+                align-items: center;
+                color: #ffffff;
+                padding: 4rem 0;
         }
 
         .breadcrumb {
@@ -1072,6 +1074,7 @@
         padding: 12px;
         gap: 12px;
     }
+    
 
     .org-avatar,
     .org-subordinates .org-avatar,
@@ -1476,6 +1479,7 @@
 
             .hero-profil {
                 padding: 3rem 0 2.5rem 0;
+                min-height: 280px;
             }
 
             .section-padding {
@@ -1530,9 +1534,7 @@
                 gap: 0.75rem;
             }
 
-            .sambutan-img-box {
-                max-width: 100%;
-            }
+            
 
             .section-title {
                 font-size: 1.3rem;
@@ -1550,6 +1552,903 @@
                 width: 100%;
             }
         }
+    
+    
+/* =========================================
+   FIX RESPONSIVE MOBILE - PROFIL DESA
+   ========================================= */
+
+html,
+body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: clip;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+img,
+iframe,
+video {
+    max-width: 100%;
+}
+
+.container {
+    width: 100%;
+    min-width: 0;
+}
+
+/* Tablet dan mobile */
+@media (max-width: 768px) {
+    .section-padding {
+        padding: 2.5rem 0;
+    }
+
+    .container {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+    .sambutan-grid,
+    .sejarah-grid,
+    .visi-misi-grid,
+    .geografis-wrapper {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 1.5rem;
+    }
+
+    .sejarah-grid {
+        padding: 1.25rem;
+    }
+
+    .sejarah-right {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .geo-info-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.75rem;
+    }
+
+    .geo-card {
+        min-width: 0;
+        padding: 0.85rem;
+        gap: 0.6rem;
+    }
+
+    .geo-data {
+        min-width: 0;
+        overflow-wrap: anywhere;
+    }
+
+    .map-card,
+    .map-card > div {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .map-card img {
+        display: block;
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+    }
+
+    .demografi-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.75rem;
+    }
+
+    .demo-card {
+        min-width: 0;
+        padding: 0.85rem;
+        gap: 0.65rem;
+    }
+
+    .demo-info {
+        min-width: 0;
+        overflow-wrap: anywhere;
+    }
+
+    .demo-info .value {
+        font-size: clamp(1.05rem, 4vw, 1.5rem);
+    }
+
+    .potensi-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .galeri-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .footer-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .footer-grid > div:last-child {
+        grid-column: auto;
+    }
+
+    .organisasi-container {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+    }
+
+    .org-branches {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .org-group,
+    .org-card {
+        min-width: 0;
+        max-width: 100%;
+    }
+
+    .org-info {
+        min-width: 0;
+        overflow-wrap: anywhere;
+    }
+
+    .cta-title {
+        font-size: clamp(2rem, 8vw, 2.5rem);
+    }
+
+    .cta-buttons {
+        align-items: stretch;
+    }
+}
+
+/* HP kecil */
+@media (max-width: 480px) {
+    .container {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    .section-title {
+        font-size: 1.2rem;
+        gap: 0.5rem;
+    }
+
+    .hero-title {
+        font-size: clamp(1.5rem, 6vw, 1.75rem);
+        overflow-wrap: anywhere;
+    }
+
+    .hero-subtitle {
+        font-size: 0.9rem;
+    }
+
+    .geo-info-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .geo-card {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .geo-data span {
+        overflow-wrap: anywhere;
+    }
+
+    .galeri-grid {
+        gap: 0.5rem;
+    }
+
+    .galeri-item {
+        min-width: 0;
+    }
+
+    .kades-card {
+        min-width: 0;
+        padding: 0.85rem;
+    }
+
+    .kades-info {
+        min-width: 0;
+        overflow-wrap: anywhere;
+    }
+
+    .org-leader {
+        width: 100%;
+        max-width: 350px;
+    }
+
+    .org-card,
+    .org-group {
+        min-width: 0;
+    }
+}
+
+/* HP sangat kecil */
+@media (max-width: 360px) {
+    .container {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .geo-info-grid,
+    .demografi-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .geo-card {
+        flex-direction: row;
+        align-items: flex-start;
+    }
+
+    .org-avatar,
+    .org-subordinates .org-avatar,
+    .org-group > .org-card .org-avatar {
+        flex-basis: 44px;
+        width: 44px;
+        height: 44px;
+    }
+
+    .org-card,
+    .org-subordinates .org-card,
+    .org-group > .org-card {
+        padding: 9px;
+        gap: 8px;
+    }
+}
+
+
+
+/* ==========================================
+   SEJARAH DESA MEKARSARI
+   Mengikuti tema utama website
+========================================== */
+
+.mk-history {
+    --mh-green: var(--accent);
+    --mh-green-dark: var(--primary);
+    --mh-green-soft: var(--accent-soft);
+    --mh-blue: var(--primary-light);
+    --mh-orange: #7b8b55;
+    --mh-ink: var(--primary);
+    --mh-text: var(--text-muted);
+    --mh-border: var(--border-color);
+
+    font-family: var(--font-main);
+    color: var(--text-dark);
+    overflow: hidden;
+    background: var(--bg-card);
+}
+
+.mk-history *,
+.mk-history *::before,
+.mk-history *::after {
+    box-sizing: border-box;
+}
+
+.mk-history-container {
+    width: min(var(--container-max), calc(100% - 48px));
+    margin-inline: auto;
+}
+
+/* HERO */
+
+.mk-history-hero {
+    position: relative;
+    padding: 66px 0 60px;
+    background:
+        radial-gradient(
+            ellipse at 85% 30%,
+            rgba(45, 122, 82, .09),
+            transparent 45%
+        ),
+        linear-gradient(
+            120deg,
+            var(--bg-body),
+            #ffffff 65%,
+            var(--accent-soft)
+        );
+}
+
+.mk-history-hero::after {
+    content: "";
+    position: absolute;
+    width: 260px;
+    height: 260px;
+    right: -100px;
+    bottom: -130px;
+    border: 35px solid rgba(17, 58, 44, .055);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.mk-history-hero-grid {
+    display: grid;
+    grid-template-columns: 1.03fr .97fr;
+    align-items: center;
+    gap: 54px;
+}
+
+.mk-history-intro {
+    position: relative;
+    z-index: 1;
+}
+
+.mk-history-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 8px 15px;
+    border-radius: 30px;
+    background: var(--accent-soft);
+    color: var(--primary);
+    font-size: .8rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.mk-history-intro h1 {
+    font-size: clamp(2.5rem, 4.4vw, 4rem);
+    line-height: 1.07;
+    letter-spacing: -2px;
+    font-weight: 800;
+    margin: 0;
+    color: var(--primary);
+}
+
+.mk-history-intro h1 span {
+    color: var(--accent);
+}
+
+.mk-history-line,
+.mk-history-sidebar-line {
+    display: block;
+    width: 43px;
+    height: 4px;
+    border-radius: 10px;
+    background: var(--accent);
+    margin: 22px 0 17px;
+}
+
+.mk-history-intro > p {
+    max-width: 520px;
+    margin: 0 0 24px;
+    color: var(--text-muted);
+    font-size: .96rem;
+    line-height: 1.85;
+}
+
+.mk-history-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    min-height: 48px;
+    padding: 0 23px;
+    border-radius: 30px;
+    background: var(--accent);
+    color: #fff;
+    text-decoration: none;
+    font-size: .9rem;
+    font-weight: 700;
+    box-shadow: var(--shadow-md);
+    transition: background .2s ease, transform .2s ease;
+}
+
+.mk-history-button:hover {
+    background: var(--accent-hover);
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+/* FOTO HERO */
+
+.mk-history-visual {
+    position: relative;
+    min-width: 0;
+    padding: 0 0 12px 12px;
+}
+
+.mk-history-photo-main {
+    position: relative;
+    z-index: 1;
+    height: 335px;
+    border: 6px solid #fff;
+    border-radius: 23px;
+    overflow: hidden;
+    background: var(--accent-soft);
+    box-shadow: var(--shadow-lg);
+}
+
+.mk-history-photo-main img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.mk-history-photo-caption {
+    position: absolute;
+    z-index: 2;
+    right: -12px;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 15px 19px;
+    border: 1px solid var(--border-color);
+    border-radius: 15px;
+    background: var(--bg-card);
+    box-shadow: var(--shadow-md);
+}
+
+.mk-history-caption-icon {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    border-radius: var(--radius-md);
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-size: 1.15rem;
+}
+
+.mk-history-photo-caption strong,
+.mk-history-photo-caption span {
+    display: block;
+}
+
+.mk-history-photo-caption strong {
+    margin-bottom: 4px;
+    font-size: .83rem;
+    color: var(--primary);
+}
+
+.mk-history-photo-caption span {
+    font-size: .73rem;
+    color: var(--text-muted);
+}
+
+.mk-history-decoration {
+    position: absolute;
+    z-index: 0;
+    top: -24px;
+    left: -20px;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: #dce9df;
+}
+
+/* KONTEN UTAMA */
+
+.mk-history-content {
+    padding: 42px 0 65px;
+    background: var(--bg-card);
+}
+
+.mk-history-layout {
+    display: grid;
+    grid-template-columns: 300px minmax(0, 1fr);
+    align-items: stretch;
+    gap: 24px;
+}
+
+/* PANEL RINGKASAN */
+
+.mk-history-sidebar {
+    position: relative;
+    overflow: hidden;
+    padding: 30px;
+    border: 1px solid #dce8df;
+    border-radius: var(--radius-lg);
+    background: linear-gradient(
+        145deg,
+        var(--bg-body),
+        var(--accent-soft)
+    );
+}
+
+.mk-history-sidebar::after {
+    content: "";
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    right: -95px;
+    bottom: -95px;
+    border: 28px solid rgba(17, 58, 44, .07);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.mk-history-sidebar-line {
+    margin: 0 0 20px;
+}
+
+.mk-history-eyebrow {
+    display: block;
+    margin-bottom: 10px;
+    color: var(--accent);
+    font-size: .68rem;
+    font-weight: 800;
+    letter-spacing: 1.4px;
+}
+
+.mk-history-sidebar h2 {
+    margin: 0 0 20px;
+    color: var(--primary);
+    font-size: 1.65rem;
+    font-weight: 800;
+    line-height: 1.35;
+    letter-spacing: -.5px;
+}
+
+.mk-history-sidebar > p {
+    color: var(--text-muted);
+    font-size: .88rem;
+    line-height: 1.85;
+    margin: 0 0 13px;
+}
+
+.mk-history-sidebar-image {
+    height: 205px;
+    margin-top: 23px;
+    overflow: hidden;
+    border-radius: var(--radius-md);
+    background: var(--accent-soft);
+}
+
+.mk-history-sidebar-image img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    transition: transform .4s ease;
+}
+
+.mk-history-sidebar-image:hover img {
+    transform: scale(1.04);
+}
+
+.mk-history-sidebar-note {
+    display: flex;
+    align-items: flex-start;
+    gap: 9px;
+    margin-top: 17px;
+    color: var(--primary);
+    font-size: .76rem;
+    font-weight: 600;
+    line-height: 1.6;
+}
+
+.mk-history-sidebar-note i {
+    margin-top: 3px;
+    flex-shrink: 0;
+    color: var(--accent);
+}
+
+/* KARTU TIMELINE */
+
+.mk-history-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+    min-width: 0;
+}
+
+.mk-history-card {
+    --card-color: var(--accent);
+    --card-bg: #f6faf7;
+    --card-border: #e0ece3;
+
+    display: grid;
+    grid-template-columns: 68px minmax(0, 1fr);
+    align-items: start;
+    gap: 19px;
+    padding: 23px 24px;
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-lg);
+    background: var(--card-bg);
+    transition: box-shadow .25s ease, transform .25s ease;
+}
+
+.mk-history-card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+}
+
+/* Hijau utama */
+.mk-history-green {
+    --card-color: #2d7a52;
+    --card-bg: #f5f9f5;
+    --card-border: #dce9df;
+}
+
+/* Hijau tua, bukan biru agar konsisten */
+.mk-history-blue {
+    --card-color: #1b5340;
+    --card-bg: #f2f7f4;
+    --card-border: #dce8e0;
+}
+
+/* Hijau zaitun sebagai aksen pembangunan */
+.mk-history-orange {
+    --card-color: #71834f;
+    --card-bg: #f8f9f3;
+    --card-border: #e7eadb;
+}
+
+.mk-history-card-icon {
+    display: grid;
+    place-items: center;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: var(--card-color);
+    color: #fff;
+    font-size: 1.45rem;
+    box-shadow: var(--shadow-sm);
+}
+
+.mk-history-card-content {
+    min-width: 0;
+}
+
+.mk-history-card-date {
+    display: inline-flex;
+    align-items: center;
+    width: fit-content;
+    max-width: 100%;
+    padding: 5px 12px;
+    margin-bottom: 8px;
+    border-radius: 20px;
+    background: var(--card-color);
+    color: #fff;
+    font-size: .69rem;
+    font-weight: 700;
+    line-height: 1.4;
+}
+
+.mk-history-card-content h3 {
+    margin: 0 0 11px;
+    color: var(--primary);
+    font-size: 1.12rem;
+    line-height: 1.45;
+    font-weight: 800;
+}
+
+.mk-history-card-content p {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: .81rem;
+    line-height: 1.8;
+    text-align: justify;
+    overflow-wrap: break-word;
+}
+
+.mk-history-card-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    margin-top: 15px;
+    color: var(--accent);
+    text-decoration: none;
+    font-size: .8rem;
+    font-weight: 700;
+}
+
+.mk-history-card-link:hover {
+    color: var(--primary);
+}
+
+/* TABLET */
+
+@media (max-width: 1000px) {
+    .mk-history-hero-grid {
+        gap: 32px;
+    }
+
+    .mk-history-layout {
+        grid-template-columns: 250px minmax(0, 1fr);
+        gap: 18px;
+    }
+
+    .mk-history-sidebar {
+        padding: 23px;
+    }
+
+    .mk-history-card {
+        grid-template-columns: 54px minmax(0, 1fr);
+        gap: 15px;
+        padding: 20px;
+    }
+
+    .mk-history-card-icon {
+        width: 52px;
+        height: 52px;
+        font-size: 1.2rem;
+    }
+
+    .mk-history-photo-main {
+        height: 290px;
+    }
+}
+
+/* MOBILE */
+
+@media (max-width: 768px) {
+    .mk-history-container {
+        width: calc(100% - 32px);
+    }
+
+    .mk-history-hero {
+        padding: 43px 0 35px;
+    }
+
+    .mk-history-hero-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 32px;
+    }
+
+    .mk-history-intro h1 {
+        font-size: clamp(2.45rem, 10vw, 3.4rem);
+        letter-spacing: -1.5px;
+    }
+
+    .mk-history-intro > p {
+        font-size: .9rem;
+        line-height: 1.8;
+    }
+
+    .mk-history-visual {
+        padding: 0 5px 12px;
+    }
+
+    .mk-history-photo-main {
+        height: clamp(220px, 65vw, 340px);
+        border-radius: 19px;
+        border-width: 4px;
+    }
+
+    .mk-history-photo-caption {
+        right: -3px;
+        bottom: 0;
+        padding: 11px 13px;
+        gap: 9px;
+        max-width: calc(100% - 18px);
+    }
+
+    .mk-history-caption-icon {
+        width: 35px;
+        height: 35px;
+        font-size: 1rem;
+    }
+
+    .mk-history-photo-caption strong {
+        font-size: .76rem;
+    }
+
+    .mk-history-photo-caption span {
+        font-size: .66rem;
+    }
+
+    .mk-history-decoration {
+        width: 70px;
+        height: 70px;
+        left: -5px;
+        top: -12px;
+    }
+
+    .mk-history-content {
+        padding: 27px 0 42px;
+    }
+
+    .mk-history-layout {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 20px;
+    }
+
+    .mk-history-sidebar {
+        padding: 24px;
+    }
+
+    .mk-history-sidebar h2 {
+        font-size: 1.55rem;
+    }
+
+    .mk-history-sidebar > p {
+        font-size: .86rem;
+    }
+
+    .mk-history-sidebar-image {
+        height: 220px;
+    }
+
+    .mk-history-timeline {
+        gap: 13px;
+    }
+
+    .mk-history-card {
+        grid-template-columns: 43px minmax(0, 1fr);
+        gap: 13px;
+        padding: 18px 14px;
+        border-radius: 15px;
+    }
+
+    .mk-history-card-icon {
+        width: 42px;
+        height: 42px;
+        font-size: 1rem;
+    }
+
+    .mk-history-card-date {
+        font-size: .65rem;
+        padding: 5px 9px;
+    }
+
+    .mk-history-card-content h3 {
+        font-size: .99rem;
+        margin-bottom: 9px;
+    }
+
+    .mk-history-card-content p {
+        font-size: .79rem;
+        line-height: 1.8;
+        text-align: left;
+    }
+}
+
+/* HP KECIL */
+
+@media (max-width: 380px) {
+    .mk-history-container {
+        width: calc(100% - 24px);
+    }
+
+    .mk-history-card {
+        grid-template-columns: 35px minmax(0, 1fr);
+        gap: 10px;
+        padding: 14px 10px;
+    }
+
+    .mk-history-card-icon {
+        width: 35px;
+        height: 35px;
+        font-size: .85rem;
+    }
+
+    .mk-history-card-content h3 {
+        font-size: .92rem;
+    }
+
+    .mk-history-card-content p {
+        font-size: .76rem;
+    }
+
+    .mk-history-sidebar {
+        padding: 19px;
+    }
+}
+
+/* AKSESIBILITAS */
+
+@media (prefers-reduced-motion: reduce) {
+    .mk-history *,
+    .mk-history *::before,
+    .mk-history *::after {
+        scroll-behavior: auto !important;
+        transition: none !important;
+    }
+}
+
+
+
+
     </style>
     <link rel="stylesheet" href="assets/css/shared-layout.css">
 </head>
@@ -1571,7 +2470,7 @@
         <div class="container">
             <div class="sambutan-grid">
                 <div class="sambutan-img-box">
-                    <img src="assets/galeri/profil.jpg" 
+                    <img src="assets/images/aparatur/kepala-desa.jpeg" 
                          alt="Foto Kepala Desa Mekarsari, Ajie Nugraha, SST. M.AP." 
                          width="380" 
                          height="475" 
@@ -1579,7 +2478,7 @@
                          onerror="this.onerror=null;this.src='https://via.placeholder.com/380x475?text=Kepala+Desa+Mekarsari'">
                 </div>
                 <div class="sambutan-content">
-                    <h2 class="section-title">
+                    <h2 class="section-title" style="margin: 0px;">
                         <i class="fa-solid fa-leaf"></i> Sambutan Kepala Desa
                     </h2>
                     <p class="sambutan-text">
@@ -1599,57 +2498,171 @@
         </div>
     </section>
 
-    <!-- SEJARAH DESA -->
-    <section class="section-padding" style="background-color: #f1f5f2;">
-        <div class="container">
-            <div class="sejarah-grid">
-                <div class="sejarah-left">
-                    <h2 class="section-title">
-                        <i class="fa-solid fa-landmark"></i> Sejarah Desa Mekarsari
+    
+<!-- SEJARAH DESA MEKARSARI -->
+<section class="mk-history" id="sejarah-section">
+
+
+    <!-- KONTEN SEJARAH -->
+    <div class="mk-history-content" id="timeline-sejarah">
+        <div class="mk-history-container">
+            <div class="mk-history-layout">
+
+                <!-- PANEL RINGKASAN -->
+                <aside class="mk-history-sidebar">
+                    <span class="mk-history-sidebar-line"></span>
+
+                    <span class="mk-history-eyebrow">
+                        JEJAK PERJALANAN
+                    </span>
+
+                    <h2>
+                        Jejak Sejarah<br>
+                        Desa Mekarsari
                     </h2>
+
                     <p>
-                        Desa Mekarsari memiliki sejarah panjang yang erat dengan kehidupan masyarakat agraris dan budaya lokal. Seiring berjalannya waktu, desa ini terus berkembang dengan memanfaatkan potensi alam serta kearifan lokal, terutama dalam bidang kerajinan bambu yang menjadi identitas dan sumber penghidupan masyarakat.
+                        Sejak berdiri pada tahun 1983, Desa Mekarsari
+                        telah melalui berbagai perjalanan penting dalam
+                        pembentukan pemerintahan, pergantian kepemimpinan,
+                        dan pembangunan desa.
                     </p>
-                    <a href="#potensi-section" class="btn btn-accent">
-                        Selengkapnya <i class="fa-solid fa-arrow-right"></i>
-                    </a>
-                </div>
-                <div class="sejarah-right">
-                    <div class="sejarah-img-wrapper">
-                        <img src="https://images.unsplash.com/photo-1584992236310-6edddc08acff?auto=format&fit=crop&w=600&q=80" 
-                             alt="Pengrajin Bambu Mekarsari" 
-                             width="180" 
-                             height="210" 
-                             loading="lazy"
-                             onerror="this.src='https://via.placeholder.com/180x210?text=Kerajinan+Bambu'">
+
+                    <p>
+                        Setiap tahap menjadi bagian dari upaya masyarakat
+                        untuk mewujudkan desa yang lebih maju, mandiri,
+                        dan sejahtera.
+                    </p>
+
+                    <div class="mk-history-sidebar-image">
+                        <img
+                            src="assets/foto-desa.jpg"
+                            alt="Pemandangan Desa Mekarsari"
+                            loading="lazy"
+                            onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=700&q=80';"
+                        >
                     </div>
-                    <div class="sejarah-timeline-list">
-                        <div class="timeline-item">
-                            <div class="timeline-icon"><i class="fa-solid fa-clock-rotate-left"></i></div>
-                            <div class="timeline-text">
-                                <h5>Masa Awal</h5>
-                                <p>Cerita asal-usul dan terbentuknya desa.</p>
-                            </div>
-                        </div>
-                        <div class="timeline-item">
-                            <div class="timeline-icon"><i class="fa-solid fa-chart-line"></i></div>
-                            <div class="timeline-text">
-                                <h5>Perkembangan</h5>
-                                <p>Perjalanan desa dari masa ke masa.</p>
-                            </div>
-                        </div>
-                        <div class="timeline-item">
-                            <div class="timeline-icon"><i class="fa-solid fa-wheat-awn"></i></div>
-                            <div class="timeline-text">
-                                <h5>Ekonomi & Kerajinan</h5>
-                                <p>Tumbuhnya UMKM dan kerajinan bambu.</p>
-                            </div>
-                        </div>
+
+                    <div class="mk-history-sidebar-note">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <span>Mekarsari, Kecamatan Selaawi, Garut</span>
                     </div>
+                </aside>
+
+                <!-- TIMELINE -->
+                <div class="mk-history-timeline">
+
+                    <!-- ITEM 1 -->
+                    <article class="mk-history-card mk-history-green">
+                        <div class="mk-history-card-icon">
+                            <i class="fa-solid fa-landmark"></i>
+                        </div>
+
+                        <div class="mk-history-card-content">
+                            <span class="mk-history-card-date">
+                                Desember 1983
+                            </span>
+
+                            <h3>Terbentuknya Desa Mekarsari</h3>
+
+                            <p>
+                                Desa Mekarsari merupakan salah satu desa
+                                di Kecamatan Selaawi, Kabupaten Garut,
+                                yang berdiri pada bulan Desember 1983
+                                sebagai hasil pemekaran dari Desa Selaawi.
+                                Pemekaran ini dilatarbelakangi oleh
+                                keinginan masyarakat untuk memperoleh
+                                pelayanan pemerintahan yang lebih mudah
+                                dijangkau.
+
+                                Nama Mekarsari berasal dari kata
+                                “Mekar” dan “Sari”, yang mengandung
+                                makna pengembangan nilai-nilai adat
+                                istiadat serta karakter masyarakat
+                                yang religius sebagai landasan
+                                penyelenggaraan pemerintahan dan
+                                pembangunan desa.
+                            </p>
+                        </div>
+                    </article>
+
+                    <!-- ITEM 2 -->
+                    <article class="mk-history-card mk-history-green">
+                        <div class="mk-history-card-icon">
+                            <i class="fa-solid fa-chart-line"></i>
+                        </div>
+
+                        <div class="mk-history-card-content">
+                            <span class="mk-history-card-date">
+                                1983 – Sekarang
+                            </span>
+
+                            <h3>Sejarah Kepemimpinan</h3>
+
+                            <p>
+                                Sejak berdiri pada tahun 1983,
+                                Desa Mekarsari telah mengalami
+                                pergantian kepemimpinan, baik melalui
+                                pengangkatan Pejabat Sementara (Pjs)
+                                maupun pemilihan kepala desa definitif.
+                                Kepala desa pertama adalah Salhadi,
+                                yang menjabat pada periode 1983–1986.
+
+                                Hingga saat ini, kepemimpinan Desa
+                                Mekarsari dilanjutkan oleh Ajie Nugraha,
+                                S.ST., M.AP., yang menjabat sejak tahun
+                                2021. Pergantian kepemimpinan tersebut
+                                menjadi bagian dari perjalanan
+                                pemerintahan desa dalam meningkatkan
+                                pelayanan dan kesejahteraan masyarakat.
+                            </p>
+
+                        </div>
+                    </article>
+
+                    <!-- ITEM 3 -->
+                    <article class="mk-history-card mk-history-green">
+                        <div class="mk-history-card-icon">
+                            <i class="fa-solid fa-seedling"></i>
+                        </div>
+
+                        <div class="mk-history-card-content">
+                            <span class="mk-history-card-date">
+                                Perjalanan Pembangunan
+                            </span>
+
+                            <h3>Sejarah Pembangunan Desa</h3>
+
+                            <p>
+                                Pada awal perkembangannya, Desa Mekarsari
+                                menghadapi keterbatasan pembangunan
+                                infrastruktur, ekonomi, pendidikan,
+                                kesehatan, dan sosial. Pembangunan
+                                saat itu sebagian besar mengandalkan
+                                swadaya masyarakat karena terbatasnya
+                                bantuan pemerintah.
+
+                                Pada tahun 2005, Desa Mekarsari mendapat
+                                kunjungan kerja dari Menteri Pembangunan
+                                Daerah Tertinggal (PDT) dan Menteri
+                                Pekerjaan Umum. Saat itu, sejumlah ruas
+                                jalan desa mengalami kerusakan berat,
+                                beberapa bangunan sekolah dasar berada
+                                dalam kondisi memprihatinkan, bahkan
+                                ada yang hampir roboh. Kebakaran rumah
+                                warga juga menjadi salah satu
+                                permasalahan yang kerap terjadi.
+                            </p>
+                        </div>
+                    </article>
+
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+
+</section>
+
 
     <!-- VISI DAN MISI -->
     <section class="section-padding">
@@ -1778,7 +2791,7 @@
                     <div class="potensi-body">
                         <h3 class="potensi-title">Kerajinan Anyaman Bambu</h3>
                         <p class="potensi-desc">Produk kerajinan bambu berkualitas dengan berbagai bentuk dan fungsi, menjadi identitas khas Desa Mekarsari.</p>
-                        <a href="umkm.html" class="btn btn-primary" style="align-self: flex-start;">
+                        <a href="../umkm.html" class="btn btn-primary" style="align-self: flex-start;">
                             Jelajahi Potensi <i class="fa-solid fa-arrow-right"></i>
                         </a>
                     </div>
@@ -1899,30 +2912,30 @@ pemerintahan: {
     kepalaDesa: {
         jabatan: "Kepala Desa",
         nama: "Ajie Nugraha, SST., M.AP.",
-        foto: "assets/images/aparatur/kepala-desa.jpg"
+        foto: "assets/images/aparatur/kepala-desa.jpeg"
     },
 
     sekretarisDesa: {
         jabatan: "Sekretaris Desa",
-        nama: "Haris Nur Kresna",
-        foto: "assets/images/aparatur/sekretaris-desa.jpg"
+        nama: "Haris Nur Kresna, S.AP.",
+        foto: "assets/images/aparatur/sekretaris-desa.jpeg"
     },
 
     kaur: [
         {
             jabatan: "Kepala Urusan  Tata Usaha & Umum",
-            nama: "Aisyah",
-            foto: "assets/images/aparatur/kaur-1.jpg"
+            nama: "Aisyah, S.Pd.I.",
+            foto: "assets/images/aparatur/kaur-1.jpeg"
         },
         {
             jabatan: "Kepala Urusan Keuangan",
             nama: "Wildan Alissandi",
-            foto: "assets/images/aparatur/kaur-2.jpg"
+            foto: "assets/images/aparatur/kaur-2.jpeg"
         },
         {
             jabatan: "Kepala Urusan Perencanaan",
             nama: "Soleh",
-            foto: "assets/images/aparatur/kaur-3.jpg"
+            foto: "assets/images/aparatur/kaur-3.jpeg"
         }
     ],
 
@@ -1930,35 +2943,35 @@ pemerintahan: {
         {
             jabatan: "Kepala Seksi Pemerintahan",
             nama: "Ajat Sudrajat",
-            foto: "assets/images/aparatur/kasi-1.jpg"
+            foto: "assets/images/aparatur/kasi-1.jpeg"
         },
         {
             jabatan: "Kepala Seksi Kesejahteraan",
             nama: "Ahmad Jaelani",
-            foto: "assets/images/aparatur/kasi-2.jpg"
+            foto: "assets/images/aparatur/kasi-2.jpeg"
         },
         {
             jabatan: "Kepala Seksi Pelayanan",
-            nama: "Rusdiman",
-            foto: "assets/images/aparatur/kasi-3.jpg"
+            nama: "Rusdiman, S.Pd., M.AP.",
+            foto: "assets/images/aparatur/kasi-3.jpeg"
         }
     ],
 
     kadus: [
         {
             jabatan: "Kepala Dusun I",
-            nama: "Nur Ali Hidayat",
-            foto: "assets/images/aparatur/kadus-1.jpg"
+            nama: "Nur Ali Hidayat, S.Pd.I.",
+            foto: "assets/images/aparatur/kadus-1.jpeg"
         },
         {
             jabatan: "Kepala Dusun II",
             nama: "Hengki Jamaludin",
-            foto: "assets/images/aparatur/kadus-2.jpg"
+            foto: "assets/images/aparatur/kadus-2.jpeg"
         },
         {
             jabatan: "Kepala Dusun III",
             nama: "Jaenal Amsor",
-            foto: "assets/images/aparatur/kadus-3.jpg"
+            foto: "assets/images/aparatur/kadus-3.jpeg"
         }
     ]
 },
@@ -2113,7 +3126,7 @@ function renderStrukturOrganisasi() {
             <section class="org-group">
                 <h4 class="org-group-title">Sekretariat Desa</h4>
 
-                <div class="org-secretary-card">
+                <div class="org-subordinates">
                     ${buatKartu(data.sekretarisDesa)}
                 </div>
 

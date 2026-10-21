@@ -1,4 +1,5 @@
-/*
+
+  /*
  * admin-news.js — kelola Berita & Kegiatan di dashboard admin.
  * Memakai NewsStore (news-store.js). Harus dimuat SETELAH admin-dashboard.js.
  */
@@ -29,7 +30,13 @@
     searchBox.addEventListener('input', render);
   }
 
-  var CATEGORY = { pemerintahan: 'Pemerintahan', kegiatan: 'Kegiatan', umkm: 'UMKM', pembangunan: 'Pembangunan' };
+  var CATEGORY = {
+    pemerintahan: 'Pemerintahan',
+    kegiatan: 'Kegiatan',
+    umkm: 'UMKM',
+    pembangunan: 'Pembangunan',
+    pemberdayaan: 'Pemberdayaan'
+};
 
   function esc(text) {
     var d = document.createElement('div');
@@ -263,6 +270,406 @@
       });
     }
   });
+
+  
+  /* ---------- Impor Berita dari Excel / CSV ---------- */
+
+  function normalizeHeader(value) {
+    return String(value || '')
+      .trim()
+      .toLowerCase()
+      .replace(/[\s_-]+/g, '');
+  }
+
+  function getExcelDate(value) {
+    if (value instanceof Date && !isNaN(value)) {
+      return value.getFullYear() + '-' +
+        String(value.getMonth() + 1).padStart(2, '0') + '-' +
+        String(value.getDate()).padStart(2, '0');
+    }
+
+    if (typeof value === 'number' && window.XLSX) {
+      var parsed = XLSX.SSF.parse_date_code(value);
+      if (parsed) {
+        return parsed.y + '-' +
+          String(parsed.m).padStart(2, '0') + '-' +
+          String(parsed.d).padStart(2, '0');
+      }
+    }
+
+    var str = String(value || '').trim();
+    if (!str) return '';
+
+    // Format YYYY-MM-DD
+    var iso = str.match(/^(\d{4})-(\d{1,2})-(\d{1,2})$/);
+    if (iso) {
+      return iso[1] + '-' +
+        String(iso[2]).padStart(2, '0') + '-' +
+        String(iso[3]).padStart(2, '0');
+    }
+
+    // Format DD/MM/YYYY atau DD-MM-YYYY
+    var local = str.match(/^(\d{1,2})[/-](\d{1,2})[/-](\d{4})$/);
+    if (local) {
+      return local[3] + '-' +
+        String(local[2]).padStart(2, '0') + '-' +
+        String(local[1]).padStart(2, '0');
+    }
+
+    return '';
+  }
+
+  
+function downloadNewsTemplate() {
+  if (!window.XLSX) {
+    toast('Library Excel belum berhasil dimuat.', 'err');
+    return;
+  }
+
+  // Sheet 1: Data Berita
+  var dataRows = [
+    [
+      'judul',
+      'kategori',
+      'tanggal',
+      'ringkasan',
+      'isi',
+      'foto',
+      'status'
+    ],
+    [
+      'Kegiatan Kerja Bakti Desa Mekarsari',
+      'kegiatan',
+      today(),
+      'Warga bersama perangkat desa melaksanakan kerja bakti.',
+      'Kegiatan kerja bakti dilaksanakan untuk menjaga kebersihan lingkungan desa.\n\nWarga dan perangkat desa bekerja sama membersihkan lingkungan sekitar.',
+      '',
+      'draft'
+    ]
+  ];
+
+  var wsData = XLSX.utils.aoa_to_sheet(dataRows);
+
+  wsData['!cols'] = [
+    { wch: 38 },
+    { wch: 18 },
+    { wch: 14 },
+    { wch: 55 },
+    { wch: 70 },
+    { wch: 48 },
+    { wch: 14 }
+  ];
+
+  wsData['!freeze'] = {
+    xSplit: 0,
+    ySplit: 1
+  };
+
+  wsData['!autofilter'] = {
+    ref: 'A1:G2'
+  };
+
+  // Sheet 2: Petunjuk Pengisian
+  var guideRows = [
+    ['PETUNJUK PENGISIAN TEMPLATE BERITA & KEGIATAN'],
+    ['Website Pemerintah Desa Mekarsari'],
+    [''],
+    ['NO', 'NAMA KOLOM', 'WAJIB?', 'PETUNJUK PENGISIAN', 'CONTOH'],
+    [
+      1,
+      'judul',
+      'Ya',
+      'Masukkan judul berita yang jelas dan informatif.',
+      'Kegiatan Kerja Bakti Desa Mekarsari'
+    ],
+    [
+      2,
+      'kategori',
+      'Ya',
+      'Gunakan salah satu kategori: pemerintahan, kegiatan, umkm, pembangunan, pemberdayaan.',
+      'kegiatan'
+    ],
+    [
+      3,
+      'tanggal',
+      'Ya',
+      'Gunakan format YYYY-MM-DD. Contoh: 16 Oktober 2026 ditulis 2026-10-16.',
+      '2026-10-16'
+    ],
+    [
+      4,
+      'ringkasan',
+      'Ya',
+      'Tulis ringkasan singkat berita, maksimal 220 karakter.',
+      'Warga bersama perangkat desa melaksanakan kerja bakti.'
+    ],
+    [
+      5,
+      'isi',
+      'Ya',
+      'Tulis isi berita secara lengkap. Gunakan paragraf yang jelas.',
+      'Kegiatan kerja bakti dilaksanakan untuk menjaga kebersihan lingkungan desa.'
+    ],
+    [
+      6,
+      'foto',
+      'Tidak',
+      'Masukkan link berbagi foto Google Drive yang dapat diakses oleh pemilik link.',
+      'https://drive.google.com/file/d/ID_FILE/view'
+    ],
+    [
+      7,
+      'status',
+      'Tidak',
+      'Gunakan draft agar berita belum tampil ke publik, atau published agar berita diterbitkan. Jika kosong, otomatis draft.',
+      'draft'
+    ],
+    [''],
+    ['CATATAN PENTING'],
+    ['1.', 'Jangan mengubah nama kolom pada baris pertama Sheet Data Berita.'],
+    ['2.', 'Setiap baris setelah header mewakili satu berita atau kegiatan.'],
+    ['3.', 'Jangan menghapus kolom yang sudah tersedia.'],
+    ['4.', 'Pastikan kategori ditulis sesuai pilihan yang tersedia.'],
+    ['5.', 'Periksa tanggal, judul, ringkasan, dan isi sebelum impor.'],
+    ['6.', 'Baris dengan data wajib tidak lengkap dapat dilewati saat impor.'],
+    ['7.', 'Foto tidak diunggah dari Excel; kolom foto berisi link Google Drive.'],
+    ['8.', 'Uji impor dengan beberapa baris terlebih dahulu.']
+  ];
+
+  var wsGuide = XLSX.utils.aoa_to_sheet(guideRows);
+
+  wsGuide['!cols'] = [
+    { wch: 8 },
+    { wch: 20 },
+    { wch: 12 },
+    { wch: 82 },
+    { wch: 48 }
+  ];
+
+  wsGuide['!freeze'] = {
+    xSplit: 0,
+    ySplit: 4
+  };
+
+  // Buat workbook
+  var wb = XLSX.utils.book_new();
+
+  XLSX.utils.book_append_sheet(
+    wb,
+    wsData,
+    'Data Berita'
+  );
+
+  XLSX.utils.book_append_sheet(
+    wb,
+    wsGuide,
+    'Petunjuk Pengisian'
+  );
+
+  XLSX.writeFile(wb, 'template_import_berita.xlsx');
+}
+  function readNewsRow(row) {
+    var data = {};
+
+    Object.keys(row).forEach(function (key) {
+      var k = normalizeHeader(key);
+
+      var aliases = {
+        judul: 'judul',
+        kategori: 'kategori',
+        tanggal: 'tanggal',
+        ringkasan: 'ringkasan',
+        isi: 'isi',
+        isiberita: 'isi',
+        foto: 'foto',
+        gambar: 'foto',
+        linkfoto: 'foto',
+        status: 'status'
+      };
+
+      if (aliases[k]) data[aliases[k]] = row[key];
+    });
+
+    var judul = String(data.judul || '').trim();
+    var kategori = String(data.kategori || 'kegiatan')
+      .trim().toLowerCase();
+    var tanggal = getExcelDate(data.tanggal);
+    var ringkasan = String(data.ringkasan || '').trim();
+    var isi = String(data.isi || '').trim();
+    var foto = String(data.foto || '').trim();
+    var status = String(data.status || 'draft').trim().toLowerCase();
+
+    var errors = [];
+
+    if (judul.length < 5) errors.push('judul kosong atau kurang dari 5 karakter');
+    if (!tanggal) errors.push('tanggal tidak valid');
+    if (!ringkasan) errors.push('ringkasan kosong');
+    if (!isi) errors.push('isi berita kosong');
+
+    if (!CATEGORY[kategori]) {
+      errors.push('kategori tidak valid');
+    }
+
+    if (ringkasan.length > 220) {
+      errors.push('ringkasan melebihi 220 karakter');
+    }
+
+    if (foto && !S.extractDriveId(foto)) {
+      errors.push('link foto Google Drive tidak valid');
+    }
+
+    if (status === 'terbit') status = 'published';
+    if (status === 'draf') status = 'draft';
+
+    if (status !== 'published' && status !== 'draft') {
+      errors.push('status harus published atau draft');
+    }
+
+    return {
+      data: {
+        judul: judul,
+        kategori: kategori,
+        tanggal: tanggal,
+        ringkasan: ringkasan,
+        isi: isi,
+        gambarId: foto ? S.extractDriveId(foto) : '',
+        status: status
+      },
+      errors: errors
+    };
+  }
+
+  function importNewsExcel() {
+    var input = $('newsExcelInput');
+    var result = $('newsImportResult');
+    var btn = $('newsImportBtn');
+    var file = input && input.files && input.files[0];
+
+    if (!file) {
+      toast('Pilih file Excel atau CSV terlebih dahulu.', 'err');
+      return;
+    }
+
+    if (!window.XLSX) {
+      toast('Library Excel belum berhasil dimuat.', 'err');
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = 'Memproses...';
+    result.textContent = 'Membaca file...';
+
+    var reader = new FileReader();
+
+    reader.onerror = function () {
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fa-solid fa-file-import"></i> Impor Berita';
+      result.textContent = 'File gagal dibaca.';
+    };
+
+    reader.onload = function (event) {
+      var rows;
+
+      try {
+        var workbook = XLSX.read(event.target.result, {
+          type: 'array',
+          cellDates: true
+        });
+
+        var sheet = workbook.Sheets[workbook.SheetNames[0]];
+
+        rows = XLSX.utils.sheet_to_json(sheet, {
+          defval: '',
+          raw: true
+        });
+      } catch (err) {
+        console.error('[Impor Berita]', err);
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fa-solid fa-file-import"></i> Impor Berita';
+        result.textContent = 'Format file tidak dapat dibaca.';
+        return;
+      }
+
+      if (!rows.length) {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fa-solid fa-file-import"></i> Impor Berita';
+        result.textContent = 'File tidak memiliki data.';
+        return;
+      }
+
+      var imported = 0;
+      var skipped = 0;
+      var errors = [];
+      var seen = {};
+
+      // Hindari duplikat dari berita yang sudah ada.
+      items.forEach(function (item) {
+        seen[
+          String(item.judul || '').trim().toLowerCase() +
+          '|' + String(item.tanggal || '')
+        ] = true;
+      });
+
+      var queue = [];
+
+      rows.forEach(function (row, index) {
+        var parsed = readNewsRow(row);
+        var data = parsed.data;
+        var rowNumber = index + 2;
+
+        if (parsed.errors.length) {
+          skipped++;
+          errors.push('Baris ' + rowNumber + ': ' + parsed.errors.join(', '));
+          return;
+        }
+
+        var key = data.judul.toLowerCase() + '|' + data.tanggal;
+
+        if (seen[key]) {
+          skipped++;
+          errors.push('Baris ' + rowNumber + ': judul dan tanggal sudah ada');
+          return;
+        }
+
+        seen[key] = true;
+        queue.push({ rowNumber: rowNumber, data: data });
+      });
+
+      // Simpan satu per satu melalui NewsStore yang sudah digunakan admin.
+      queue.reduce(function (promise, entry) {
+        return promise.then(function () {
+          return S.save(entry.data).then(function () {
+            imported++;
+          }).catch(function (err) {
+            console.error('Gagal impor baris ' + entry.rowNumber, err);
+            skipped++;
+            errors.push('Baris ' + entry.rowNumber + ': gagal disimpan ke database');
+          });
+        });
+      }, Promise.resolve()).then(function () {
+        return load();
+      }).then(function () {
+        var summary = 'Selesai. Berhasil: ' + imported +
+          ', dilewati/gagal: ' + skipped + '.';
+
+        result.textContent = summary +
+          (errors.length ? '\n' + errors.slice(0, 10).join('\n') : '');
+
+        toast(summary, skipped ? 'err' : 'ok');
+      }).catch(function (err) {
+        console.error('[Impor Berita]', err);
+        result.textContent = 'Impor selesai dengan kendala saat memuat ulang data.';
+      }).then(function () {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fa-solid fa-file-import"></i> Impor Berita';
+      });
+    };
+
+    reader.readAsArrayBuffer(file);
+  }
+
+  $('newsTemplateBtn').addEventListener('click', downloadNewsTemplate);
+  $('newsImportBtn').addEventListener('click', importNewsExcel);
 
   load();
 })();

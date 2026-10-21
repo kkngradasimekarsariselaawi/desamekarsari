@@ -85,7 +85,7 @@
       : `<tr><td colspan="6"><div class="state-container"><i class="fa-solid ${state === 'error' ? 'fa-triangle-exclamation' : 'fa-folder-open'}"></i><p>${esc(msg)}</p></div></td></tr>`;
 
     $('umkmCount').textContent = state === 'ready' ? `Menampilkan ${rows.length} dari ${items.length} Pengrajin` : '';
-    $('umkmImportBox').hidden = !(state === 'ready' && items.length === 0);
+    $('umkmImportBox').hidden = state !== 'ready';
   }
 
   /* ---------- Data realtime ---------- */
@@ -99,7 +99,7 @@
     render();
     unsub = Store.subscribe({ onlyActive: false },
       (list) => { items = list; state = 'ready'; render(); },
-      (err) => { state = 'error'; errorText = errMsg(err, 'Gagal memuat data UMKM dari server.'); render(); }
+      (err) => { state = 'error'; errorText = errMsg(err, 'Gagal memuat data Pengrajin dari server.'); render(); }
     );
   }
   // Mode Firestore: tunggu login Firebase Auth dulu (aturan Firestore hanya mengizinkan admin membaca semua data)
@@ -113,7 +113,7 @@
           stop();
           items = [];
           state = 'error';
-          errorText = 'Belum login ke Firebase, data UMKM belum bisa dimuat. Silakan login ulang.';
+          errorText = 'Belum login ke Firebase, data Pengrajin belum bisa dimuat. Silakan login ulang.';
           render();
         }
       });
@@ -221,14 +221,308 @@
     Store.save(editingId, data)
       .then(() => {
         toast(wasEdit
-          ? 'Data UMKM diperbarui.'
+          ? 'Data Pengrajin diperbarui.'
           : (data.status === 'Aktif' ? 'UMKM ditambahkan dan langsung tampil di halaman publik.' : 'UMKM ditambahkan sebagai Nonaktif (belum tampil di halaman publik).'));
         closeForm();
       })
       .catch((err) => { console.error('[Admin UMKM] simpan gagal:', err); showError(errMsg(err, 'Data gagal disimpan. Coba lagi.')); })
       .then(() => { saving = false; btn.disabled = false; });
   }
+  /* ---------- IMPOR MASSAL EXCEL ---------- */
 
+function downloadExcelTemplate() {
+  if (!window.XLSX) {
+    toast('Library Excel belum termuat. Muat ulang halaman.', 'error');
+    return;
+  }
+
+  const headers = [
+    'Nama Usaha',
+    'Kategori',
+    'Nama Pemilik',
+    'Nomor WhatsApp',
+    'Alamat',
+    'Kisaran Harga',
+    'Ringkasan Produk',
+    'Deskripsi',
+    'Link Foto',
+    'Status'
+  ];
+
+  const contoh = [
+    'Contoh Anyaman Bambu',
+    Store.CATEGORIES[0] || '',
+    'Nama Pengrajin',
+    '081234567890',
+    'Kp. Mekarsari, RT 01/RW 01',
+    'Rp 25.000 - Rp 150.000',
+    'Produk anyaman bambu berkualitas.',
+    '',
+    '',
+    'Aktif'
+  ];
+
+  const sheet = XLSX.utils.aoa_to_sheet([headers, contoh]);
+
+  // Pertahankan angka nol di awal nomor WhatsApp pada baris contoh.
+  sheet['D2'] = { t: 's', v: '081234567890' };
+
+  sheet['!cols'] = [
+    { wch: 28 }, { wch: 22 }, { wch: 25 }, { wch: 20 },
+    { wch: 32 }, { wch: 25 }, { wch: 42 }, { wch: 48 },
+    { wch: 48 }, { wch: 14 }
+  ];
+
+  const workbook = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(workbook, sheet, 'Data Pengrajin');
+
+  const petunjuk = [
+    ['PETUNJUK PENGISIAN'],
+    ['Satu pengrajin untuk setiap baris.'],
+    ['Jangan mengubah nama kolom pada baris pertama.'],
+    ['Kolom wajib: Nama Usaha, Kategori, Nama Pemilik, Nomor WhatsApp, Alamat, Ringkasan Produk.'],
+    ['Kategori harus sama persis dengan pilihan kategori di website.'],
+    ['Status hanya Aktif atau Nonaktif. Jika kosong, default Aktif.'],
+    ['Format kolom WhatsApp sebagai Text/Teks agar angka nol di depan tidak hilang.'],
+    ['Link Foto boleh dikosongkan, atau isi dengan URL yang dapat diakses publik.'],
+    ['Hapus baris contoh sebelum mengisi data sebenarnya.']
+  ];
+
+  const sheetPetunjuk = XLSX.utils.aoa_to_sheet(petunjuk);
+  sheetPetunjuk['!cols'] = [{ wch: 110 }];
+
+  XLSX.utils.book_append_sheet(
+    workbook,
+    sheetPetunjuk,
+    'Petunjuk'
+  );
+
+  XLSX.writeFile(
+    workbook,
+    'template-impor-pengrajin-mekarsari.xlsx'
+  );
+}
+
+function normalizeExcelHeader(value) {
+  return String(value == null ? '' : value)
+    .trim()
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9]/g, '');
+}
+
+function excelRowToUmkm(row) {
+  const aliases = {
+    nama: ['namausaha', 'nama', 'usahapengrajin'],
+    kategori: ['kategori', 'jenisusaha'],
+    pemilik: ['namapemilik', 'pemilik'],
+    telepon: [
+      'nomorwhatsapp', 'whatsapp', 'telepon',
+      'nohp', 'nomorhp', 'notelp'
+    ],
+    alamat: ['alamat', 'alamatusaha'],
+    hargaRentang: ['kisaranharga', 'hargarentang', 'harga'],
+    ringkasan: ['ringkasanproduk', 'ringkasan'],
+    deskripsi: ['deskripsi', 'deskripsilengkap'],
+    foto: ['linkfoto', 'foto', 'urlfoto'],
+    status: ['status']
+  };
+
+  const mapped = {};
+
+  Object.keys(row).forEach((header) => {
+    const normalized = normalizeExcelHeader(header);
+
+    const target = Object.keys(aliases).find((key) =>
+      aliases[key].includes(normalized)
+    );
+
+    if (target) mapped[target] = row[header];
+  });
+
+  const val = (key) =>
+    String(mapped[key] == null ? '' : mapped[key]).trim();
+
+  const statusInput = val('status').toLowerCase();
+
+  return {
+    nama: val('nama'),
+    kategori: val('kategori'),
+    pemilik: val('pemilik'),
+    telepon: val('telepon')
+      .replace(/\.0$/, '')
+      .replace(/[\s()-]/g, ''),
+    alamat: val('alamat'),
+    hargaRentang: val('hargaRentang'),
+    ringkasan: val('ringkasan'),
+    deskripsi: val('deskripsi'),
+    foto: val('foto'),
+    status: !statusInput
+      ? 'Aktif'
+      : statusInput === 'aktif'
+        ? 'Aktif'
+        : statusInput === 'nonaktif'
+          ? 'Nonaktif'
+          : val('status')
+  };
+}
+
+async function importExcelUmkm() {
+  const input = $('umkmExcelInput');
+  const btn = $('umkmImportRunBtn');
+  const file = input.files && input.files[0];
+
+  if (!file) {
+    toast('Pilih file Excel terlebih dahulu.', 'error');
+    return;
+  }
+
+  if (!window.XLSX) {
+    toast('Library Excel belum termuat. Periksa koneksi internet.', 'error');
+    return;
+  }
+
+  if (!/\.(xlsx|xls|csv)$/i.test(file.name)) {
+    toast('Gunakan file XLSX, XLS, atau CSV.', 'error');
+    return;
+  }
+
+  if (
+    Store.getMode() === 'firestore' &&
+    !(window.firebase && firebase.auth &&
+      firebase.auth().currentUser)
+  ) {
+    toast('Silakan login sebagai petugas terlebih dahulu.', 'error');
+    return;
+  }
+
+  btn.disabled = true;
+  input.disabled = true;
+
+  const originalText = btn.innerHTML;
+  btn.innerHTML =
+    '<i class="fa-solid fa-spinner fa-spin"></i> Memproses...';
+
+  try {
+    const buffer = await file.arrayBuffer();
+    const workbook = XLSX.read(buffer, { type: 'array' });
+    const sheetName = workbook.SheetNames[0];
+
+    if (!sheetName) {
+      throw new Error('Sheet Excel tidak ditemukan.');
+    }
+
+    const rows = XLSX.utils.sheet_to_json(
+      workbook.Sheets[sheetName],
+      { defval: '', raw: false }
+    );
+
+    if (!rows.length) {
+      throw new Error('File tidak berisi data.');
+    }
+
+    const existingNames = new Set(
+      items.map((item) =>
+        String(item.nama || '').trim().toLocaleLowerCase('id-ID')
+      )
+    );
+
+    const namesInFile = new Set();
+    const validRows = [];
+    const issues = [];
+
+    rows.forEach((row, index) => {
+      const data = excelRowToUmkm(row);
+
+      // Abaikan baris yang benar-benar kosong.
+      if (
+        !data.nama && !data.pemilik &&
+        !data.telepon && !data.alamat
+      ) return;
+
+      const rowNumber = index + 2;
+      const problem = validate(data);
+
+      if (problem) {
+        issues.push(`Baris ${rowNumber}: ${problem[0]}`);
+        return;
+      }
+
+      const nameKey = data.nama.toLocaleLowerCase('id-ID');
+
+      if (existingNames.has(nameKey) || namesInFile.has(nameKey)) {
+        issues.push(
+          `Baris ${rowNumber}: "${data.nama}" duplikat, dilewati.`
+        );
+        return;
+      }
+
+      namesInFile.add(nameKey);
+      validRows.push({ data, rowNumber });
+    });
+
+    if (!validRows.length) {
+      alert(
+        'Tidak ada data valid untuk diimpor.' +
+        (issues.length ? '\n\n' + issues.slice(0, 10).join('\n') : '')
+      );
+      return;
+    }
+
+    const lanjut = confirm(
+      `Ada ${validRows.length} data yang siap diimpor.` +
+      `\n${issues.length} baris akan dilewati jika tidak valid atau duplikat.` +
+      '\n\nLanjutkan menyimpan data ke database?'
+    );
+
+    if (!lanjut) return;
+
+    let berhasil = 0;
+    const gagal = [];
+
+    // Simpan menggunakan fungsi yang sama dengan formulir UMKM.
+    for (const entry of validRows) {
+      try {
+        await Store.save(null, entry.data);
+        berhasil++;
+      } catch (error) {
+        console.error(
+          '[Impor Pengrajin] Gagal pada baris ' + entry.rowNumber,
+          error
+        );
+
+        gagal.push(
+          `Baris ${entry.rowNumber}: ${entry.data.nama}`
+        );
+      }
+    }
+
+    const ringkasan =
+      `Impor selesai. Berhasil: ${berhasil}, ` +
+      `dilewati: ${issues.length}, gagal simpan: ${gagal.length}.`;
+
+    toast(ringkasan, gagal.length ? 'error' : 'success');
+
+    if (issues.length || gagal.length) {
+      alert(
+        ringkasan + '\n\n' +
+        [...issues, ...gagal].slice(0, 20).join('\n')
+      );
+    }
+  } catch (error) {
+    console.error('[Impor UMKM]', error);
+    toast(
+      error.message || 'File Excel gagal diproses.',
+      'error'
+    );
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = originalText;
+    input.disabled = false;
+    input.value = '';
+  }
+}
   /* ---------- Inisialisasi ---------- */
   document.addEventListener('DOMContentLoaded', () => {
     if (!$('umkmBody')) return;
@@ -277,15 +571,20 @@
       }
     }, true);
 
-    $('umkmImportBtn').addEventListener('click', (e) => {
-      const btn = e.currentTarget;
-      btn.disabled = true;
-      Store.seed()
-        .then((n) => toast(`${n} data contoh berhasil diimpor.`))
-        .catch((err) => { console.error(err); toast(errMsg(err, 'Impor data contoh gagal.'), 'error'); })
-        .then(() => { btn.disabled = false; });
-    });
+    // Unduh template Excel
+$('umkmTemplateBtn').addEventListener('click', downloadExcelTemplate);
 
+// Informasi file yang dipilih
+$('umkmExcelInput').addEventListener('change', () => {
+  const file = $('umkmExcelInput').files[0];
+
+  if (file) {
+    toast(`File "${file.name}" dipilih. Klik Impor Data untuk melanjutkan.`);
+  }
+});
+
+// Jalankan impor massal
+$('umkmImportRunBtn').addEventListener('click', importExcelUmkm);
     render();
     connect();
   });

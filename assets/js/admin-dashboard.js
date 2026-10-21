@@ -172,30 +172,68 @@
     unsubs.push(Store.subscribe('pengaduan', applyPengaduan, onLoadError('pengaduan')));
   }
   // Mode firestore: tunggu status login Firebase Auth dulu (rules hanya mengizinkan admin membaca)
-  function connectData() {
-    if (!Store) {
-      dataState.surat = dataState.pengaduan = 'error';
-      dataState.error = 'submission-store.js belum dimuat. Periksa urutan script di index.html.';
-      renderAll();
-      return;
-    }
-    if (Store.getMode() !== 'firestore') { startRealtime(); return; }
-    try {
-      firebase.auth().onAuthStateChanged((user) => {
-        if (user) {
-          startRealtime();
-        } else {
-          stopRealtime();
-          dataState.surat = dataState.pengaduan = 'error';
-          dataState.error = 'Belum login ke Firebase, data belum bisa dimuat. Silakan login ulang.';
-          renderAll();
-        }
-      });
-    } catch (e) {
-      console.error('[Admin] Firebase Auth tidak tersedia:', e);
-      startRealtime();
-    }
+ 
+function connectData() {
+  if (!Store) {
+    dataState.surat = dataState.pengaduan = 'error';
+    dataState.error =
+      'submission-store.js belum dimuat. Periksa urutan script.';
+    renderAll();
+    return;
   }
+
+  if (Store.getMode() !== 'firestore') {
+    stopRealtime();
+    dataState.surat = dataState.pengaduan = 'error';
+    dataState.error =
+      'Firebase Firestore tidak aktif. Akses panel admin diblokir.';
+    renderAll();
+    return;
+  }
+
+  if (
+    typeof firebase === 'undefined' ||
+    typeof firebase.auth !== 'function'
+  ) {
+    stopRealtime();
+    dataState.surat = dataState.pengaduan = 'error';
+    dataState.error =
+      'Firebase Authentication tidak tersedia.';
+    renderAll();
+    return;
+  }
+
+  firebase.auth().onAuthStateChanged(async (user) => {
+    const auth = window.adminAuth;
+    const session =
+      auth && typeof auth.getSession === 'function'
+        ? auth.getSession()
+        : null;
+
+    let validAdmin = false;
+
+    if (
+      user &&
+      session &&
+      session.uid === user.uid &&
+      auth &&
+      typeof auth.verifyAdmin === 'function'
+    ) {
+      validAdmin = await auth.verifyAdmin(user);
+    }
+
+    if (validAdmin) {
+      startRealtime();
+    } else {
+      stopRealtime();
+      dataState.surat = dataState.pengaduan = 'error';
+      dataState.error =
+        'Sesi admin tidak valid. Silakan login ulang.';
+      renderAll();
+    }
+  });
+}
+
   // Mode uji coba (localStorage) tidak realtime, jadi muat ulang manual setelah simpan
   function reloadLocal() {
     return Promise.all([Store.getAll('surat'), Store.getAll('pengaduan')])
@@ -236,16 +274,34 @@
     $('settingsName').textContent = name;
     return name;
   }
-  function doLogout() {
-    if (!confirm('Apakah Anda yakin ingin keluar dari panel admin?')) return;
-    const auth = window.adminAuth;
-    if (auth && typeof auth.logout === 'function') {
-      auth.logout();
-    } else {
-      try { sessionStorage.clear(); } catch (e) { /* abaikan */ }
-      window.location.href = 'login.html'; // sesuaikan dengan halaman login Anda
-    }
+  
+async function doLogout() {
+  if (!confirm('Apakah Anda yakin ingin keluar dari panel admin?')) {
+    return;
   }
+
+  const auth = window.adminAuth;
+
+  if (auth && typeof auth.logout === 'function') {
+    try {
+      await auth.logout();
+    } catch (error) {
+      console.error('[Admin] Logout gagal:', error);
+
+      if (typeof toast === 'function') {
+        toast(
+          error.message || 'Logout gagal. Silakan coba lagi.',
+          'error'
+        );
+      }
+    }
+  } else {
+    localStorage.removeItem('mekarsari_admin_session');
+    sessionStorage.removeItem('mekarsari_admin_session');
+    window.location.replace('login.html');
+  }
+}
+
 
   /* ---------- Statistik ---------- */
   function renderStats() {

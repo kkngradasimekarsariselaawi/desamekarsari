@@ -1,6 +1,6 @@
 
 /**
- * AUTENTIKASI ADMIN DESA MEKARSARI
+ * AUTENTIKASI Admin Desa MEKARSARI
  * Memerlukan Firebase Compat SDK dan firebase-config.js
  * yang dimuat sebelum file ini.
  */
@@ -64,8 +64,8 @@ class AdminAuth {
       JSON.stringify({
         uid: userData.uid,
         email: userData.email || '',
-        name: userData.name || 'Admin Desa',
-        role: userData.role || 'Petugas Desa',
+        name: userData.name || 'Rusdiman, S.Pd., M.AP.',
+        role: userData.role || 'Kepala Seksi Pelayanan',
         loginAt: new Date().toISOString()
       })
     );
@@ -174,8 +174,8 @@ class AdminAuth {
       const userData = {
         uid: user.uid,
         email: user.email || email,
-        name: 'Admin Desa',
-        role: 'Petugas Desa'
+        name: 'Rusdiman, S.Pd., M.AP.',
+        role: 'Kepala Seksi Pelayanan'
       };
 
       this.saveSession(userData, remember);

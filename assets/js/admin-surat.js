@@ -16,7 +16,7 @@ const DAFTAR_PENANDA_TANGAN = [
   },
   {
     nama: 'Rusdiman, S.Pd., M.AP.',
-    jabatan: 'Kepala Seksi Pelayanan'
+    jabatan: 'Kepala Seksi Pelayanan Desa Mekarsari'
   }
 ];
 
@@ -244,7 +244,7 @@ function simpanPengaturanSurat(nama, jabatan) {
 
 
       <div class="jdl"><h2>${t.judul}</h2><p>Nomor: ${no}</p></div>
-      <p class="isi">Yang bertanda tangan di bawah ini, Kepala Desa Mekarsari, Kecamatan Selaawi, Kabupaten Garut, menerangkan bahwa:</p>
+      <p class="isi">Yang bertanda tangan di bawah ini, ${esc(window.pengaturanSurat?.jabatan || 'Kepala Desa Mekarsari')} Kecamatan Selaawi, Kabupaten Garut, menerangkan bahwa:</p>
       <table>${rows}</table><p class="isi">${t.p1}</p><p class="isi" style="text-align: center; font-weight: bold" >${t.p2}</p><p class="isi" style="text-indent:0px">Surat Keterangan ini dipergunakan untuk : ${d.keperluan || '-'}</p><p class="isi">${t.p3}</p>
       <br><br>
       <div class="ttd">

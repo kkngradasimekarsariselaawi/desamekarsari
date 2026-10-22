@@ -28,40 +28,99 @@
   const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const norm = (s) => String(s).toLowerCase().trim();
 
-  /* ---------- 2. PETA (gambar ilustrasi + area klik) ----------
-     Gambar: assets/peta-desa.jpg (1671 x 941 px). Area klik di bawah adalah ilustrasi
-     yang dicocokkan secara kasar dengan gambar, BUKAN batas resmi. Tidak ada koordinat
-     atau tautan peta. Jika gambar diganti, sesuaikan titik poligon (x,y dalam piksel gambar). */
-  const COLORS = { 1: '#15803D', 2: '#dc2626', 3: '#7c3aed' };
-  const mapEl = document.getElementById('map');
-  const IMG_W = 1671, IMG_H = 941;
-  const HOTSPOTS = {
-    1: '175,555 210,520 300,470 360,420 400,365 450,320 520,290 575,250 600,262 635,290 650,345 662,365 660,440 630,440 690,500 698,545 685,585 640,590 600,605 570,590 540,575 500,590 470,602 430,585 380,590 300,585 250,600 200,585',
-    2: '668,290 700,255 760,230 800,208 835,215 845,260 880,290 905,310 945,315 950,350 990,385 985,420 1000,455 1040,500 1055,560 1050,600 1020,575 1000,550 960,560 900,570 830,605 790,580 750,575 720,575 685,585 698,545 690,500 630,440 660,440 662,365 650,345 668,330',
-    3: '945,315 990,235 1015,215 1050,235 1100,250 1135,275 1150,305 1185,350 1200,390 1250,415 1330,425 1355,450 1360,495 1400,520 1450,525 1500,545 1525,575 1500,620 1490,665 1480,725 1465,745 1430,735 1400,700 1365,665 1320,680 1280,720 1245,750 1200,745 1160,750 1130,720 1100,690 1090,660 1050,610 1055,560 1040,500 1000,455 985,420 990,385 950,350'
-  };
+  
+/* ---------- 2. PETA SATELIT + IKON LOKASI ---------- */
 
-  function buildMap() {
-    const polys = DUSUN.map((d) =>
-      `<polygon class="hot" data-dusun="${d.id}" points="${HOTSPOTS[d.id]}" tabindex="0" role="button" aria-label="${d.nama}, ${d.posisi}, ${d.rentang}"/>`).join('');
-    mapEl.insertAdjacentHTML('beforeend', `<svg viewBox="0 0 ${IMG_W} ${IMG_H}" focusable="false">${polys}</svg>`);
+const COLORS = {
+  1: '#15803D',
+  2: '#dc2626',
+  3: '#7c3aed'
+};
+
+const mapEl = document.getElementById('map');
+
+/*
+  Posisi marker dalam persentase gambar:
+  left = jarak dari kiri
+  top  = jarak dari atas
+
+  Posisi awal perkiraan berdasarkan gambar yang dikirim.
+  Sesuaikan jika posisi gambar latar berbeda.
+*/
+const MAP_MARKERS = [
+  // Dusun I Barat — hijau
+  { id: 1, x: 27.0, y: 15.2, label: 'Lokasi Dusun I - 1' },
+  { id: 1, x: 33.1, y: 18.7, label: 'Lokasi Dusun I - 2' },
+  { id: 1, x: 38.7, y: 14.5, label: 'Lokasi Dusun I - 3' },
+
+  // Dusun II Tengah — merah
+  { id: 2, x: 39.0, y: 31.9, label: 'Lokasi Dusun II - 1' },
+  { id: 2, x: 43.0, y: 36.0, label: 'Lokasi Dusun II - 2' },
+  { id: 2, x: 48.7, y: 37.7, label: 'Lokasi Dusun II - 3' },
+
+  // Dusun III Timur — ungu
+  { id: 3, x: 53.8, y: 45.4, label: 'Lokasi Dusun III - 1' },
+  { id: 3, x: 55.5, y: 65.7, label: 'Lokasi Dusun III - 2' },
+  { id: 3, x: 62.5, y: 47.3, label: 'Lokasi Dusun III - 3' }
+];
+
+function buildMap() {
+  // Hindari overlay dibuat berulang kali.
+  mapEl.querySelector('.map-markers')?.remove();
+
+  const layer = document.createElement('div');
+  layer.className = 'map-markers';
+
+  layer.innerHTML = MAP_MARKERS.map((m, index) => `
+    <button
+      type="button"
+      class="map-marker d${m.id}"
+      data-dusun="${m.id}"
+      aria-label="${m.label}"
+      title="${m.label}"
+      style="left:${m.x}%;top:${m.y}%"
+    >
+      <span class="marker-number">${index + 1}</span>
+    </button>
+  `).join('');
+
+  mapEl.appendChild(layer);
+}
+
+function initMap() {
+  buildMap();
+
+  // Klik ikon lokasi akan memilih dusun.
+  mapEl.addEventListener('click', (e) => {
+    const marker = e.target.closest('.map-marker');
+
+    if (!marker || !mapEl.contains(marker)) return;
+
+    selectDusun(Number(marker.dataset.dusun));
+  });
+}
+
+function refreshMapHighlight() {
+  if (state.selected === null) {
+    mapEl.removeAttribute('data-selected');
+  } else {
+    mapEl.setAttribute(
+      'data-selected',
+      String(state.selected)
+    );
   }
 
-  function initMap() {
-    buildMap();
-    mapEl.addEventListener('click', (e) => {
-      const z = e.target.closest('.hot'); if (z) selectDusun(Number(z.dataset.dusun));
-    });
-    mapEl.addEventListener('keydown', (e) => {
-      const z = e.target.closest && e.target.closest('.hot');
-      if (z && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); selectDusun(Number(z.dataset.dusun)); }
-    });
-  }
+  // Perbarui status ikon lokasi.
+  mapEl.querySelectorAll('.map-marker').forEach((marker) => {
+    const active =
+      state.selected !== null &&
+      Number(marker.dataset.dusun) === state.selected;
 
-  function refreshMapHighlight() {
-    if (state.selected === null) mapEl.removeAttribute('data-selected');
-    else mapEl.setAttribute('data-selected', String(state.selected));
-  }
+    marker.classList.toggle('is-active', active);
+    marker.setAttribute('aria-pressed', String(active));
+  });
+}
+
 
   /* ---------- 5. RENDER ---------- */
   function hl(text, q) {

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Peta Lokasi — Desa Mekarsari, Kecamatan Selaawi, Kabupaten Garut</title>
+  <title>Kontak & Lokasi — Website Resmi Desa Mekarsari</title>
   <meta name="description" content="Informasi wilayah Desa Mekarsari: tiga dusun dan sembilan RW.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -42,9 +42,9 @@
 
         .hero-banner {
             background-size: cover;
-                background-position: center center;
-                min-height: 300px;
-                margin-top: 30px;
+            background-position: center center;
+            min-height: 450px;
+            margin-top: 30px;
         }
         
         /* Custom UI Elements */
@@ -112,6 +112,12 @@
             backdrop-filter: blur(8px);
             box-shadow: 0 1px 10px rgba(0, 0, 0, 0.05);
         }
+
+        @media (max-width: 768px) {
+            .hero-banner {
+                    min-height: 280px;
+            }
+        }
     </style>
     <link rel="stylesheet" href="peta-lokasi.css">
     <link rel="stylesheet" href="assets/css/shared-layout.css">
@@ -124,7 +130,7 @@
         <!-- Hero Section -->
         <section class="hero-banner relative h-64 sm:h-80 md:h-96 bg-gray-900 text-white overflow-hidden">
             <!-- Background Image with Overlay -->
-            <img src="https://images.unsplash.com/photo-1596422846543-75c6fc197f07?auto=format&fit=crop&w=1600&q=80" 
+            <img src="assets/galeri/5.webp" 
                  alt="Pemandangan Desa Mekarsari" 
                  class="absolute inset-0 w-full h-full object-cover object-center opacity-40">
             <div class="absolute inset-0 bg-gradient-to-r from-[#1B4332]/80 via-[#1B4332]/60 to-transparent"></div>
@@ -200,7 +206,7 @@
                             </div>
                             <div>
                                 <h3 class="font-bold text-gray-900 text-base mb-1">WhatsApp</h3>
-                                <a href="https://wa.me/6281254567890" target="_blank" rel="noopener noreferrer" class="text-emerald-700 hover:text-emerald-900 text-sm font-semibold hover:underline inline-flex items-center gap-1.5">
+                                <a href="https://wa.me/6285776667254" target="_blank" rel="noopener noreferrer" class="text-emerald-700 hover:text-emerald-900 text-sm font-semibold hover:underline inline-flex items-center gap-1.5">
                                     +62 812 5456 7890
                                     <i class="fa-solid fa-arrow-up-right-from-square text-xs opacity-70"></i>
                                 </a>
@@ -247,19 +253,29 @@
             </div>
         </section>
         
-        <section id="lokasi" style="margin : 50px;">
+        <section id="lokasi">
         <main id="konten">
 
           <div class="container">
-            <div class="map-layout">
+            <div class="map-layout" style="padding-left: 1rem; padding-right: 1rem;">
               <!-- Peta -->
               <section class="map-card" id="mapCard" aria-label="Peta ilustrasi pembagian dusun">
-                <div id="map" role="group" aria-label="Peta ilustrasi Desa Mekarsari. Pilih salah satu dusun.">
-                  <!-- Ganti file gambar di sini bila ada versi baru (rasio 1671x941 disarankan) -->
-                  <img src="assets/peta-desa.jpg" width="1671" height="941" alt="Peta ilustrasi Desa Mekarsari: Dusun I di barat, Dusun II di tengah, Dusun III di timur"
-                  >
-                  
+                
+                <div id="map" role="group"
+                    aria-label="Peta ilustrasi Desa Mekarsari. Pilih titik lokasi atau dusun.">
+
+                <img
+                    src="assets/peta.png"
+                    width="1671"
+                    height="941"
+                    alt="Peta ilustrasi Desa Mekarsari dengan titik lokasi tiga dusun"
+                >
+
+                <!-- Ikon lokasi akan dibuat otomatis oleh JavaScript -->
+                <div id="mapMarkers" aria-label="Titik lokasi dusun"></div>
+
                 </div>
+
               </section>
 
               <!-- Panel samping -->

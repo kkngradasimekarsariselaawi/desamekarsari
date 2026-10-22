@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Desa Mekarsari - Website Resmi Desa Mekarsari, Garut</title>
+    <title>Desa Mekarsari - Website Resmi Desa Mekarsari</title>
     <meta name="description" content="Website Resmi Desa Mekarsari, Kecamatan Selaawi, Kabupaten Garut, Jawa Barat. Pusat informasi, eduwisata, UMKM kerajinan bambu, dan layanan publik online.">
 
     <!-- Google Fonts: Plus Jakarta Sans & Caveat -->
@@ -293,13 +293,13 @@
            ========================================================================== */
         .hero-section {
             position: relative;
-            min-height: 520px;
+            min-height: 470px;
             background: linear-gradient(rgba(15, 35, 16, 0.55), rgba(15, 35, 16, 0.65)),
-                        url('https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+                        url('assets/galeri/1.webp') center/cover no-repeat;
             display: flex;
             align-items: center;
             color: #ffffff;
-            padding: 4rem 0;
+            padding: 74px 0 0 0;
         }
 
         .hero-content {
@@ -791,7 +791,7 @@
             }
 
             .news-grid {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns: repeat(1, 1fr);
             }
 
             .footer-grid {
@@ -963,7 +963,7 @@
                     </a>
                 </div>
                 <div class="profile-image-wrapper">
-                    <img src="https://images.unsplash.com/photo-1590736969955-71cc94801759?auto=format&fit=crop&w=800&q=80" 
+                    <img src="assets/galeri/2.webp" 
                          alt="Kerajinan Anyaman Bambu Desa Mekarsari" 
                          class="profile-image"
                          loading="lazy"
@@ -1060,21 +1060,21 @@
                 id: 1,
                 title: "Pelatihan Anyaman Bambu untuk Pengembangan UMKM",
                 date: "12 Okt 2024",
-                image: "https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=600&q=80",
+                image: "assets/galeri/3.webp",
                 link: "berita.html?id=1"
             },
             {
                 id: 2,
                 title: "Gotong Royong Perbaikan Jalan Desa Mekarsari",
                 date: "8 Okt 2024",
-                image: "https://images.unsplash.com/photo-1590402494682-cd3fb53b1f70?auto=format&fit=crop&w=600&q=80",
+                image: "assets/galeri/4.webp",
                 link: "berita.html?id=2"
             },
             {
                 id: 3,
                 title: "Festival Budaya Desa Mekarsari Tahun 2024",
                 date: "1 Okt 2024",
-                image: "https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&fit=crop&w=600&q=80",
+                image: "assets/galeri/5.webp",
                 link: "berita.html?id=3"
             }
         ];
@@ -1090,14 +1090,9 @@
                         <img src="${news.image}" alt="${news.title}" class="news-thumb" loading="lazy" width="600" height="400">
                     </div>
                     <div class="news-body">
-                        <span class="sample-content-badge">Konten Contoh</span>
                         <h3 class="news-title">
                             <a href="${news.link}">${news.title}</a>
                         </h3>
-                        <div class="news-date">
-                            <i class="fa-regular fa-calendar"></i>
-                            <span>${news.date}</span>
-                        </div>
                     </div>
                 </article>
             `).join('');

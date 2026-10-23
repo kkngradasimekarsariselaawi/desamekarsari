@@ -89,13 +89,13 @@
             position: relative;
             background: linear-gradient(rgba(18, 53, 36, 0.82), rgba(18, 53, 36, 0.90)), 
                         url('assets/galeri/8.webp') center/cover no-repeat;
-            padding: 56px 0 0 0;
             color: #ffffff;
             text-align: left;
             background-size: cover;
             background-position: center center;
             min-height: 470px;
-            padding: 3rem 0 2.5rem 0 0;
+            padding: 11rem 0 2.5rem 0 ;
+            
                 
         }
 
@@ -109,7 +109,6 @@
             letter-spacing: -0.5px;
             margin-bottom: 12px;
             line-height: 1.25;
-            padding-top: 40px;
         }
 
         .hero-subtitle {
@@ -921,10 +920,10 @@
         @media (max-width: 768px) {
             .hero-section {
                 min-height: 280px;
-                padding-top: -200px;
             }
             .hero-title {
                 font-size: 1.8rem;
+                margin-top: -60px;
             }
 
             .service-tabs {
@@ -1182,18 +1181,42 @@
                             </div>
 
                             <!-- Upload Dokumen Pendukung -->
-                            <div class="form-group">
-                                <label class="form-label">Unggah Dokumen Pendukung <span style="font-weight: 400; color: var(--text-muted);">(opsional)</span></label>
-                                <div class="file-upload-box" onclick="document.getElementById('dokumenPendukung').click()">
-                                    <button type="button" class="btn-select-file">Pilih file</button>
-                                    <div>
-                                        <div class="file-hint">PDF, JPG, PNG (maks. 2MB)</div>
-                                        <div class="file-selected-name" id="fileSelectedName"></div>
-                                    </div>
-                                    <input type="file" id="dokumenPendukung" accept=".pdf,.jpg,.jpeg,.png" style="display: none;" onchange="handleFileSelect(this)">
-                                </div>
-                                <div class="error-message" id="err-dokumen">Ukuran file melebihi batas 2MB atau format tidak didukung.</div>
-                            </div>
+                            
+<div class="form-group">
+    <label class="form-label">
+        Unggah Dokumen Pendukung
+        <span style="font-weight:400; color:var(--text-muted);">
+            (opsional)
+        </span>
+    </label>
+
+    <input
+        type="file"
+        id="dokumenPendukung"
+        accept=".pdf,.jpg,.jpeg,.png"
+        multiple
+        style="display:none;"
+        onchange="handleFileSelect(this)"
+    >
+
+    <button
+        type="button"
+        class="btn-select-file"
+        onclick="document.getElementById('dokumenPendukung').click()"
+    >
+        + Tambah Dokumen
+    </button>
+
+    <div class="file-hint" style="margin-top:8px;">
+        PDF, JPG, PNG. Maksimal 5 file, masing-masing 2 MB.
+    </div>
+
+    <div id="fileSelectedName" style="margin-top:10px;"></div>
+
+    <div class="error-message" id="err-dokumen">
+        File tidak valid. Periksa format, ukuran, dan jumlah file.
+    </div>
+</div>
 
                             <!-- Checkbox Consent -->
                             <div class="checkbox-group">
@@ -1413,13 +1436,13 @@
             </div>
 
             <p style="font-size: 0.78rem; color: #854d0e; background: #fefce8; padding: 10px; border-radius: 6px; margin-bottom: 20px; line-height: 1.4;">
-                <i class="fa-solid fa-triangle-exclamation"></i> <strong>Catatan Penting:</strong> Draf ini belum dianggap sebagai surat resmi dan belum disetujui sebelum diperiksa oleh petugas desa.
+                <i class="fa-solid fa-triangle-exclamation"></i> <strong>Catatan Penting:</strong> Hubungi petugas desa untuk mengkonfirmasi Pengajuan/Pengaduan.
             </p>
 
             <div class="modal-actions">
-                <button type="button" class="btn-modal-primary" onclick="openDraftPreview()">
-                    <i class="fa-solid fa-file-pdf"></i> Lihat Draf Surat Otomatis
-                </button>
+                <a href="https://wa.me/6285776667254"> <button type="button" class="btn-modal-primary" >
+                    <i class="fa-brands fa-whatsapp"></i> Konfirmasi kepada Petugas Desa
+                </button></a>
                 <button type="button" class="btn-modal-secondary" onclick="closeModal()" style="border: none; color: var(--text-muted);">
                     Tutup & Buat Permohonan Baru
                 </button>
@@ -1542,7 +1565,11 @@
         }
 
         function friendlyError(err) {
+            
             const code = (err && err.code) || '';
+            if (err && /upload|file|dokumen/i.test(err.message || '')) {
+                return 'Dokumen gagal diunggah. Periksa koneksi dan coba kembali.';
+            }
             if (code === 'permission-denied') return 'Pengiriman ditolak server. Periksa kembali isian Anda lalu coba lagi.';
             if (code === 'unavailable' || code === 'timeout' || code === 'failed-precondition')
                 return 'Koneksi bermasalah. Periksa internet Anda lalu coba kirim ulang.';
@@ -1647,29 +1674,145 @@
         /* --------------------------------------------------------------------------
            3. FILE UPLOAD HANDLING & VALIDATION
            -------------------------------------------------------------------------- */
-        let uploadedFileMeta = null;
+        
+            let uploadedFiles = [];
 
-        function handleFileSelect(input) {
-            const errEl = document.getElementById('err-dokumen');
-            const nameEl = document.getElementById('fileSelectedName');
-            
-            if (input.files && input.files[0]) {
-                const file = input.files[0];
-                const maxSize = 2 * 1024 * 1024; // 2MB
+            function handleFileSelect(input) {
+                const errEl = document.getElementById('err-dokumen');
+                const nameEl = document.getElementById('fileSelectedName');
 
-                if (file.size > maxSize) {
+                const newFiles = Array.from(input.files || []);
+                const maxSize = 2 * 1024 * 1024;
+                const maxFiles = 5;
+                const allowedTypes = [
+                    'application/pdf',
+                    'image/jpeg',
+                    'image/png'
+                ];
+
+                // Validasi jumlah total, termasuk file yang sudah dipilih
+                if (uploadedFiles.length + newFiles.length > maxFiles) {
+                    errEl.textContent = 'Maksimal 5 file dokumen.';
                     errEl.style.display = 'block';
-                    nameEl.style.display = 'none';
                     input.value = '';
-                    uploadedFileMeta = null;
-                } else {
-                    errEl.style.display = 'none';
-                    nameEl.textContent = `File terpilih: ${file.name} (${(file.size/1024).toFixed(0)} KB)`;
-                    nameEl.style.display = 'block';
-                    uploadedFileMeta = { name: file.name, size: file.size, type: file.type };
+                    return;
                 }
+
+                // Validasi file baru
+                const invalidFile = newFiles.find(file =>
+                    file.size > maxSize ||
+                    !allowedTypes.includes(file.type)
+                );
+
+                if (invalidFile) {
+                    errEl.textContent =
+                        `File "${invalidFile.name}" tidak valid. ` +
+                        'Gunakan PDF, JPG, atau PNG maksimal 2 MB per file.';
+                    errEl.style.display = 'block';
+                    input.value = '';
+                    return;
+                }
+
+                errEl.style.display = 'none';
+
+                // Tambahkan tanpa menghapus file sebelumnya
+                uploadedFiles.push(...newFiles);
+
+                renderSelectedFiles();
+
+                // Kosongkan input agar file yang sama bisa dipilih lagi
+                input.value = '';
             }
-        }
+
+            function renderSelectedFiles() {
+                const nameEl = document.getElementById('fileSelectedName');
+
+                nameEl.innerHTML = '';
+
+                uploadedFiles.forEach((file, index) => {
+                    const item = document.createElement('div');
+                    item.style.cssText =
+                        'display:flex; justify-content:space-between; ' +
+                        'align-items:center; gap:10px; margin:8px 0;';
+
+                    const info = document.createElement('span');
+                    info.textContent =
+                        `${index + 1}. ${file.name} ` +
+                        `(${(file.size / 1024).toFixed(0)} KB)`;
+
+                    const removeBtn = document.createElement('button');
+                    removeBtn.type = 'button';
+                    removeBtn.textContent = 'Hapus';
+                    removeBtn.style.cssText =
+                        'border:0; background:none; color:#c0392b; ' +
+                        'cursor:pointer; flex-shrink:0;';
+
+                    removeBtn.onclick = () => {
+                        uploadedFiles.splice(index, 1);
+                        renderSelectedFiles();
+                    };
+
+                    item.append(info, removeBtn);
+                    nameEl.appendChild(item);
+                });
+
+                const counter = document.createElement('div');
+                counter.className = 'file-hint';
+                counter.textContent = `${uploadedFiles.length}/5 file dipilih`;
+                nameEl.appendChild(counter);
+            }
+
+            function readFileAsDataURL(file) {
+                return new Promise((resolve, reject) => {
+                    const reader = new FileReader();
+
+                    reader.onload = () => resolve(reader.result);
+                    reader.onerror = () => reject(
+                        new Error('Gagal membaca file: ' + file.name)
+                    );
+
+                    reader.readAsDataURL(file);
+                });
+            }
+
+            async function uploadFilesToDrive(submissionId) {
+                if (!uploadedFiles.length) return [];
+
+                const files = await Promise.all(
+                    uploadedFiles.map(async file => ({
+                        name: file.name,
+                        type: file.type,
+                        data: await readFileAsDataURL(file)
+                    }))
+                );
+
+                const response = await fetch(
+                    'https://script.google.com/macros/s/AKfycbwFsaSXF8F0LJzax49TRyLHbC6-q-Kz0HG7NhTXv86RiICD9_Wqz-mzxDqqN0wfmof9Uw/exec',
+                    {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'text/plain;charset=utf-8'
+                        },
+                        body: JSON.stringify({
+                            submissionId,
+                            files
+                        })
+                    }
+                );
+
+                if (!response.ok) {
+                    throw new Error('Server upload tidak merespons.');
+                }
+
+                const result = await response.json();
+
+                if (!result.success) {
+                    throw new Error(result.message || 'Upload dokumen gagal.');
+                }
+
+                return result.files;
+            }
+
 
         /* --------------------------------------------------------------------------
            4. FORM SUBMISSION LOGIC & DRAFT GENERATION
@@ -1686,7 +1829,7 @@
 
         const EXTRA = {
             
-            Domisili: [['agama','Agama','Contoh: Islam'],['statusKawin','Status Perkawinan','Belum Kawin / Kawin / Cerai']],
+            Domisili: [],
             Usaha: [['namaUsaha','Nama Usaha','Contoh: Kerajinan Bambu Mekar Jaya'],['bidangUsaha','Bidang Usaha','Contoh: Anyaman bambu']],
             Pengantar: [
                 ['namaAnak', 'Nama Anak', 'Masukkan nama lengkap anak'],
@@ -1758,10 +1901,10 @@ renderExtra();
             // Tidak lagi memakai isian tambahan khusus per jenis surat
             const extra = {};
 
-(EXTRA[jenisSurat] || []).forEach(([key]) => {
-    const input = document.getElementById(`ex-${key}`);
-    extra[key] = input ? input.value.trim() : '';
-});
+            (EXTRA[jenisSurat] || []).forEach(([key]) => {
+                const input = document.getElementById(`ex-${key}`);
+                extra[key] = input ? input.value.trim() : '';
+            });
 
 
             // Reset Errors
@@ -1867,16 +2010,24 @@ renderExtra();
 
                 // Metadata pengajuan
                 extra: extra,
-                dokumen: uploadedFileMeta || null,
+                dokumen: [],
                 status: 'Diajukan',
                 tanggal: timestamp
             };
 
+            
             await submitSafely(
                 form,
-                (d) => dbAdapter.saveSurat(d),
+                async (d) => {
+                    // Upload semua file terlebih dahulu.
+                    d.dokumen = await uploadFilesToDrive(d.id);
+
+                    // Setelah upload berhasil, simpan pengajuan ke Firestore.
+                    return dbAdapter.saveSurat(d);
+                },
                 payload
             );
+
         }
 
         // Submit Pengaduan
@@ -1970,7 +2121,21 @@ renderExtra();
             document.getElementById('formPengaduan').reset();
             renderExtra();
             document.getElementById('fileSelectedName').style.display = 'none';
-        }
+
+            uploadedFiles = [];
+
+            const fileInput = document.getElementById('dokumenPendukung');
+            if (fileInput) fileInput.value = '';
+
+            const fileName = document.getElementById('fileSelectedName');
+            if (fileName) {
+                fileName.textContent = '';
+                fileName.style.display = 'none';
+            }
+
+            const fileError = document.getElementById('err-dokumen');
+            if (fileError) fileError.style.display = 'none';
+                    }
 
         function copyCode() {
             const codeText = document.getElementById('resNomor').textContent;

@@ -42,10 +42,12 @@
       </ul>
 
       <div class="sidebar-footer">
+        
         <button type="button" class="btn-logout" id="logoutBtn">
           <i class="fa-solid fa-right-from-bracket"></i>
-          <span>Logout</span>
+          <span>Keluar</span>
         </button>
+
       </div>
     </aside>
     <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
@@ -198,7 +200,9 @@
               <h2 class="section-title">Berita &amp; Kegiatan</h2>
               <button type="button" class="nw-btn-primary" id="newsAddBtn"><i class="fa-solid fa-plus"></i> Tambah Berita</button>
             </div>
-            <p class="notice" id="newsModeNotice"></p>
+
+            <!--
+            <p class="notice" id="newsModeNotice"></p>-->
 
 
             
@@ -240,12 +244,17 @@
   <div id="newsImportResult" role="status" aria-live="polite"></div>
 </div>
 
+
+
             <div class="filter-bar">
               <div class="search-box">
                 <i class="fa-solid fa-magnifying-glass"></i>
                 <input type="search" id="searchNews" class="form-control" placeholder="Cari judul / kategori..." aria-label="Cari berita">
               </div>
             </div>
+
+
+            
             <div class="table-responsive">
               <table class="admin-table">
                 <thead><tr><th>Judul</th><th>Kategori</th><th>Tanggal</th><th>Status</th><th>Aksi</th></tr></thead>
@@ -261,11 +270,55 @@
             <div class="section-header">
               <h2 class="section-title">Pengrajin Desa Mekarsari</h2>
               <div class="um-header-actions">
-                <a href="../umkm.html" target="_blank" rel="noopener" class="btn-secondary-admin um-link-btn"><i class="fa-solid fa-arrow-up-right-from-square"></i> Lihat Halaman Publik</a>
                 <button type="button" class="btn-primary-admin" id="umkmAddBtn"><i class="fa-solid fa-plus"></i> Tambah Pengrajin</button>
               </div>
             </div>
-            <p class="notice" id="umkmModeNotice"></p>
+            
+
+
+            <div class="um-import" id="umkmImportBox" hidden>
+            <h3>
+              <i class="fa-solid fa-file-excel"></i>
+              Impor Data Pengrajin dari Excel
+            </h3>
+
+            <p>
+              Unggah file Excel untuk memasukkan banyak data pengrajin
+              sekaligus. Data yang tidak valid atau duplikat akan dilewati.
+            </p>
+
+            <div class="um-import-actions"
+                style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:12px">
+
+              <button type="button"
+                      class="btn-secondary-admin"
+                      id="umkmTemplateBtn">
+                <i class="fa-solid fa-download"></i>
+                Unduh Template Excel
+              </button>
+
+              <input type="file"
+                    id="umkmExcelInput"
+                    accept=".xlsx,.xls,.csv"
+                    style="max-width:100%">
+
+              <button type="button"
+                      class="btn-primary-admin"
+                      id="umkmImportRunBtn">
+                <i class="fa-solid fa-file-import"></i>
+                Impor Data
+              </button>
+            </div>
+
+            <small style="display:block;margin-top:10px">
+              Format file: XLSX, XLS, atau CSV. Isi data sesuai kolom pada
+              template. Kolom wajib meliputi nama usaha, kategori, pemilik,
+              WhatsApp, alamat, dan ringkasan produk.
+            </small>
+          </div>
+
+          <!-- info database -->
+          <!-- <p class="notice" id="umkmModeNotice"></p> -->
             <div class="filter-bar">
               <div class="search-box">
                 <i class="fa-solid fa-magnifying-glass"></i>
@@ -279,46 +332,7 @@
               </table>
             </div>
             <p class="table-count" id="umkmCount"></p>
-            <div class="um-import" id="umkmImportBox" hidden>
-  <h3>
-    <i class="fa-solid fa-file-excel"></i>
-    Impor Data Pengrajin dari Excel
-  </h3>
-
-  <p>
-    Unggah file Excel untuk memasukkan banyak data pengrajin
-    sekaligus. Data yang tidak valid atau duplikat akan dilewati.
-  </p>
-
-  <div class="um-import-actions"
-       style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:12px">
-
-    <button type="button"
-            class="btn-secondary-admin"
-            id="umkmTemplateBtn">
-      <i class="fa-solid fa-download"></i>
-      Unduh Template Excel
-    </button>
-
-    <input type="file"
-           id="umkmExcelInput"
-           accept=".xlsx,.xls,.csv"
-           style="max-width:100%">
-
-    <button type="button"
-            class="btn-primary-admin"
-            id="umkmImportRunBtn">
-      <i class="fa-solid fa-file-import"></i>
-      Impor Data
-    </button>
-  </div>
-
-  <small style="display:block;margin-top:10px">
-    Format file: XLSX, XLS, atau CSV. Isi data sesuai kolom pada
-    template. Kolom wajib meliputi nama usaha, kategori, pemilik,
-    WhatsApp, alamat, dan ringkasan produk.
-  </small>
-</div>
+            
           </section>
         </section>
 
@@ -326,7 +340,6 @@
         <section class="view" id="view-pengguna" hidden>
           <section class="section-card">
             <div class="section-header"><h2 class="section-title">Pengguna Panel Admin</h2></div>
-            <p class="notice"><i class="fa-solid fa-circle-info"></i> Manajemen pengguna butuh backend (mis. Firebase Auth). Saat ini hanya menampilkan sesi yang sedang aktif.</p>
             <div class="table-responsive">
               <table class="admin-table">
                 <thead><tr><th>Nama</th><th>Peran</th><th>Status</th></tr></thead>

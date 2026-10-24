@@ -18,9 +18,151 @@
 .um-btn-danger { color: #b42318; border-color: #fda29b; }
 .um-btn-danger:hover { background: #fef3f2; }
 
-.um-import { margin-top: 12px; padding: 14px 16px; border: 1px dashed #95d5b2; border-radius: 10px; background: #f3faf6; }
-.um-import[hidden] { display: none; }
-.um-import p { margin: 0 0 10px; font-size: 14px; color: #1b4332; }
+
+/* Kelola UMKM — panel impor Excel yang lebih compact */
+.um-import {
+  margin-top: 10px;
+  padding: 12px 14px;
+  border: 1px dashed #95d5b2;
+  border-radius: 10px;
+  background: #f3faf6;
+  margin-bottom: 20px;
+}
+
+.um-import[hidden] {
+  display: none;
+}
+
+.um-import h3 {
+  margin: 0 0 4px;
+  font-size: 16px;
+  line-height: 1.4;
+  color: #1b4332;
+}
+
+.um-import p {
+  margin: 0 0 8px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #1b4332;
+}
+
+.um-import-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px !important;
+}
+
+.um-import-actions button {
+  min-height: 36px;
+  padding: 8px 12px;
+  font-size: 13px;
+}
+
+.um-import-actions input[type="file"] {
+  flex: 1;
+  min-width: 180px;
+  max-width: 100%;
+  font-size: 12px;
+}
+
+.um-import > small {
+  margin-top: 8px !important;
+  font-size: 12px;
+  line-height: 1.45;
+  color: #667085;
+}
+
+/* Tombol impor tidak perlu memenuhi seluruh baris */
+#umkmImportRunBtn {
+  width: auto;
+  min-width: 120px;
+}
+
+/* Tampilan HP */
+@media (max-width: 560px) {
+  .um-import {
+    padding: 10px;
+  }
+
+  .um-import h3 {
+    font-size: 15px;
+  }
+
+  .um-import-actions {
+    gap: 8px;
+  }
+
+  .um-import-actions input[type="file"] {
+    flex-basis: 100%;
+    min-width: 0;
+  }
+
+  .um-import-actions button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  #umkmImportRunBtn {
+    width: 100%;
+  }
+}
+
+
+
+/* Header aksi Kelola UMKM */
+.um-header-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+/* Kedua tombol dibuat lebih ringkas */
+.um-header-actions .btn-secondary-admin,
+.um-header-actions .btn-primary-admin,
+.um-header-actions .um-link-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  width: auto;
+  min-height: 38px;
+  padding: 9px 14px;
+  box-sizing: border-box;
+  font-size: 13px;
+  line-height: 1.3;
+  white-space: nowrap;
+}
+
+/* Tombol publik */
+.um-header-actions .btn-secondary-admin {
+  flex: 0 0 auto;
+}
+
+/* Tombol tambah pengrajin */
+.um-header-actions .btn-primary-admin {
+  flex: 0 0 auto;
+}
+
+/* Mobile */
+@media (max-width: 560px) {
+  .um-header-actions {
+    justify-content: stretch;
+    gap: 8px;
+  }
+
+  .um-header-actions .btn-secondary-admin,
+  .um-header-actions .btn-primary-admin,
+  .um-header-actions .um-link-btn {
+    flex: 1 1 100%;
+    width: 100%;
+  }
+}
+
 
 /* Modal form */
 .um-overlay {
@@ -66,4 +208,27 @@
 @media (max-width: 560px) {
   .um-row-2 { grid-template-columns: 1fr; }
   .um-modal { padding: 16px; }
+}
+
+
+
+/* Header Kelola Pengrajin */
+@media (max-width: 560px) {
+  .um-header-actions {
+    width: 100%;
+    justify-content: stretch;
+    gap: 8px;
+    margin-top: 8px;
+  }
+
+  .um-header-actions .btn-primary-admin,
+  .um-header-actions .btn-secondary-admin,
+  .um-header-actions .um-link-btn {
+    width: 100%;
+    min-height: 42px;
+    padding: 10px 14px;
+    box-sizing: border-box;
+    justify-content: center;
+    font-size: 13px;
+  }
 }

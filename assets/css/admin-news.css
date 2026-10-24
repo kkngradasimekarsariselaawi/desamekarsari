@@ -75,55 +75,73 @@
 
 
 
+
+/* Panel impor berita — compact */
 .nw-import-box {
-  margin: 18px 0 22px;
-  padding: 18px;
+  margin: 10px 0 14px;
+  padding: 12px 14px;
   border: 1px solid #dbe7df;
-  border-radius: 14px;
+  border-radius: 10px;
   background: #f8fbf8;
 }
 
 .nw-import-heading {
   display: flex;
   align-items: flex-start;
-  gap: 12px;
-  margin-bottom: 14px;
+  gap: 9px;
+  margin-bottom: 8px;
 }
 
 .nw-import-heading > i {
   color: #218653;
-  font-size: 24px;
-  margin-top: 4px;
+  font-size: 19px;
+  margin-top: 2px;
 }
 
 .nw-import-heading h3 {
-  margin: 0 0 5px;
-  font-size: 16px;
+  margin: 0 0 3px;
+  font-size: 15px;
+  line-height: 1.4;
 }
 
 .nw-import-heading p {
   margin: 0;
   color: #64748b;
-  font-size: 13px;
+  font-size: 12.5px;
+  line-height: 1.45;
 }
 
 .nw-import-actions {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 12px;
-  margin-bottom: 12px;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.nw-import-actions button {
+  min-height: 36px;
+  padding: 8px 12px;
+  font-size: 13px;
+}
+
+.nw-import-actions input[type="file"] {
+  flex: 1 1 220px;
+  min-width: 180px;
+  max-width: 100%;
+  font-size: 12px;
 }
 
 .nw-import-box small {
   display: block;
   color: #64748b;
-  line-height: 1.7;
+  font-size: 12px;
+  line-height: 1.5;
 }
 
 #newsImportResult {
-  margin-top: 12px;
-  font-size: 13px;
+  margin-top: 8px;
+  font-size: 12.5px;
   white-space: pre-line;
   overflow-wrap: anywhere;
 }
@@ -133,15 +151,76 @@
   cursor: wait;
 }
 
+/* Mobile */
 @media (max-width: 600px) {
+  .nw-import-box {
+    padding: 10px;
+    margin: 8px 0 12px;
+  }
+
+  .nw-import-heading {
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+
+  .nw-import-heading > i {
+    font-size: 17px;
+  }
+
   .nw-import-actions {
-    align-items: stretch;
-    flex-direction: column;
+    gap: 8px;
   }
 
   .nw-import-actions button,
-  .nw-import-actions input {
+  .nw-import-actions input[type="file"] {
     width: 100%;
     max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .nw-import-actions button {
+    justify-content: center;
+  }
+
+  .nw-import-actions input[type="file"] {
+    flex-basis: 100%;
+    min-width: 0;
+  }
+}
+
+
+/* Header Berita & Kegiatan */
+.nw-head-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Tombol tambah berita */
+#newsAddBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 40px;
+  padding: 9px 15px;
+  border-radius: 9px;
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* Penyesuaian tampilan HP */
+@media (max-width: 600px) {
+  .nw-head-actions {
+    width: 100%;
+    margin-top: 8px;
+  }
+
+  #newsAddBtn {
+    width: 100%;
+    min-height: 42px;
+    padding: 10px 14px;
+    font-size: 13px;
   }
 }

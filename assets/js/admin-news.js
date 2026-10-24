@@ -68,14 +68,14 @@
   }
 
   /* ---------- Info mode penyimpanan ---------- */
-  var notice = $('newsModeNotice');
+  /*var notice = $('newsModeNotice');
   if (notice) {
     if (S.getMode() === 'firestore') {
       notice.innerHTML = '<i class="fa-solid fa-cloud"></i> Terhubung ke Database. Berita berstatus Terbit langsung tampil di halaman Berita.';
     } else {
       notice.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Mode uji coba: berita hanya tersimpan di browser ini. Isi <code>assets/js/firebase-config.js</code> agar tampil untuk semua pengunjung.';
     }
-  }
+  }*/
 
   /* ---------- Tabel ---------- */
   function render() {

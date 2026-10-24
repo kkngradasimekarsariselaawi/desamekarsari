@@ -538,9 +538,9 @@ async function importExcelUmkm() {
     $('umkmKategori').innerHTML = '<option value="">Pilih kategori</option>' +
       Store.CATEGORIES.map((c) => `<option value="${esc(c)}">${esc(c)}</option>`).join('');
 
-    $('umkmModeNotice').innerHTML = Store.getMode() === 'firestore'
-      ? '<i class="fa-solid fa-circle-info"></i> Data tersimpan di Database. Pengrajin berstatus <strong>Aktif</strong> langsung tampil di halaman publik Pengrajin, yang <strong>Nonaktif</strong> disembunyikan.'
-      : '<i class="fa-solid fa-circle-info"></i> Mode uji coba: Firebase belum aktif, data hanya tersimpan di browser ini dan belum tampil bagi pengunjung lain.';
+    //$('umkmModeNotice').innerHTML = Store.getMode() === 'firestore'
+    //? '<i class="fa-solid fa-circle-info"></i> Data tersimpan di Database. Pengrajin berstatus <strong>Aktif</strong> langsung tampil di halaman publik Pengrajin, yang <strong>Nonaktif</strong> disembunyikan.'
+    //  : '<i class="fa-solid fa-circle-info"></i> Mode uji coba: Firebase belum aktif, data hanya tersimpan di browser ini dan belum tampil bagi pengunjung lain.';
 
     $('searchUmkm').addEventListener('input', render);
     $('umkmAddBtn').addEventListener('click', () => openForm(null));

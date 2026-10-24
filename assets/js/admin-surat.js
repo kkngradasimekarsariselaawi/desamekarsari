@@ -94,11 +94,11 @@ function simpanPengaturanSurat(nama, jabatan) {
 
   /* Templat per jenis surat: judul, kode klasifikasi, baris tambahan, paragraf */
   const TPL = {
-    SKTM: { judul: 'SURAT KETERANGAN TIDAK MAMPU', kode: '001', rows: [['Pekerjaan', 'pekerjaan']],
+    SKTM: { judul: 'SURAT KETERANGAN TIDAK MAMPU', kode: '001', rows: [],
       p1: 'Berdasarkan pengantar dari RT/RW setempat dan data yang ada benar bahwa yang bersangkutan Penduduk Desa MEKARSARI Kecamatan SELAAWI dan :',
       p2: '== yang bersangkutan tergolong keluarga yang tidak mampu (berpenghasilan rendah)<br>karena tidak mempunyai penghasilan tetap ==',
       p3: 'Demikian Keterangan ini, untuk dipergunakan sebagai mestinya.'},
-    Domisili: { judul: 'SURAT KETERANGAN DOMISILI', kode: '002', rows: [['Agama', 'agama'], ['Status Perkawinan', 'statusKawin']],
+    Domisili: { judul: 'SURAT KETERANGAN DOMISILI', kode: '002', rows: [],
       p1: 'Berdasarkan pengantar dari RT/RW setempat dan data yang ada benar bahwa yang bersangkutan Penduduk Desa MEKARSARI Kecamatan SELAAWI dan sepengetahuan kami bahwa yang bersangkutan :',
       p2: '== benar berdomisili di alamat tersebut. == ',
       p3: 'Demikian keterangan ini, untuk dipergunakan sebagaimana mestinya.'  },
@@ -345,11 +345,52 @@ function simpanPengaturanSurat(nama, jabatan) {
 
   /* ---------- Tabel & statistik (menimpa render lama) ---------- */
   const filt = (l, q, s) => { q = (q || '').toLowerCase(); return l.filter(d => (s === 'all' || !s || normStatus(d.status) === s) && (!q || (d.id + ' ' + d.nama + ' ' + d.jenisSurat).toLowerCase().includes(q))); };
-  const row = d => { const s = normStatus(d.status);
-    return `<tr><td>${esc(d.id)}</td><td>${esc(d.nama)}</td><td>${esc(NAMA[d.jenisSurat] || d.jenisSurat)}</td><td>${esc(d.tanggal)}</td><td><span class="srt-badge s-${s.replace(' ', '').replace('PerluPerbaikan', 'Perbaikan')}">${s}</span></td>
-    <td><button type="button" class="srt-btn primary" data-srt="detail" data-srt-id="${esc(d.id)}">Detail</button>
-    <button type="button" class="srt-btn" data-srt="print" data-srt-id="${esc(d.id)}"><i class="fa-solid fa-print"></i> Cetak</button>
-    <button type="button" class="srt-btn danger" data-srt="delete" data-srt-id="${esc(d.id)}"><i class="fa-solid fa-trash"></i> Hapus</button></td></tr>`; };
+  
+const row = d => {
+  const s = normStatus(d.status);
+
+  return `
+    <tr>
+      <td>${esc(d.id)}</td>
+      <td>${esc(d.nama)}</td>
+      <td>${esc(NAMA[d.jenisSurat] || d.jenisSurat)}</td>
+      <td>${esc(d.tanggal)}</td>
+      <td>
+        <span class="srt-badge s-${s.replace(' ', '').replace('PerluPerbaikan', 'Perbaikan')}">
+          ${esc(s)}
+        </span>
+      </td>
+      <td>
+        <div class="srt-table-actions">
+          <button
+            type="button"
+            class="srt-btn primary"
+            data-srt="detail"
+            data-srt-id="${esc(d.id)}">
+            <i class="fa-solid fa-eye"></i> Detail
+          </button>
+
+          <button
+            type="button"
+            class="srt-btn"
+            data-srt="print"
+            data-srt-id="${esc(d.id)}">
+            <i class="fa-solid fa-print"></i> Cetak
+          </button>
+
+          <button
+            type="button"
+            class="srt-btn danger"
+            data-srt="delete"
+            data-srt-id="${esc(d.id)}">
+            <i class="fa-solid fa-trash"></i> Hapus
+          </button>
+        </div>
+      </td>
+    </tr>
+  `;
+};
+
   let obs, rendering = false;
   function render() {
     if (rendering) return; rendering = true;
@@ -864,23 +905,31 @@ function editPenandaTangan() {
       host.insertBefore(n, host.querySelector('.filter-bar')); render(); }
     
     
-    const hostPengaturan = document.querySelector(
-      '#view-pengajuan .section-card'
-    );
+    
+const hostPengaturan = document.querySelector(
+  '#view-pengajuan .section-header'
+);
 
-    if (hostPengaturan && !$('btnPenandaTangan')) {
-      const btn = document.createElement('button');
+if (hostPengaturan && !$('btnPenandaTangan')) {
+  const btn = document.createElement('button');
 
-      btn.id = 'btnPenandaTangan';
-      btn.type = 'button';
-      btn.className = 'srt-btn primary';
-      btn.textContent = 'Pengaturan Penanda Tangan';
+  btn.id = 'btnPenandaTangan';
+  btn.type = 'button';
+  btn.className = 'btn-secondary-admin';
+  btn.innerHTML =
+    '<i class="fa-solid fa-signature"></i> Pengaturan Penanda Tangan';
 
-      btn.style.marginBottom = '12px';
-      btn.addEventListener('click', editPenandaTangan);
+  btn.addEventListener('click', editPenandaTangan);
 
-      hostPengaturan.prepend(btn);
-    }
+  const exportBtn = $('exportCsvBtn');
+
+  if (exportBtn) {
+    exportBtn.insertAdjacentElement('beforebegin', btn);
+  } else {
+    hostPengaturan.appendChild(btn);
+  }
+}
+
 
 muatPengaturanSurat();
 

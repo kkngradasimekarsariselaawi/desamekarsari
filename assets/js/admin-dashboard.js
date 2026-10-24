@@ -234,6 +234,17 @@ function connectData() {
   });
 }
 
+
+function clearAdminData() {
+  submissions = [];
+  complaints = [];
+
+  rawById.surat = {};
+  rawById.pengaduan = {};
+
+  renderAll();
+}
+
   // Mode uji coba (localStorage) tidak realtime, jadi muat ulang manual setelah simpan
   function reloadLocal() {
     return Promise.all([Store.getAll('surat'), Store.getAll('pengaduan')])
@@ -350,9 +361,12 @@ async function doLogout() {
     if (status) status.addEventListener('change', render);
     if (cfg.onOpen) {
       body.addEventListener('click', (e) => {
-        const row = e.target.closest('tr[data-id]');
-        if (row) cfg.onOpen(row.dataset.id);
-      });
+      // Tombol aksi memiliki handler tersendiri.
+      if (e.target.closest('[data-action]')) return;
+
+      const row = e.target.closest('tr[data-id]');
+      if (row) cfg.onOpen(row.dataset.id);
+    });
       body.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' && e.target.matches('tr[data-id]')) cfg.onOpen(e.target.dataset.id);
       });
@@ -387,7 +401,11 @@ async function doLogout() {
     $('modalDetailBody').innerHTML = '';
     if (lastFocus && typeof lastFocus.focus === 'function') lastFocus.focus();
   }
-  const field = (label, value) => `<div class="detail-block"><span class="detail-label">${label}</span><p class="detail-value">${esc(value)}</p></div>`;
+  const field = (label, value) =>
+  `<div class="detail-block">
+    <span class="detail-label">${esc(label)}</span>
+    <p class="detail-value">${esc(value)}</p>
+  </div>`;
 
   function extraHtml(extra) {
     if (!extra || typeof extra !== 'object') return '';
@@ -431,6 +449,27 @@ async function doLogout() {
     persist('surat', id, { status, note }, btn, `Status pengajuan ${id} diperbarui menjadi "${status}".`);
   }
 
+  function nomorWhatsApp(nomor) {
+  let n = String(nomor || '').replace(/\D/g, '');
+
+  if (n.startsWith('0')) {
+    n = '62' + n.slice(1);
+  } else if (n.startsWith('8')) {
+    n = '62' + n;
+  }
+
+  return n;
+}
+
+function tautanWhatsApp(nomor) {
+  const n = nomorWhatsApp(nomor);
+
+  // Hindari membuat tautan untuk nomor yang terlalu pendek.
+  if (n.length < 10 || n.length > 15) return '';
+
+  return `https://wa.me/${n}`;
+}
+
   function openComplaintModal(id) {
     const item = complaints.find((c) => c.id === id);
     if (!item) return;
@@ -460,6 +499,56 @@ async function doLogout() {
     persist('pengaduan', id, { status, response }, btn, `Pengaduan ${id} diperbarui menjadi "${status}".`);
   }
 
+  async function deleteComplaint(id, btn) {
+  const item = complaints.find((c) => c.id === id);
+  if (!item) return;
+
+  const confirmed = confirm(
+    `Yakin ingin menghapus pengaduan ${id} dari ${item.reporter}?\n\n` +
+    'Data yang dihapus tidak dapat dipulihkan.'
+  );
+
+  if (!confirmed) return;
+
+  if (!Store || typeof Store.delete !== 'function') {
+    toast(
+      'Fungsi hapus belum tersedia di SubmissionStore.',
+      'error'
+    );
+    return;
+  }
+
+  btn.disabled = true;
+
+  try {
+    await Store.delete('pengaduan', id);
+
+    if (Store.getMode() === 'local') {
+      await reloadLocal();
+    }
+
+    closeModalIfNeeded();
+    toast(`Pengaduan ${id} berhasil dihapus.`);
+  } catch (err) {
+    console.error('[Admin] Hapus pengaduan gagal:', err);
+
+    toast(
+      err && err.code === 'permission-denied'
+        ? 'Penghapusan ditolak server. Periksa hak akses admin.'
+        : 'Pengaduan gagal dihapus. Silakan coba lagi.',
+      'error'
+    );
+
+    btn.disabled = false;
+  }
+}
+
+function closeModalIfNeeded() {
+  // Tidak menutup modal detail jika modal tidak sedang terbuka.
+  if ($('detailModal')?.classList.contains('active')) {
+    closeModal();
+  }
+}
   /* ---------- Ekspor CSV (pemisah ; agar terbaca benar di Excel regional Indonesia) ---------- */
   function exportSubmissionsCsv() {
     const header = ['No. Pengajuan', 'Pemohon', 'NIK (disamarkan)', 'WhatsApp', 'Jenis Surat', 'Tanggal', 'Status', 'Keperluan', 'Catatan'];
@@ -523,12 +612,77 @@ async function doLogout() {
       getData: () => [...complaints].sort(byDateDesc),
       searchFields: ['id', 'reporter', 'category', 'status'], colspan: 6, onOpen: openComplaintModal,
       emptyText: () => stateText('pengaduan', 'Tidak ada pengaduan ditemukan.'),
-      rowHtml: (c) => `
-        <tr data-id="${esc(c.id)}" tabindex="0">
-          <td><strong>${esc(c.id)}</strong></td><td>${esc(c.reporter)}</td><td>${esc(c.category)}</td>
-          <td>${showDate(c)}</td><td>${badge(c.status)}</td>${detailBtn(c.id)}
-        </tr>`
+      rowHtml: (c) => {
+  const waUrl = tautanWhatsApp(c.kontak);
+
+  return `
+    <tr data-id="${esc(c.id)}" tabindex="0">
+      <td><strong>${esc(c.id)}</strong></td>
+      <td>${esc(c.reporter)}</td>
+      <td>${esc(c.category)}</td>
+      <td>${showDate(c)}</td>
+      <td>${badge(c.status)}</td>
+      <td>
+        <div class="complaint-actions">
+          <button
+            type="button"
+            class="btn-primary-admin btn-sm"
+            data-id="${esc(c.id)}"
+            title="Lihat detail pengaduan"
+          >
+            <i class="fa-solid fa-eye"></i>
+            Detail
+          </button>
+
+          ${
+            waUrl
+              ? `<a
+                   href="${esc(waUrl)}"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="btn-success-admin btn-sm"
+                   data-action="contact"
+                   title="Hubungi pelapor melalui WhatsApp"
+                 >
+                   <i class="fa-brands fa-whatsapp"></i>
+                   Hubungi
+                 </a>`
+              : `<button
+                   type="button"
+                   class="btn-secondary-admin btn-sm"
+                   disabled
+                   title="Nomor WhatsApp tidak tersedia atau tidak valid"
+                 >
+                   <i class="fa-brands fa-whatsapp"></i>
+                   Hubungi
+                 </button>`
+          }
+
+          <button
+            type="button"
+            class="btn-danger-admin btn-sm"
+            data-action="delete"
+            data-id="${esc(c.id)}"
+            title="Hapus pengaduan"
+          >
+            <i class="fa-solid fa-trash"></i>
+            Hapus
+          </button>
+        </div>
+      </td>
+    </tr>
+  `;
+}
     });
+
+
+    $('complaintsBody').addEventListener('click', (e) => {
+  const btn = e.target.closest('[data-action="delete"]');
+  if (!btn) return;
+
+  deleteComplaint(btn.dataset.id, btn);
+});
+
     initTable({
       bodyId: 'newsBody', searchId: 'searchNews', getData: () => NEWS,
       searchFields: ['title', 'category'], colspan: 4, emptyText: 'Tidak ada berita ditemukan.',
@@ -572,7 +726,7 @@ async function doLogout() {
     const settingsNotice = document.querySelector('#view-pengaturan .notice');
     if (settingsNotice) {
       settingsNotice.textContent = Store && Store.getMode() === 'firestore'
-        ? 'Data pengajuan surat dan pengaduan tersimpan di Firestore dan tampil realtime di semua perangkat admin.'
+        ? 'Data pengajuan surat dan pengaduan tersimpan di Database dan tampil realtime di semua perangkat admin.'
         : 'Mode uji coba: Firebase belum aktif, data hanya ada di browser ini.';
     }
 

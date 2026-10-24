@@ -1842,32 +1842,92 @@
         };
     
 
-function renderExtra() {
-    const jenis = document.getElementById('jenisSurat').value;
-    const container = document.getElementById('extraFields');
 
-    container.innerHTML = (EXTRA[jenis] || []).map(f => `
-        <div class="form-group">
-            <label class="form-label" for="ex-${f[0]}">
-                ${f[1]} <span class="required">*</span>
-            </label>
-            <input
-                type="text"
-                class="form-control"
-                id="ex-${f[0]}"
-                placeholder="${f[2]}"
-                maxlength="100"
-                required
-            >
-        </div>
-    `).join('');
-}
+        function renderExtra() {
+            const jenis = document.getElementById('jenisSurat').value;
+            const container = document.getElementById('extraFields');
 
-document.getElementById('jenisSurat')
-    .addEventListener('change', renderExtra);
+            container.innerHTML = (EXTRA[jenis] || []).map(f => {
+                const [key, label, placeholder] = f;
 
-// Tampilkan field sesuai pilihan awal
-renderExtra();
+                // NIK Anak: hanya angka, maksimal 16 digit
+                if (key === 'nikAnak') {
+                    return `
+                        <div class="form-group">
+                            <label class="form-label" for="ex-${key}">
+                                ${label} <span class="required">*</span>
+                            </label>
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="ex-${key}"
+                                inputmode="numeric"
+                                maxlength="16"
+                                pattern="[0-9]{16}"
+                                placeholder="${placeholder}"
+                                required
+                            >
+                            <div class="error-message" id="err-${key}">
+                                NIK Anak harus terdiri dari tepat 16 digit angka.
+                            </div>
+                        </div>
+                    `;
+                }
+
+                // Jenis Kelamin Anak: dropdown
+                if (key === 'jenisKelaminAnak') {
+                    return `
+                        <div class="form-group">
+                            <label class="form-label" for="ex-${key}">
+                                ${label} <span class="required">*</span>
+                            </label>
+                            <select class="form-control" id="ex-${key}" required>
+                                <option value="">Pilih jenis kelamin</option>
+                                <option value="Laki-laki">Laki-laki</option>
+                                <option value="Perempuan">Perempuan</option>
+                            </select>
+                        </div>
+                    `;
+                }
+
+                // Field tambahan lainnya tetap menggunakan input teks
+                return `
+                    <div class="form-group">
+                        <label class="form-label" for="ex-${key}">
+                            ${label} <span class="required">*</span>
+                        </label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="ex-${key}"
+                            placeholder="${placeholder}"
+                            maxlength="100"
+                            required
+                        >
+                    </div>
+                `;
+            }).join('');
+
+            // Batasi NIK Anak hanya angka
+            const nikAnakInput = document.getElementById('ex-nikAnak');
+
+            if (nikAnakInput) {
+                nikAnakInput.addEventListener('input', function () {
+                    this.value = this.value.replace(/\D/g, '').slice(0, 16);
+                    this.classList.remove('is-invalid');
+
+                    const error = document.getElementById('err-nikAnak');
+                    if (error) error.style.display = 'none';
+                });
+            }
+        }
+
+        document.getElementById('jenisSurat')
+            .addEventListener('change', renderExtra);
+
+        // Tampilkan field sesuai pilihan awal
+        renderExtra();
+
 
         // Submit Pengajuan Surat
         async function handleSuratSubmit(e) {
@@ -1974,10 +2034,32 @@ renderExtra();
                 document.getElementById('waPemohon').classList.add('is-invalid');
                 isValid = false;
             }
+            
             if (Object.values(extra).some(v => !v)) {
                 showToast('Lengkapi isian tambahan sesuai jenis surat.');
                 isValid = false;
             }
+
+            // Validasi khusus NIK Anak: harus tepat 16 digit angka
+            if (jenisSurat === 'Pengantar') {
+                const nikAnak = extra.nikAnak || '';
+                const nikAnakInput = document.getElementById('ex-nikAnak');
+                const nikAnakError = document.getElementById('err-nikAnak');
+
+                if (!/^\d{16}$/.test(nikAnak)) {
+                    if (nikAnakInput) {
+                        nikAnakInput.classList.add('is-invalid');
+                    }
+
+                    if (nikAnakError) {
+                        nikAnakError.style.display = 'block';
+                    }
+
+                    showToast('NIK Anak harus terdiri dari tepat 16 digit angka.');
+                    isValid = false;
+                }
+            }
+
 
             if (!isValid) return;
 

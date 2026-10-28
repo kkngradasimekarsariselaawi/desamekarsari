@@ -68,7 +68,7 @@
         }
 
         html {
-            scroll-behavior: smooth;
+            scroll-behavior: auto;
             font-size: 16px;
         }
 
@@ -878,6 +878,39 @@
         }
     </style>
     <link rel="stylesheet" href="assets/css/shared-layout.css">
+    <style>
+        /* Prioritaskan teks tampil langsung, tanpa efek reveal saat scroll. */
+        html { scroll-behavior: auto !important; }
+
+        /* Cegah animasi kemunculan umum menahan teks sampai elemen masuk viewport. */
+        .reveal, .reveal-up, .reveal-down, .fade-in, .fade-up, .fade-down,
+        .slide-in, .slide-up, .slide-down, .animate-on-scroll, .scroll-reveal,
+        [data-aos], [data-reveal], [data-animate-on-scroll] {
+            animation: none !important;
+            transition: none !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+            transform: none !important;
+            filter: none !important;
+        }
+
+        /* Pastikan konten teks tidak disembunyikan untuk menunggu animasi JavaScript. */
+        main, section, article, .container, .profile-content, .news-body,
+        .service-card, .stat-card, .bamboo-banner-content,
+        h1, h2, h3, h4, h5, h6, p, li {
+            animation-delay: 0s !important;
+        }
+
+        /* Gambar memakai lazy loading bawaan browser; jangan terapkan content-visibility pada img. */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                scroll-behavior: auto !important;
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
 </head>
 <body data-page="beranda">
 

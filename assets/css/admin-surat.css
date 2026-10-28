@@ -61,9 +61,9 @@
   width: 210mm;
   min-height: 330mm;
   background: #fff;
-  padding: 18mm 22mm;
+  padding: 25mm 20mm 20mm 30mm;
   margin: 0 auto;
-  font: 11pt/1.5 Arial, serif;
+  font: 12pt/1.15 Arial, Helvetica, sans-serif;
   color: #000;
   position: relative;
   box-sizing: border-box;
@@ -76,6 +76,7 @@
   width: 100%;
   border-collapse: collapse;
   table-layout: auto;
+  font-size: 12pt;
 }
 
 .srt-paper table td {
@@ -92,7 +93,18 @@
   width: 8mm;
   text-align: center;
 }
-.srt-paper .kop{text-align:center;border-bottom:3px double #000;padding-bottom:8px;margin-bottom:18px}
+/* Kop surat resmi dengan garis ganda */
+.srt-paper .kop {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 32mm;
+  padding: 0 0 4mm;
+  margin-bottom: 6mm;
+  border-bottom: 3px double #000;
+  box-sizing: border-box;
+}
 
 
 
@@ -102,14 +114,15 @@
   font-weight: 600;
 }
 
-.srt-paper .kop h3{font-size:16pt}.srt-paper .kop h4,.srt-paper .kop h5{font-size:12pt}.srt-paper .kop p{margin:2px 0 0;font-size:10pt;font-style:italic}
-.srt-paper .jdl{text-align:center;margin-bottom:16px}.srt-paper .jdl h2{margin:0;font-size:13pt;text-decoration:underline}.srt-paper .jdl p{margin:0}
+.srt-paper .kop h3{font-size:18pt}.srt-paper .kop h4,.srt-paper .kop h5{font-size:12pt}.srt-paper .kop p{margin:2px 0 0;font-size:10pt;font-style:italic}
+.srt-paper .jdl{text-align:center;margin-bottom:16px}.srt-paper .jdl h2{margin:0;font-size:13pt;text-decoration:underline}.srt-paper .jdl p{margin:0;font-size: 12pt;}
 
 .srt-paper table {
   margin: 10px 0 10px 0;
   width: 100%;
   border-collapse: collapse;
   table-layout: auto;
+  font-size: 12pt;
 }
 
 .srt-paper table td {
@@ -127,7 +140,7 @@
   text-align: center;
 }
 .srt-paper td{padding:2px 6px;vertical-align:top}
-.srt-paper p.isi{text-align:justify;text-indent:24px;margin:0 0 10px}.srt-paper .ttd{margin:36px 0 0 auto;width:75mm;text-align:center}
+.srt-paper p.isi{text-align:justify;text-indent:24px;margin:0 0 10px; font-size: 12pt;}.srt-paper .ttd{margin:36px 0 0 auto;width:75mm;text-align:center; font-size: 12pt;}
 .srt-paper .wm{position:absolute;top:45%;left:50%;transform:translate(-50%,-50%) rotate(-30deg);font-size:54pt;font-weight:700;color:rgba(0,0,0,.06);white-space:nowrap}
 #srtPrint{display:none}
 @media (max-width:900px){.srt-cols{grid-template-columns:1fr}.srt-paper{zoom:.55}}
@@ -173,9 +186,9 @@
   position: absolute;
   left: 3mm;
   top: 50%;
-  transform: translateY(-50%);
-  width: 25mm;
-  height: 25mm;
+  transform: translateY(-55%);
+  width: 30mm;
+  height: 30mm;
   object-fit: contain;
   border-radius: 0 !important;
   clip-path: none !important;
@@ -195,5 +208,105 @@
   .srt-paper .kop-logo {
     print-color-adjust: exact;
     -webkit-print-color-adjust: exact;
+  }
+}
+
+/* Paksa garis ganda pada kop surat */
+.srt-paper > .kop {
+  border-bottom: none !important;
+  position: relative;
+  margin-bottom: 6mm !important;
+}
+
+.srt-paper > .kop::after {
+  content: "";
+  display: block;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 5px;
+  border-top: 2px solid #000;
+  border-bottom: 1px solid #000;
+  box-sizing: border-box;
+}
+/* =====================================================
+   PENYESUAIAN FORMAT SURAT RESMI — F4 / FOLIO
+   Margin: atas 2,5 cm | kiri 3 cm | bawah 2 cm | kanan 2 cm
+   Kop: 18 pt | Alamat kop: 9 pt | Isi: 12 pt | Spasi: 1,5
+   ===================================================== */
+.srt-paper {
+  /* Urutan padding: atas, kanan, bawah, kiri */
+  padding: 25mm 20mm 20mm 30mm !important;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12pt;
+  line-height: 1.15;
+}
+
+/* Seluruh teks utama dan tabel mengikuti ukuran isi surat */
+.srt-paper p.isi,
+.srt-paper .ttd,
+.srt-paper table,
+.srt-paper table td,
+.srt-paper .jdl p {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12pt;
+  line-height: 1.15;
+}
+
+.srt-paper table {
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.srt-paper table td {
+  padding: 1px 4px;
+}
+
+/* Semua baris nama instansi pada kop berukuran 18 pt */
+.srt-paper .kop h3,
+.srt-paper .kop h4,
+.srt-paper .kop h5 {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 18pt !important;
+  line-height: 1.15;
+  margin: 0;
+}
+
+/* Alamat dan informasi kontak pada kop */
+.srt-paper .kop p,
+.srt-paper .kop-teks p {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 9pt !important;
+  line-height: 1.25;
+  font-style: normal;
+  margin-top: 2px;
+}
+
+/* Judul jenis surat tetap sedikit menonjol, isi nomor 12 pt */
+.srt-paper .jdl h2 {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 13pt;
+  line-height: 1.3;
+}
+
+/* Margin cetak harus sama dengan preview; jangan ditimpa aturan lama */
+@media print {
+  @page {
+    size: 210mm 330mm;
+    margin: 0;
+  }
+
+  #srtPrint .srt-paper {
+    width: 210mm;
+    min-height: 330mm;
+    padding: 25mm 20mm 20mm 30mm !important;
+    margin: 0;
+    zoom: 1;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12pt;
+    line-height: 1.15;
+    overflow: visible;
   }
 }

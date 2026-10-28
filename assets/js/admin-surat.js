@@ -7,7 +7,7 @@
 /* ---------- Pengaturan penanda tangan surat ---------- */
 const DAFTAR_PENANDA_TANGAN = [
   {
-    nama: 'Ajie Nugraha, S.ST., M.AP.',
+    nama: 'Ajie Nugraha, SST., M.AP.',
     jabatan: 'Kepala Desa Mekarsari'
   },
   {
@@ -119,7 +119,7 @@ function simpanPengaturanSurat(nama, jabatan) {
     ],
 
     // Pertahankan p1, p2, dan p3 sesuai struktur template yang kamu gunakan.
-      p1: 'Orang tersebut di atas benar warga Desa MEKARSARI Kecamatan SELAAWI yang pada saat ini kondisi ekonominya tidak mampu dan termasuk ke dalam kategori keluarga msikin.',
+      p1: 'Orang tersebut di atas benar warga Desa MEKARSARI Kecamatan SELAAWI yang pada saat ini kondisi ekonominya tidak mampu dan termasuk ke dalam kategori keluarga miskin.',
       p2: '',
       p3: 'Demikian keterangan ini, untuk dipergunakan sebagai mestinya.' }
   };
@@ -240,15 +240,15 @@ function simpanPengaturanSurat(nama, jabatan) {
   >
 
       <div class="kop-teks">
-      <h3 style="font-weight: 400">Pemerintah Kabupaten Garut</h3><h3 style="font-weight: 400">Kecamatan Selaawi</h3><h3>Desa Mekarsari</h3><p style="font-style: normal; font-size: 9pt">KP. CILOA SIMPANG RT 01 RW 05 DESA MEKARSARI - SELAAWI - GARUT - 44187</p></div></div>
+      <h3 style="font-weight: 400">Pemerintah Kabupaten Garut</h3><h3 style="font-weight: 400">Kecamatan Selaawi</h3><h3>Desa Mekarsari</h3><p style="font-style: normal; font-size: 9pt">Kp. Ciloa RT 01/RW 05 Desa Mekarsari Tlp. (0262) Kec.Selaawi – Garut 44187<br>
+      Website : mekarsariawi.id email : info@desamekarsari.com Call Center : 0816242175</p></div></div>
 
 
       <div class="jdl"><h2>${t.judul}</h2><p>Nomor: ${no}</p></div>
       <p class="isi">Yang bertanda tangan di bawah ini, ${esc(window.pengaturanSurat?.jabatan || 'Kepala Desa Mekarsari')} Kecamatan Selaawi, Kabupaten Garut, menerangkan bahwa:</p>
       <table>${rows}</table><p class="isi">${t.p1}</p><p class="isi" style="text-align: center; font-weight: bold" >${t.p2}</p><p class="isi" style="text-indent:0px">Surat Keterangan ini dipergunakan untuk : ${d.keperluan || '-'}</p><p class="isi">${t.p3}</p>
-      <br><br>
       <div class="ttd">
-        GARUT, ${today()}<br>
+        Mekarsari, ${today()}<br>
         ${esc(window.pengaturanSurat?.jabatan || 'Kepala Desa Mekarsari')}
         <div style="height:22mm"></div>
         <b><u>${esc(window.pengaturanSurat?.namaPenandaTangan || 'Nama Kepala Desa')}</u></b>

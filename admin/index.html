@@ -21,6 +21,20 @@
   <link rel="stylesheet" href="../assets/css/admin-surat.css">
   <link rel="stylesheet" href="../assets/css/admin-umkm.css">
 </head>
+
+
+<style>
+
+/* Hide scrollbar, tetap bisa scroll */
+html {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE dan Edge lama */
+}
+
+html::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Edge */
+}
+</style>
 <body>
 
   <div class="admin-wrapper">
@@ -366,7 +380,7 @@
 
       <footer class="admin-footer">
         &copy; <span id="footerYear">2026</span> Desa Mekarsari. Semua hak dilindungi.
-        <span><br>Diinisiasi melalui program KKN GRADASI 2026</span>
+        <span><br>Diinisiasi melalui program KKN GRADASI 2026 KELOMPOK 09</span>
         <span><br>Designed & Developed by Tedi Firdaus</span>
       </footer>
     </div>
@@ -542,10 +556,12 @@
   <script src="../assets/js/umkm-store.js"></script>
   <script src="../assets/js/admin-dashboard.js"></script>
 
+
+
   <!-- Kelola berita (harus setelah admin-dashboard.js) -->
   <script src="../assets/js/news-store.js"></script>
   <!-- Library pembaca Excel -->
-<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 
   <script src="../assets/js/admin-news.js"></script>
   <!-- Kelola UMKM (setelah umkm-store.js dan admin-dashboard.js) -->

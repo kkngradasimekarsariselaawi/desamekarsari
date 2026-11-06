@@ -12,7 +12,7 @@
 
   const COLLECTION = 'umkm';
   const LOCAL_KEY = 'mekarsari_umkm_local_v1';
-  const CATEGORIES = ['Anyaman', 'Kerajinan Rumah', 'Peralatan', 'Aksesoris'];
+  const CATEGORIES = ['Anyaman', 'Kerajinan Rumah', 'Peralatan', 'UMKM'];
   const STATUSES = ['Aktif', 'Nonaktif'];
   const FIELDS = ['nama', 'kategori', 'pemilik', 'telepon', 'alamat', 'hargaRentang', 'ringkasan', 'deskripsi', 'foto', 'status'];
 
@@ -54,11 +54,11 @@
       deskripsi: 'Kreasi seni ukir dan hiasan dinding etnik Sunda dari bahan dasar bambu tua bertekstur unik.'
     },
     {
-      nama: 'Karya Bambu', kategori: 'Aksesoris', pemilik: 'Bpk. Agus Rahmat',
+      nama: 'Karya Bambu', kategori: 'UMKM', pemilik: 'Bpk. Agus Rahmat',
       ringkasan: 'Kerajinan miniatur Saung, Gazebo & gantungan kunci',
       alamat: 'Kp. Mekarsari, RT 01/RW 02', telepon: '085677889900', hargaRentang: 'Rp 10.000 - Rp 250.000',
       foto: 'https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&q=80&w=600',
-      deskripsi: 'Spesialis miniatur arsitektur bambu Sunda dan ragam aksesoris unik kerajinan tangan.'
+      deskripsi: 'Spesialis miniatur arsitektur bambu Sunda dan ragam UMKM unik kerajinan tangan.'
     },
     {
       nama: 'Bambu Indah Selaawi', kategori: 'Peralatan', pemilik: 'Ibu Siti Nurhaliza',

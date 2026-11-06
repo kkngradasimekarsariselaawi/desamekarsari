@@ -893,10 +893,80 @@ function editPenandaTangan() {
       else if (b.dataset.srt === 'delete') hapusPengajuan(id, b);
     });
     ['searchInput', 'statusFilter', 'searchInputAll', 'statusFilterAll'].forEach(id => { const e = $(id); if (e) { e.addEventListener('input', render); e.addEventListener('change', render); } });
-    const csv = $('exportCsvBtn'); if (csv) { const n = csv.cloneNode(true); csv.replaceWith(n); n.addEventListener('click', () => {
-      const h = ['No', 'Nama', 'NIK', 'Jenis', 'WhatsApp', 'Status', 'Tanggal'], r = load().map(d => [d.id, d.nama, "'" + d.nik, d.jenisSurat, d.wa || '', normStatus(d.status), d.tanggal]);
-      const txt = [h].concat(r).map(a => a.map(v => '"' + String(v).replace(/"/g, '""') + '"').join(',')).join('\n');
-      const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([txt], { type: 'text/csv' })); a.download = 'pengajuan-surat.csv'; a.click(); }); }
+    // ---------- EXPORT EXCEL ----------
+const csv = $('exportCsvBtn');
+
+if (csv) {
+  const n = csv.cloneNode(true);
+  csv.replaceWith(n);
+
+  n.id = 'exportExcelBtn';
+  n.innerHTML = '<i class="fa-solid fa-file-excel"></i> Export Excel';
+
+  n.addEventListener('click', () => {
+    if (typeof XLSX === 'undefined') {
+      alert('Library Excel belum dimuat.');
+      return;
+    }
+
+    const data = load();
+
+    if (!data.length) {
+      alert('Belum ada data pengajuan.');
+      return;
+    }
+
+    const header = [
+      'No. Pengajuan',
+      'Nama Pemohon',
+      'NIK',
+      'Jenis Surat',
+      'WhatsApp',
+      'Status',
+      'Tanggal Pengajuan'
+    ];
+
+    const rows = data.map(d => [
+      d.id || '',
+      d.nama || '',
+      String(d.nik || ''),
+      NAMA[d.jenisSurat] || d.jenisSurat || '',
+      String(d.wa || ''),
+      normStatus(d.status),
+      d.tanggal || ''
+    ]);
+
+    const ws = XLSX.utils.aoa_to_sheet([
+      header,
+      ...rows
+    ]);
+
+    ws['!cols'] = [
+      { wch: 22 },
+      { wch: 25 },
+      { wch: 20 },
+      { wch: 35 },
+      { wch: 18 },
+      { wch: 20 },
+      { wch: 20 }
+    ];
+
+    const wb = XLSX.utils.book_new();
+
+    XLSX.utils.book_append_sheet(
+      wb,
+      ws,
+      'Data Pengajuan Surat'
+    );
+
+    const tanggal = new Date().toISOString().slice(0, 10);
+
+    XLSX.writeFile(
+      wb,
+      `Data_Pengajuan_Surat_${tanggal}.xlsx`
+    );
+  });
+}
     obs = new MutationObserver(() => render());   /* timpa bila admin-dashboard.js merender ulang data lama */
     ['submissionsTableBody', 'submissionsAllBody', 'statNewCount', 'statProcessCount', 'statRevisionCount', 'statCompletedCount'].forEach(id => { const e = $(id); if (e) obs.observe(e, { childList: true, characterData: true, subtree: true }); });
     document.addEventListener('admin:data', render); render();
@@ -921,7 +991,7 @@ if (hostPengaturan && !$('btnPenandaTangan')) {
 
   btn.addEventListener('click', editPenandaTangan);
 
-  const exportBtn = $('exportCsvBtn');
+  const exportBtn = $('exportExcelBtn');
 
   if (exportBtn) {
     exportBtn.insertAdjacentElement('beforebegin', btn);
